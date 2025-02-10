@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Tuanjie WebGL Player | Step</title>
+    <title>Tuanjie WebGL Player | Step by footprint</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
     <div id="tuanjie-container" class="tuanjie-desktop">
-      <canvas id="tuanjie-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <canvas id="tuanjie-canvas" width=960 height=500 tabindex="-1"></canvas>
       <div id="tuanjie-loading-bar">
         <div id="tuanjie-logo"></div>
         <div id="tuanjie-progress-bar-empty">
@@ -20,7 +20,7 @@
       <div id="tuanjie-footer">
         <div id="tuanjie-webgl-logo"></div>
         <div id="tuanjie-fullscreen-button"></div>
-        <div id="tuanjie-build-title">Step</div>
+        <div id="tuanjie-build-title">Step by footprint</div>
       </div>
     </div>
 	
@@ -61,12 +61,12 @@
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/publ.loader.js";
       var config = {
-        dataUrl: buildUrl + "/publ.data.br",
-        frameworkUrl: buildUrl + "/publ.framework.js.br",
-        codeUrl: buildUrl + "/publ.wasm.br",
+        dataUrl: buildUrl + "/publ.data",
+        frameworkUrl: buildUrl + "/publ.framework.js",
+        codeUrl: buildUrl + "/publ.wasm",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "Step",
+        companyName: "Ceasiumz",
+        productName: "Step by footprint",
         productVersion: "1.0.2",
         showBanner: unityShowBanner,
       };
@@ -106,7 +106,7 @@
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
         canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.height = "500px";
       }
 
       loadingBar.style.display = "block";
