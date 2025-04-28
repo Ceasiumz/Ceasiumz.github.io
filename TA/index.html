@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Video Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .video-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        iframe {
+            width: auto;
+            height: auto; /* Adjust height as needed */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(255, 0, 0, 0.1);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="video-container">
+        <video controls poster="thumbnail.jpg" preload="metadata" muted>
+             <source src="video.mp4" type="video/mp4">
+            <source src="video.webm" type="video/webm">
+             您的浏览器不支持视频标签。 
+        </video>
+    </div> -->
+    <div class="video-container">
+        <iframe src="https://player.bilibili.com/player.html?bvid=BV1Rg9AY3EV3&high_quality=1" scrolling="no" frameborder="0" allowfullscreen="true" title="Bilibili Video Player"></iframe>
+    </div>
+</body>
+</html>
