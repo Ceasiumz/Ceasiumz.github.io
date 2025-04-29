@@ -2,106 +2,135 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-	<meta name="keywords" content="周日, 技术美术, ceasium, ceasiumz, ta,tech artist game development, art, demoscene, computer graphics, rendering, demo, 3D, realtime, shader, raytracing, shadertoy, glsl, raymarching, painting with maths">
-	<meta name="description" content="Articles and Porfolio by 周日Ceasium on tech arts, shaders, computer graphics and more.">
-	<meta name="author" content="Ceasium">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="theme-color" content="#101010">
-        <link rel="icon" type="image/png" href="./favicon.png">
-        <link rel="apple-touch-icon" href="./favicon.png"/>
-	<link rel="canonical" href="https://ceasium.github.io/pros"/>
-	<link rel="stylesheet" href="./style.css">
-	<title>Ceasium: painter, render and programmer</title>
+    <meta charset="utf-8">
+    <meta name="keywords"
+        content="周日, 技术美术, ceasium, ceasiumz, ta,tech artist game development, art, demoscene, computer graphics, rendering, demo, 3D, realtime, shader, raytracing, shadertoy, glsl, raymarching, painting with maths">
+    <meta name="description"
+        content="Articles and Porfolio by 周日Ceasium on tech arts, shaders, computer graphics and more.">
+    <meta name="author" content="Ceasium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101010">
+    <link rel="icon" type="image/png" href="./favicon.png">
+    <link rel="apple-touch-icon" href="./favicon.png" />
+    <link rel="canonical" href="https://ceasium.github.io/pros" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Ceasium: painter, render and programmer</title>
 </head>
 
-<body>
-	<header>
-	<div>
-	  <a class="menu" href="/">Ceasium: painter, render and programmer</a>
-	  <span id="menuL1">&nbsp;  &nbsp; <a class="menu" href=""></a></span>
-	  <span id="menuL2">&nbsp;  &nbsp; <a class="menu" href=""></a></span>
-	</div>
-	<div style="padding:0;margin:0;border:0;display:flex;flex-flow:row wrap;justify-content:flex-end;">
-		<!-- <a title="Youtube"       rel="noopener" target="_blank" aria-label="youtube" href="https://www.youtube.com/channel/UCdmAhiG8HQDlz8uyekw4ENw"><img class="socialMediaIcon" src="/imgYoutube.png" alt=""/></a> -->
-		<a title="Tiktok"        rel="noopener" target="_blank" aria-label="tiktok" href="https://www.tiktok.com/@inigoquilez"><img class="socialMediaIcon" src="./imgTikTok.png" alt=""/></a> 
-		<!-- <a title="Twitter"       rel="noopener" target="_blank" aria-label="twitter" href="https://twitter.com/iquilezles"><img class="socialMediaIcon" src="/imgTwitter.png" alt=""/></a> -->
-		<a title="Github"       rel="noopener" target="_blank" aria-label="github" href="https://github.com/Ceasiumz"><img class="socialMediaIcon" src="./imgGithub.png" alt=""/></a>
-		<a title="Zhihu"     rel="noopener" target="_blank" aria-label="zhihu" href="https://www.zhihu.com/people/ceasiumz"><img class="socialMediaIcon" src="./imgZhihu.png" alt=""/></a>
-	    <a title="Bilibili"      rel="noopener" target="_blank" aria-label="bilibili" href="https://space.bilibili.com/375495839"><img class="socialMediaIcon" src="./imgBiliBili.png" alt=""/></a>
-		<!-- <a title="Shadertoy"     rel="noopener" target="_blank" aria-label="shadertoy" href="https://www.shadertoy.com/user/iq/"><img class="socialMediaIcon" src="./imgShadertoy.png" alt=""/></a>  -->
-		<!-- <a title="MadeThisThing" rel="noopener" target="_blank" aria-label="madethisthing" href="https://madethisthing.com/iq"><img class="socialMediaIcon" src="/imgMadeThisThing.png" alt=""/></a>  -->
-		<a title="Redbook"      rel="noopener" target="_blank" aria-label="redbook" href="https://www.xiaohongshu.com/user/profile/63d6561e00000000260129d0"><img class="socialMediaIconRedbook" src="./imgRedbook.png" alt=""/></a>
-		<!-- <a title="Patreon"       rel="noopener" target="_blank" aria-label="patreon" href="https://www.patreon.com/inigoquilez"><img class="socialMediaIcon" src="/imgPatreon.png" alt=""/></a> -->
-		<!-- <a title="Paypal"        rel="noopener" target="_blank" aria-label="paypal" href="https://www.paypal.com/paypalme/SMOOTHSTEPLLC"><img class="socialMediaIcon" src="/imgPayPal.png" alt=""/></a>  -->
-	</div>
-	</header>
+<body class="theme-light">
+    <!-- add a text always float in top-right cornor -->
+    <div id="topRightText"> Dark / Light</div>
+    <div class="scanline"></div>
+    <header>
+        <div>
+            <a class="menu" href="/">Ceasium: painter, render and programmer</a>
+            <span id="menuL1">&nbsp; &nbsp; <a class="menu" href=""></a></span>
+            <span id="menuL2">&nbsp; &nbsp; <a class="menu" href=""></a></span>
+        </div>
+        <div style="padding:0;margin:0;border:0;display:flex;flex-flow:row wrap;justify-content:flex-end;">
+            <!-- <a title="Youtube"       rel="noopener" target="_blank" aria-label="youtube" href="https://www.youtube.com/channel/UCdmAhiG8HQDlz8uyekw4ENw"><img class="socialMediaIcon" src="/imgYoutube.png" alt=""/></a> -->
+            <!-- <a title="Tiktok" rel="noopener" target="_blank" aria-label="tiktok"
+                href="https://www.tiktok.com/@inigoquilez"><img class="socialMediaIcon" src="./imgTikTok.png"
+                    alt="" /></a> -->
+            <!-- <a title="Twitter"       rel="noopener" target="_blank" aria-label="twitter" href="https://twitter.com/iquilezles"><img class="socialMediaIcon" src="/imgTwitter.png" alt=""/></a> -->
+            <a title="Github" rel="noopener" target="_blank" aria-label="github" href="https://github.com/Ceasiumz"><img
+                    class="socialMediaIcon" src="./imgGithub.png" alt="" /></a>
+            <a title="Zhihu" rel="noopener" target="_blank" aria-label="zhihu"
+                href="https://www.zhihu.com/people/ceasiumz"><img class="socialMediaIcon" src="./imgZhihu.png"
+                    alt="" /></a>
+            <a title="Bilibili" rel="noopener" target="_blank" aria-label="bilibili"
+                href="https://space.bilibili.com/375495839"><img class="socialMediaIcon" src="./imgBiliBili.png"
+                    alt="" /></a>
+            <!-- <a title="Shadertoy"     rel="noopener" target="_blank" aria-label="shadertoy" href="https://www.shadertoy.com/user/iq/"><img class="socialMediaIcon" src="./imgShadertoy.png" alt=""/></a>  -->
+            <!-- <a title="MadeThisThing" rel="noopener" target="_blank" aria-label="madethisthing" href="https://madethisthing.com/iq"><img class="socialMediaIcon" src="/imgMadeThisThing.png" alt=""/></a>  -->
+            <a title="Redbook" rel="noopener" target="_blank" aria-label="redbook"
+                href="https://www.xiaohongshu.com/user/profile/63d6561e00000000260129d0"><img
+                    class="socialMediaIconRedbook" src="./imgRedbook.png" alt="" /></a>
+            <a title="Steam" rel="noopener" target="_blank" aria-label="steam"
+                href="https://steamcommunity.com/id/ceasiumzmj"><img class="socialMediaIcon" src="./imgSteam.png"
+                    alt="" /></a>
+            <!-- <a title="Paypal"        rel="noopener" target="_blank" aria-label="paypal" href="https://www.paypal.com/paypalme/SMOOTHSTEPLLC"><img class="socialMediaIcon" src="/imgPayPal.png" alt=""/></a>  -->
+        </div>
+    </header>
 
-	<div id="main">
-       		<div id="container">
-<script>
-    const gMenu = ['Resume', 'resume', 'Portfolio', 'portfolio'];
-</script>
+    <div id="main">
+        <div id="container">
+            <script>
+                const gMenu = ['Resume', 'resume', 'Portfolio', 'portfolio'];
+            </script>
 
-<style>
-.gparts { display: grid; grid-template-columns:1fr 1fr 1fr; grid-gap:32px;}
-.gpart  { background-color:#383838; padding:24px; border-radius:8px; transition:0.25s;  height:200px; }
-.gpart:hover { background-color : #404040; }
-.title {font-size:1.5em; font-weight:bold; color:#ffffff;padding-bottom:16px; }
-@media only screen and (max-width: 1280px)
-{
-  .gparts { grid-template-columns:1fr;}
-  .gpart  { width:98%; }
-}
-</style>
 
-<!-- -------------------------------------------------------------------------- -->
 
-Hello friends! I'm 周日Ceasium(周明骏), dreaming to be a tech artist, read my articles or enjoy my artwork here!.<br>
-<br>
-Contact: <a target="_blank" rel="noopener" href="qq">ceasiumzmj@gmail.com</a>, <a target="_blank" rel="noopener" href="https://steamcommunity.com/profiles/76561199031191532/">Steam</a> or <a target="_blank" rel="noopener" href="qq">QQ</a>.<br>
-<br>
-Lisence: Code in this website or in Github(public) is under the MIT license. Artworks and Portfolio is copyrighted.<br>
-<br>
-<br>
-<div class="gparts">
+            <!-- -------------------------------------------------------------------------- -->
 
-    <a class="menu" href="articles"><div class="gpart">
-        <div class="title">articles</div>
-        Articles, tutorials, code, and presentations related to computer graphics, maths, fractals, etc.
-    </div></a>
+            Hello friends! I'm 周日Ceasium(周明骏), dreaming to be a tech artist, read my articles or enjoy my artwork
+            here!.<br>
+            <br>
+            Contact: <a target="_blank" rel="noopener" href="qq">ceasiumzmj@gmail.com</a>, <a target="_blank"
+                rel="noopener" href="https://steamcommunity.com/id/ceasiumzmj">Steam</a> or <a target="_blank"
+                rel="noopener" href="qq">QQ</a>.<br>
+            <br>
+            Lisence: Code in this website or in Github(public) is under the MIT license. Artworks and Portfolio is
+            copyrighted.<br>
+            <br>
+            <br>
 
-    <a class="menu" href="live"><div class="gpart">
-	    <div class="title">video tutorials</div>
-        Video tutorials and live coding sessions (some more than a decade old!), on using maths to create images.
-    </div></a>
+            <div class="gparts">
 
-    <a class="menu" href="https://www.shadertoy.com/user/iq"><div class="gpart">
-        <div class="title">shadertoy</div>
-        Code related to my articles, many undocumented algorithms and techniques, and most of my procedural arwork and mathematical paintings.
-    </div></a>
+                <a class="menu" href="articles">
+                    <div class="gpart">
+                        <div class="title">articles</div>
+                        Articles, tutorials, code, and presentations related to computer graphics, maths, fractals, etc.
+                    </div>
+                </a>
 
-    <a class="menu" href="code"><div class="gpart">
-        <div class="title">code</div>
-        Code for demos, libraries and utilities that I use, that are not hosted in Shadertoy.
-    </div></a>
+                <a class="menu" href="live">
+                    <div class="gpart">
+                        <div class="title">video tutorials</div>
+                        Video tutorials and live coding sessions (some more than a decade old!), on using maths to
+                        create images.
+                    </div>
+                </a>
 
-    <a class="menu" href="blog"><div class="gpart">
-        <div class="title">blog</div>
-        1400 blog posts written from 2008 to 2016. Observations, funny thoughts and word playing. Some embarrasingly corny, some deeper.
-    </div></a>
+                <a class="menu" href="https://www.shadertoy.com/user/iq">
+                    <div class="gpart">
+                        <div class="title">shadertoy</div>
+                        Code related to my articles, many undocumented algorithms and techniques, and most of my
+                        procedural arwork and mathematical paintings.
+                    </div>
+                </a>
 
-    <a class="menu" href="demoscene"><div class="gpart">
-        <div class="title">demoscene</div>
-        Archive of all the demoscene pieces I created from 1998 to 2021, mostly featuring realtime rendering and procedural content.
-    </div></a>
-</div>
-<br>
-<br>
-Besides all of the above, I've also created some other artifacts and products during my actual professional career, some of which are listed here:<br>
-<br>
-<br>
-<!-- <div class="gparts">
+                <a class="menu" href="code">
+                    <div class="gpart">
+                        <div class="title">code</div>
+                        Code for demos, libraries and utilities that I use, that are not hosted in Shadertoy.
+                    </div>
+                </a>
+
+                <a class="menu" href="blog">
+                    <div class="gpart">
+                        <div class="title">blog</div>
+                        1400 blog posts written from 2008 to 2016. Observations, funny thoughts and word playing. Some
+                        embarrasingly corny, some deeper.
+                    </div>
+                </a>
+
+                <a class="menu" href="demoscene">
+                    <div class="gpart">
+                        <div class="title">demoscene</div>
+                        Archive of all the demoscene pieces I created from 1998 to 2021, mostly featuring realtime
+                        rendering and procedural content.
+                    </div>
+                </a>
+            </div>
+            <br>
+            <br>
+            If want to know more about me and my artworks, or about computer techs, welcome to <a href="contact.txt"
+                rel="next" target="_blank">contact me</a><br>
+            <br>
+            <br>
+            <!-- <div class="gparts">
 
     <a class="menu" href="https://quill.art/"><div class="gpart">
         <div class="title">quill</div>
@@ -131,15 +160,50 @@ Besides all of the above, I've also created some other artifacts and products du
 
 </div> -->
 
-<br>
-<br>
-			</div>
-		</div>
-		<footer><a href="https://Ceasiumz.github.io/pros">Back To Top 🥰爱来自周日Ceasiumz </a>&nbsp; </footer>
-	</body>
+            <br>
+            <br>
+        </div>
+    </div>
+    <footer><a href="https://Ceasiumz.github.io/pros">Back To Top 🥰爱来自周日Ceasiumz </a>&nbsp; </footer>
+</body>
+
 </html>
 
 <script>
-if( gMenu[0]!='' ) { const m1 = document.getElementById('menuL1'); m1.style.visibility='visible'; m1.lastElementChild.href=gMenu[1]; m1.lastElementChild.textContent=gMenu[0]; }
-if( gMenu[2]!='' ) { const m2 = document.getElementById('menuL2'); m2.style.visibility='visible'; m2.lastElementChild.href=gMenu[3]; m2.lastElementChild.textContent=gMenu[2]; }
+    if (gMenu[0] != '') { const m1 = document.getElementById('menuL1'); m1.style.visibility = 'visible'; m1.lastElementChild.href = gMenu[1]; m1.lastElementChild.textContent = gMenu[0]; }
+    if (gMenu[2] != '') { const m2 = document.getElementById('menuL2'); m2.style.visibility = 'visible'; m2.lastElementChild.href = gMenu[3]; m2.lastElementChild.textContent = gMenu[2]; }
+</script>
+<!-- 在 index.html 的 <body> 结束前加： -->
+<script>
+    const emojis = ['🌸', '🌼', '🍃', '🌺', '🌷'];
+    document.addEventListener('click', function (e) {
+        // 创建樱花粒子
+        let thisEmo = emojis[Math.floor(Math.random() * emojis.length)];
+        for (let i = 0; i < 10; i++) {
+            const petal = document.createElement('div');
+            petal.innerText = thisEmo;
+            petal.style.position = 'fixed';
+            petal.style.left = (e.clientX + (Math.random() - 0.5) * 40) + 'px';
+            petal.style.top = (e.clientY + (Math.random() - 0.5) * 40) + 'px';
+            petal.style.fontSize = (16 + Math.random() * 16) + 'px';
+            petal.style.pointerEvents = 'none';
+            petal.style.opacity = 1;
+            petal.style.transition = 'all 1.2s cubic-bezier(.17,.67,.83,.67)';
+            document.body.appendChild(petal);
+
+            setTimeout(() => {
+                petal.style.transform = `translateY(${80 + Math.random() * 40}px) scale(${0.5 + Math.random() * 0.5}) rotate(${Math.random() * 360}deg)`;
+                petal.style.opacity = 0;
+            }, 10);
+
+            setTimeout(() => {
+                petal.remove();
+            }, 1300);
+        }
+    });
+</script>
+<script>
+    window.onload = function() {
+        document.body.style.zoom = "90%";
+    }
 </script>
