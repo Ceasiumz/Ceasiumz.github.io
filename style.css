@@ -1,21 +1,28 @@
+/* 引入theme.css */
+@import url('./theme.css');
+
+/* 引入fonts*/
 @font-face {
     font-family: 'JetBrains Mono';
     src: url('./fonts/JetBrainsMonoNerdFontMono-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'JetBrains Mono';
     src: url('./fonts/JetBrainsMonoNerdFontMono-Bold.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'JetBrains Mono';
     src: url('./fonts/JetBrainsMonoNerdFontMono-Italic.ttf') format('truetype');
     font-weight: normal;
     font-style: italic;
 }
+
 @font-face {
     font-family: 'JetBrains Mono';
     src: url('./fonts/JetBrainsMonoNerdFontMono-BoldItalic.ttf') format('truetype');
@@ -33,23 +40,23 @@
     height: 8px;
     width: 8px;
     background: #e2bdbd;
+}
 
+::-webkit-scrollbar:hover {
+    height: 8px;
+    width: 20px;
+    background: #e2bdbd;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #505050;
+    background: #00907a;
     -webkit-border-radius: 4px;
-}
-
-h3 {
-    color: #ffffff;
-    font-weight: normal;
 }
 
 a {
     color: var(--text-link);
     text-decoration: none;
-    transition: 0.5s;
+    transition: var(--transition);
 }
 
 a:hover {
@@ -58,7 +65,7 @@ a:hover {
 
 a.menu {
     color: var(--text-menu);
-    transition: .5s;
+    transition: var(--transition);
 }
 
 a.menu:hover {
@@ -77,7 +84,7 @@ body.theme-light {
     --background-header: #f5a7a2;
     --background-footer: #f5a7a2;
     --background-corner-border: #7ac292;
-    --background-g: #f5a7a2;
+    --background-g: #f5a8a2;
     --background-ghover: #f5a8a269;
     --text-normal: #37291a;
     --text-link: #7ac292;
@@ -86,26 +93,38 @@ body.theme-light {
     --text-menu-hover: #8c8cff;
     --text-g: #ffe1b9;
     --text-g-hover: #7ac292;
-    --gradient-bg: linear-gradient(to bottom, #004450 0%, #420000 100%);
     /* ...可继续添加theme.css中的变量... */
+    --scanline-color: #7ac2921a;
+    --transition: 0.5s;
 }
 
 /* 主题色变量：dark */
 body.theme-dark {
     --background-primary: #212121;
     --background-secondary: #242424;
-    --background-header: #101010;
-    --background-footer: #420000;
+    --background-header: #1d3a27;
+    --background-footer: #1d3a27;
+    --background-corner-border: #964b46;
+    --background-g: #1d3a27;
+    --background-ghover: #78a789c7;
     --text-normal: #efe9d9;
-    --text-link: #f0d0a0;
-    --text-link-hover: #ffffff;
-    --text-menu: #d0d0d0;
-    --text-menu-hover: #ffffff;
-    --gradient-bg: linear-gradient(to bottom, #004450 0%, #420000 100%);
+    --text-link: #7ac292;
+    --text-link-hover: #8c8cff;
+    --text-menu: #ffe1b9;
+    --text-menu-hover: #8c8cff;
+    --text-g: #ffe1b9;
+    --text-g-hover: #522825;
     /* ...可继续添加theme.css中的变量... */
+    --scanline-color: #f5a7a21a;
+    --transition: 0.5s;
 }
 
+/* html{
+    transform: scale(0.9);
+} */
+
 body {
+    transition: background-color var(--transition) ease, color var(--transition) ease;
     background-color: var(--background-primary);
     color: var(--text-normal);
     font-style: normal;
@@ -126,7 +145,6 @@ body {
     padding-right: 0;
     margin-left: 0;
     margin-right: 0;
-    background-image: linear-gradient(to bottom, --background-primary 0%, --background-secondary 100%);
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -134,6 +152,7 @@ body {
 }
 
 body>header {
+    transition: background-color var(--transition) ease, color var(--transition) ease, border-color var(--transition) ease;
     background-color: var(--background-header);
     color: var(--text-menu);
     width: 100%;
@@ -160,11 +179,12 @@ body>header {
 }
 
 body>footer {
+    transition: background-color var(--transition) ease, color var(--transition) ease;
+    border-color: var(--transition) ease;
     display: flex;
     background-color: var(--background-footer);
     padding: 4px;
     font-size: 0.85em;
-
     border-style: solid;
     border-color: var(--background-corner-border);
     border-width: 5px;
@@ -173,16 +193,17 @@ body>footer {
 
 .gparts {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    /* 三列，每列最小300px */
     grid-gap: 25px;
-    transition: .5s;
+    transition: var(--transition);
 }
 
 .gpart {
     background-color: var(--background-g);
     padding: 24px;
     border-radius: 8px;
-    transition: .5s;
+    transition: var(--transition);
     height: 200px;
     color: var(--text-g);
 }
@@ -192,21 +213,39 @@ body>footer {
     border-style: solid;
     border-width: 5px;
     border-color: var(--background-g);
-    color : var(--text-g-hover);
+    color: var(--text-g-hover);
 }
 
 .title {
-    transition: .5s;
+    position: relative;
+    /* 关键：为绝对定位提供参照 */
+    transition: var(--transition);
     font-size: 1.5em;
     font-weight: bold;
-    color: #ffffff;
+    color: #ececec;
     padding-bottom: 16px;
+    z-index: 2;
 }
+
+.title::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    color: var(--background-corner-border);
+    opacity: 1;
+    pointer-events: none;
+    transition: var(--transition);
+    /* filter: blur(0.5px); */
+    animation: glitch 2s infinite steps(1, end);
+    z-index: -1;
+}
+
 .gpart:hover .title {
     color: var(--background-g);
 }
 
-@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 1080px) {
     .gparts {
         grid-template-columns: 1fr;
     }
@@ -218,18 +257,36 @@ body>footer {
 
 div#topRightText {
     position: fixed;
-    top: 50px;
+    top: 150px;
     right: 15px;
-    /* background color should gradient horizontally */
     background: linear-gradient(to right, #000000, #ffffff);
-    /* font color should gradient horizontally */
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     padding: 5px;
     font-size: 18px;
     z-index: 9999;
+    border-style: solid;
+    border-color: var(--background-corner-border);
+    border-width: 5px;
 }
+
+div#topRightText2 {
+    position: fixed;
+    bottom: 150px;
+    left: 15px;
+    background: linear-gradient(to right, #000000, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 5px;
+    font-size: 18px;
+    z-index: 9999;
+    border-style: solid;
+    border-color: var(--background-corner-border);
+    border-width: 5px;
+}
+
 
 div#main {
     display: flex;
@@ -268,7 +325,7 @@ div#ads {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, transparent 50%, #7ac2921a 51%);
+    background: linear-gradient(to bottom, transparent 50%, var(--scanline-color) 51%);
     background-size: 100% 8px;
     pointer-events: none;
 }
@@ -580,3 +637,96 @@ figure {
     color: #ffffff;
     background-color: #C070E0;
 }
+
+/* Tuanjie engine */
+
+#tuanjie-container {
+    position: absolute
+}
+
+#tuanjie-container.tuanjie-desktop {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
+}
+
+#tuanjie-container.tuanjie-mobile {
+    position: fixed;
+    width: 100%;
+    height: 100%
+}
+
+#tuanjie-canvas {
+    background: #231F20
+}
+
+.tuanjie-mobile #tuanjie-canvas {
+    width: 100%;
+    height: 100%
+}
+
+#tuanjie-loading-bar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none
+}
+
+#tuanjie-webgl-logo {
+    background: url('/game/TemplateData/webgl-logo.png') no-repeat center
+}
+
+#tuanjie-progress-bar-full {
+    width: 0%;
+    height: 18px;
+    margin-top: 10px;
+    background: url('/game/TemplateData/progress-bar-full-dark.png') no-repeat center
+}
+
+#tuanjie-footer {
+    position: relative
+}
+
+.tuanjie-mobile #tuanjie-footer {
+    display: none
+}
+
+#tuanjie-webgl-logo {
+    float: left;
+    width: 204px;
+    height: 38px;
+    background: url('/game/TemplateData/webgl-logo.png') no-repeat center
+}
+
+#tuanjie-build-title {
+    float: right;
+    margin-right: 10px;
+    line-height: 38px;
+    font-family: arial;
+    font-size: 18px
+}
+
+/* #tuanjie-fullscreen-button { cursor:pointer; float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center } */
+#tuanjie-fullscreen-button {
+    background: url('/game/TemplateData/fullscreen-button.png') no-repeat center
+}
+
+#tuanjie-progress-bar-empty {
+    width: 141px;
+    height: 18px;
+    margin-top: 10px;
+    margin-left: 6.5px;
+    background: url('/game/TemplateData/progress-bar-empty-dark.png') no-repeat center
+}
+
+#tuanjie-warning {
+    position: absolute;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%);
+    background: white;
+    padding: 10px;
+    display: none
+}
+

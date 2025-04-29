@@ -1,0 +1,133 @@
+body {
+    -webkit-user-select: none;
+    /* Safari */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* IE 10+ */
+    user-select: none;
+    /* Standard syntax */
+    background: #000;
+    color: #0ff;
+    font-family: 'Press Start 2P', cursive;
+    line-height: 1.5;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 霓虹光晕文字 */
+.glitch {
+    font-size: 3rem;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    animation: glitch 1s infinite;
+}
+
+/* 扫描线效果 */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 255, 255, 0.1) 51%);
+    background-size: 100% 4px;
+    pointer-events: none;
+}
+
+/* 终端样式 */
+.terminal {
+    border: 2px solid #0ff;
+    padding: 1rem;
+    box-shadow: 0 0 15px #0ff;
+    margin-top: 2rem;
+}
+
+.neon-green {
+    color: #0f0;
+    text-shadow: 0 0 10px #0f0;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+        text-shadow: 0 0 #0ff, 0 0 #f0f;
+    }
+
+    15% {
+        transform: translate(-2px, 3px);
+        clip-path: inset(20% 0 30% 0);
+        filter: blur(0.5px);
+    }
+
+    30% {
+        transform: translate(3px, -2px);
+        text-shadow: -3px 0 #0ff, 3px 0 #f0f;
+        opacity: 0.8;
+    }
+
+    45% {
+        transform: translate(-4px, 1px);
+        clip-path: inset(10% 0 40% 0);
+        filter: blur(1px);
+    }
+
+    60% {
+        transform: translate(2px, -3px);
+        text-shadow: 2px 0 #0ff, -2px 0 #f0f;
+        opacity: 0.6;
+    }
+
+    75% {
+        transform: translate(-1px, 4px);
+        clip-path: inset(30% 0 10% 0);
+        filter: blur(0.8px);
+    }
+
+    100% {
+        transform: translate(0);
+        text-shadow: 0 0 #0ff, 0 0 #f0f;
+    }
+}
+
+
+/* 添加多重残影 */
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+}
+
+/* 调试用：给伪元素加边框 */
+.glitch::before {
+    border: 1px solid red;
+}
+
+.glitch::after {
+    border: 1px solid yellow;
+}
+
+.glitch::before {
+    animation: glitch 2s infinite linear alternate-reverse;
+    color: #0ff;
+    z-index: -1;
+}
+
+.glitch::after {
+    animation: glitch 1.5s infinite linear alternate;
+    color: #f0f;
+    z-index: -2;
+}
+
+/* 随机噪点层 */
+.glitch:hover::before {
+    background: linear-gradient(45deg,
+            transparent 40%,
+            rgba(255, 0, 255, 0.2) 41%,
+            transparent 59%,
+            rgba(255, 0, 255, 0.2) 60%);
+    background-size: 3px 3px;
+}

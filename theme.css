@@ -398,3 +398,121 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
 }
 
 /*@Lavi & @嘴 的Flamingo主题色（原Pink Topaz）到此结束 */
+
+
+/* Markdown container 基础样式 */
+#markdown-container {
+  /* max-width: 800px; */
+  margin: 2em auto;
+  padding: 2em;
+  background: var(--background-primary, #fff);
+  color: var(--text-normal, #222);
+  border-radius: 8px;
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+/* 标题 */
+#markdown-container h1,
+#markdown-container h2,
+#markdown-container h3,
+#markdown-container h4,
+#markdown-container h5,
+#markdown-container h6 {
+  color: var(--h1-color, #f39ba0);
+  border-bottom: 1px solid #eee;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+/* 段落 */
+#markdown-container p {
+  margin: 1em 0;
+  line-height: 1.7;
+}
+
+/* 列表 */
+#markdown-container ul,
+#markdown-container ol {
+  margin: 1em 0 1em 2em;
+}
+
+#markdown-container li {
+  margin: 0.5em 0;
+}
+
+/* 代码块 */
+#markdown-container pre {
+  background: #23272e;
+  color: #e6e6e6;
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', 'JetBrains Mono', monospace;
+  font-size: 1em;
+  margin: 1.5em 0;
+  line-height: 1.6;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+#markdown-container code {
+  background: #f5f5f5;
+  color: #c7254e;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Fira Mono', 'Consolas', 'Menlo', 'JetBrains Mono', monospace;
+  font-size: 0.95em;
+}
+
+#markdown-container pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+}
+
+/* 链接 */
+#markdown-container a {
+  color: var(--accent-strong, #fd355a);
+  text-decoration: underline;
+}
+
+#markdown-container a:hover {
+  color: var(--red, #980000);
+}
+
+/* 表格 */
+#markdown-container table {
+  border-collapse: collapse;
+  margin: 1em 0;
+  width: 100%;
+  background: var(--table-background-color, #ffdece);
+}
+
+#markdown-container th,
+#markdown-container td {
+  border: 1px solid var(--table-border-color, #fd355a);
+  padding: 0.5em 1em;
+}
+
+#markdown-container th {
+  background: var(--table-thead-background-color, #f5a7a2);
+}
+
+/* 引用 */
+#markdown-container blockquote {
+  border-left: 4px solid var(--accent-strong, #fd355a);
+  background: #fff6f6;
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  color: #555;
+}
+
+/* 图片 */
+#markdown-container img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin: 1em 0;
+}
