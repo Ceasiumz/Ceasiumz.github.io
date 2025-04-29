@@ -1,8 +1,26 @@
 @font-face {
     font-family: 'JetBrains Mono';
-    src: url('./fonts/MyFont.ttf') format('truetype');
+    src: url('./fonts/JetBrainsMonoNerdFontMono-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/JetBrainsMonoNerdFontMono-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/JetBrainsMonoNerdFontMono-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('./fonts/JetBrainsMonoNerdFontMono-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
 }
 
 * {
@@ -31,7 +49,7 @@ h3 {
 a {
     color: var(--text-link);
     text-decoration: none;
-    transition: 0.25s;
+    transition: 0.5s;
 }
 
 a:hover {
@@ -40,7 +58,7 @@ a:hover {
 
 a.menu {
     color: var(--text-menu);
-    transition: 0.25s;
+    transition: .5s;
 }
 
 a.menu:hover {
@@ -58,13 +76,16 @@ body.theme-light {
     --background-secondary: #efe9d9;
     --background-header: #f5a7a2;
     --background-footer: #f5a7a2;
+    --background-corner-border: #7ac292;
     --background-g: #f5a7a2;
     --background-ghover: #f5a8a269;
     --text-normal: #37291a;
-    --text-link: #8c8cff;
-    --text-link-hover: #7ac292;
-    --text-menu: #8c8cff;
-    --text-menu-hover: #7ac292;
+    --text-link: #7ac292;
+    --text-link-hover: #8c8cff;
+    --text-menu: #ffe1b9;
+    --text-menu-hover: #8c8cff;
+    --text-g: #ffe1b9;
+    --text-g-hover: #7ac292;
     --gradient-bg: linear-gradient(to bottom, #004450 0%, #420000 100%);
     /* ...可继续添加theme.css中的变量... */
 }
@@ -120,6 +141,9 @@ body>header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-style: solid;
+    border-color: var(--background-corner-border);
+    border-width: 5px;
 }
 
 .socialMediaIcon {
@@ -140,23 +164,27 @@ body>footer {
     background-color: var(--background-footer);
     padding: 4px;
     font-size: 0.85em;
-    border: var(--background-primary);
-    border-width: 3px;
+
+    border-style: solid;
+    border-color: var(--background-corner-border);
+    border-width: 5px;
 }
 
 
 .gparts {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 5px;
+    grid-gap: 25px;
+    transition: .5s;
 }
 
 .gpart {
     background-color: var(--background-g);
     padding: 24px;
     border-radius: 8px;
-    transition: 0.25s;
+    transition: .5s;
     height: 200px;
+    color: var(--text-g);
 }
 
 .gpart:hover {
@@ -164,9 +192,11 @@ body>footer {
     border-style: solid;
     border-width: 5px;
     border-color: var(--background-g);
+    color : var(--text-g-hover);
 }
 
 .title {
+    transition: .5s;
     font-size: 1.5em;
     font-weight: bold;
     color: #ffffff;
