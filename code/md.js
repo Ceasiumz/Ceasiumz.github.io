@@ -12,14 +12,35 @@ function loadMarkdown(url) {
 
 
 console.log('md.js::NATW');
-if (window.__fromPjax) {
-    console.log('md.js::fromPjax');
-    console.log('markingdown...')
-    loadMarkdown('/article/C%23/C%23instru4_28.md');
+
+// get current url
+var currentUrl = window.location.href;
+console.log('md.js::currentUrl: ' + currentUrl);
+if (currentUrl.indexOf('code') > -1) {
+    console.log('md.js::Csharp');
+    loadMarkdown('/article/Csharp/Csharp_instru4_28.md');
 } else {
-    console.log('md.js::not fromPjax');
-    window.onload = function () {
-        console.log('markingdown...')
-        loadMarkdown('/article/C%23/C%23instru4_28.md');
-    };
+    console.log('md.js::loadReadmeMarkdown');
+    // 加载本文件夹的 README.md
+    var folder = location.pathname.replace(/\/$/, '');
+    loadMarkdown(folder + '/README.md');
 }
+
+import { readdirSync } from 'fs';
+
+import { extname } from 'path';
+
+function getMarkdownFiles(dir) {
+  return readdirSync(dir).filter(file => 
+    extname(file) === '.md'
+  );
+}
+
+const files = getMarkdownFiles('/data/markdown');
+const baseUrl = '/';
+
+const urls = files.map(file => ({
+  name: path.basename(file, '.md'),
+  url: baseUrl + path.relative('/data/markdown', file).replace(/\\/g, '/')
+}));
+console.log(urls);

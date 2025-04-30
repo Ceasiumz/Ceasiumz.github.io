@@ -1,5 +1,6 @@
 /* 引入theme.css */
 @import url('./theme.css');
+@import url('./tuanjie.css');
 
 /* 引入fonts*/
 @font-face {
@@ -39,17 +40,20 @@
 ::-webkit-scrollbar {
     height: 8px;
     width: 8px;
-    background: #e2bdbd;
+    background: var(--background-4-sliding-panel)
 }
-
 ::-webkit-scrollbar:hover {
     height: 8px;
     width: 20px;
-    background: #e2bdbd;
+}
+
+::-webkit-scrollbar-thumb:hover {
+ 
+    background: var(--scrollbar-active-thumb-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #00907a;
+    background: var(--scrollbar-thumb-bg);
     -webkit-border-radius: 4px;
 }
 
@@ -75,6 +79,14 @@ a.menu:hover {
 span#menuL1,
 span#menuL2 {
     visibility: hidden;
+}
+
+span#topRightText {
+    background: linear-gradient(90deg, #000000, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 /* 主题色变量：light */
@@ -255,36 +267,55 @@ body>footer {
     }
 }
 
-div#topRightText {
+div#topRightButton {
+    transition: var(--transition);
     position: fixed;
     top: 150px;
     right: 15px;
-    background: linear-gradient(to right, #000000, #ffffff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
     padding: 5px;
     font-size: 18px;
     z-index: 9999;
-    border-style: solid;
+
+    background: var(--background-ghover);
+
     border-color: var(--background-corner-border);
+    border-style: solid;
     border-width: 5px;
+    border-radius: 8px;
+}
+
+div#topRightButton:hover {
+    background: var(--background-g);
+    /* animation: invertColors 0.5s forwards; */
+}
+
+@keyframes invertColors {
+    0% {
+        filter: invert(0%);
+    }
+
+    100% {
+        filter: invert(100%);
+    }
 }
 
 div#topRightText2 {
+    transition: var(--transition);
     position: fixed;
-    bottom: 150px;
-    left: 15px;
-    background: linear-gradient(to right, #000000, #ffffff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    top: 100px;
+    right: 15px;
+    background: var(--background-ghover);
     padding: 5px;
     font-size: 18px;
     z-index: 9999;
     border-style: solid;
     border-color: var(--background-corner-border);
     border-width: 5px;
+    border-radius: 8px;
+}
+
+div#topRightText2:hover {
+    background: var(--background-g);
 }
 
 
@@ -637,96 +668,3 @@ figure {
     color: #ffffff;
     background-color: #C070E0;
 }
-
-/* Tuanjie engine */
-
-#tuanjie-container {
-    position: absolute
-}
-
-#tuanjie-container.tuanjie-desktop {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%)
-}
-
-#tuanjie-container.tuanjie-mobile {
-    position: fixed;
-    width: 100%;
-    height: 100%
-}
-
-#tuanjie-canvas {
-    background: #231F20
-}
-
-.tuanjie-mobile #tuanjie-canvas {
-    width: 100%;
-    height: 100%
-}
-
-#tuanjie-loading-bar {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: none
-}
-
-#tuanjie-webgl-logo {
-    background: url('/game/TemplateData/webgl-logo.png') no-repeat center
-}
-
-#tuanjie-progress-bar-full {
-    width: 0%;
-    height: 18px;
-    margin-top: 10px;
-    background: url('/game/TemplateData/progress-bar-full-dark.png') no-repeat center
-}
-
-#tuanjie-footer {
-    position: relative
-}
-
-.tuanjie-mobile #tuanjie-footer {
-    display: none
-}
-
-#tuanjie-webgl-logo {
-    float: left;
-    width: 204px;
-    height: 38px;
-    background: url('/game/TemplateData/webgl-logo.png') no-repeat center
-}
-
-#tuanjie-build-title {
-    float: right;
-    margin-right: 10px;
-    line-height: 38px;
-    font-family: arial;
-    font-size: 18px
-}
-
-/* #tuanjie-fullscreen-button { cursor:pointer; float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center } */
-#tuanjie-fullscreen-button {
-    background: url('/game/TemplateData/fullscreen-button.png') no-repeat center
-}
-
-#tuanjie-progress-bar-empty {
-    width: 141px;
-    height: 18px;
-    margin-top: 10px;
-    margin-left: 6.5px;
-    background: url('/game/TemplateData/progress-bar-empty-dark.png') no-repeat center
-}
-
-#tuanjie-warning {
-    position: absolute;
-    left: 50%;
-    top: 5%;
-    transform: translate(-50%);
-    background: white;
-    padding: 10px;
-    display: none
-}
-
