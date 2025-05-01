@@ -31,6 +31,11 @@
     font-style: italic;
 }
 
+@font-face {
+    font-family: 'Press Start 2P';
+    src: url(https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap);
+}
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -61,11 +66,11 @@
 a {
     color: var(--text-link);
     text-decoration: none;
-    transition: var(--transition);
 }
 
 a:hover {
     color: var(--text-link-hover);
+    text-decoration: underline; /* 悬停时添加下划线 */
 }
 
 a.menu {
@@ -88,6 +93,23 @@ span#topRightText {
     background-clip: text;
     color: transparent;
     -webkit-text-fill-color: transparent;
+}
+
+/* 修改链接样式为竖直排列 */
+.md-link {
+    display: block; /* 让链接占据整个区域 */
+    padding: 10px; /* 添加内边距，扩大可点击区域 */
+
+
+    margin-bottom: 10px; /* 添加间距 */
+    font-size: 1.2em; /* 调整字体大小 */
+    color: var(--text-link); /* 使用主题链接颜色 */
+    text-decoration: none; /* 去掉下划线 */
+}
+
+.md-link:hover {
+    color: var(--text-link-hover); /* 悬停时改变文字颜色 */
+    text-decoration: underline; /* 悬停时添加下划线 */
 }
 
 /* 主题色变量：light */
@@ -275,12 +297,14 @@ body>footer {
     font-weight: bold;
     color: #ececec;
     padding-bottom: 16px;
-    z-index: 2;
+    
 
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     gap: 8px;
+
+    flex-direction: column;
+    align-items: start;
 }
 
 /* 让主标题内容和菜单分组 */
@@ -289,19 +313,24 @@ body>footer {
 }
 
 .title::after {
-    content: attr(data-text);
     position: absolute;
     width: 100%;
     height: 100%;
     left: 3px;
     top: 3px;
-    color: var(--background-corner-border);
-    opacity: 1;
-    pointer-events: none;
     transition: var(--transition);
-    /* filter: blur(0.5px); */
-    animation: glitch 2s infinite steps(1, end);
+
+    content: attr(data-text);
+    color: var(--background-corner-border);
+    padding-bottom: 16px;
     z-index: -1;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    flex-direction: column;
+    align-items: start;
 }
 
 .gpart:hover .title {
@@ -317,10 +346,8 @@ body>footer {
         /* width: 98%; */
     }
 
-    .title {
-        flex-direction: column;
-        align-items: start;
-    }
+    .title,
+    .title::after {}
 
     .icons {
         margin-bottom: 4em;
@@ -732,3 +759,34 @@ figure {
     color: #ffffff;
     background-color: #C070E0;
 }
+
+.category {
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.category h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.gallery-image {
+    max-height: 30vh;
+    margin: 5px;
+    display: inline-block;
+}
+.gallery-image:hover {
+    max-height: 50vh;
+    margin: 5px;
+    display: inline-block;
+
+    border: var(--background-corner-border) solid 5px;
+    border-radius: 8px;
+}
+.gallery-image:active {
+    max-height: 100vh;
+    margin: 5px;
+    display: inline-block;
+    scroll-margin-bottom: 10px; /* 确保滚动时图片尾部有一定间距 */
+}
+

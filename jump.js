@@ -11,37 +11,94 @@ function loadScript(url) {
     });
 }
 
+// 加载图片库
+async function loadGallery() {
+    const response = await fetch('/image_files.json');
+    const images = await response.json();
+    const galleryContainer = document.querySelector('.container-gallery'); // 使用 querySelector 获取单个元素
+
+    if (!galleryContainer) {
+        console.error('Gallery container not found!');
+        return;
+    }
+
+    const categorized = {};
+    images.forEach(image => {
+        const relativePath = image.url.replace('/Ceasiumz.github.io/gallery/', ''); // 修正路径
+        const [category, ...rest] = relativePath.split('/');
+        if (!categorized[category]) categorized[category] = [];
+        categorized[category].push(relativePath);
+    });
+
+    Object.keys(categorized).forEach(category => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'category';
+        categoryDiv.innerHTML = `<h2>${category}</h2>`;
+        categorized[category].forEach(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = url.split('/').pop();
+            img.className = 'gallery-image';
+            categoryDiv.appendChild(img);
+        });
+        galleryContainer.appendChild(categoryDiv); // 修复 appendChild 调用
+    });
+}
+
+/* 使用 JavaScript 实现滚动到图片尾部 */
+document.addEventListener('mousedown', function (e) {
+    // console.log('mousedown event detected:', e.target);
+    const activeImage = e.target.closest('.gallery-image');
+    if (activeImage) {
+        console.log('Image mousedown:', activeImage.src);
+        activeImage.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+});
+
 // PJAX加载内容
 function loadContentpjax(url) {
     fetch(url)
         .then(res => res.text())
         .then(html => {
-            window.__fromPjax = true; // 放在这里
+            window.__fromPjax = true;
             const temp = document.createElement('div');
             temp.innerHTML = html;
             const newMain = temp.querySelector('#main');
             if (newMain) {
                 document.getElementById('main').innerHTML = newMain.innerHTML;
-                //确保新页面newMain中的<script>标签被执行至少一次
                 const scripts = newMain.querySelectorAll('script');
                 if (scripts.length > 0) {
                     scripts.forEach(script => {
                         if (script.src.length > 0) {
-                            console.log('script load: ' + script.src);
+                            loadScript(script.src).catch(err => {
+                                console.error('脚本加载失败:', err);
+                            });
                         } else {
-                            console.log('no src, script text: ' + script.innerHTML);
+                            try {
+                                eval(script.textContent);
+                                // 将 loadGallery 绑定到全局作用域
+                                if (script.textContent.includes('loadGallery')) {
+                                    window.loadGallery = loadGallery;
+                                }
+                            } catch (err) {
+                                console.error('脚本执行失败:', err);
+                            }
                         }
-                        // impose the script
-                        loadScript(script.src).then(() => {
-                            console.log('脚本已加载并执行');
-                        });
                     });
                 }
-                console.log('pjax loaded!' + window.__fromPjax);
+                if (url.includes('/gallery/')) {
+                    try {
+                        window.loadGallery();
+                    } catch (err) {
+                        console.error('loadGallery 调用失败:', err);
+                    }
+                }
             }
             window.history.pushState({}, '', url);
-        }
-        );
+        })
+        .catch(err => {
+            console.error('PJAX 加载失败:', err);
+        });
     console.log('pjax loading!');
 }
 
@@ -277,4 +334,18 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('popstate', function () {
         loadContentpjax(location.pathname);
     });
+
+    if (window.__fromPjax) {
+        document.addEventListener('pjax:complete', () => {
+            const main = document.getElementById('main');
+            const script = main.querySelector('script');
+            if (script) {
+                eval(script.textContent);
+            }
+            // Explicitly call loadGallery after PJAX navigation
+            if (location.pathname.includes('/gallery/')) {
+                loadGallery();
+            }
+        });
+    }
 });

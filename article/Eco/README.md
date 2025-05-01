@@ -925,7 +925,7 @@ $$I=f(e, Y, Preference, Policies)$$
 		- Preference
 
 ### Aggregate Demand
-	measured by Aggregate Expenditure, i.e. GDP
+measured by Aggregate Expenditure, i.e. GDP
 #### AD curve
 ```mermaid
 ---
