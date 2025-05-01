@@ -42,13 +42,14 @@
     width: 8px;
     background: var(--background-4-sliding-panel)
 }
+
 ::-webkit-scrollbar:hover {
     height: 8px;
     width: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
- 
+
     background: var(--scrollbar-active-thumb-bg);
 }
 
@@ -99,6 +100,7 @@ body.theme-light {
     --background-g: #f5a8a2;
     --background-ghover: #f5a8a269;
     --text-normal: #37291a;
+    --text-normal-shallow: rgba(55, 41, 26, 0.5);
     --text-link: #7ac292;
     --text-link-hover: #8c8cff;
     --text-menu: #ffe1b9;
@@ -106,8 +108,9 @@ body.theme-light {
     --text-g: #ffe1b9;
     --text-g-hover: #7ac292;
     /* ...可继续添加theme.css中的变量... */
-    --scanline-color: #7ac2921a;
+    --scanline-color: #4a76581a;
     --transition: 0.5s;
+    --transition-short: 0.25s;
 }
 
 /* 主题色变量：dark */
@@ -120,6 +123,7 @@ body.theme-dark {
     --background-g: #1d3a27;
     --background-ghover: #78a789c7;
     --text-normal: #efe9d9;
+    --text-normal-shallow: rgba(239, 233, 217, 0.5);
     --text-link: #7ac292;
     --text-link-hover: #8c8cff;
     --text-menu: #ffe1b9;
@@ -129,6 +133,7 @@ body.theme-dark {
     /* ...可继续添加theme.css中的变量... */
     --scanline-color: #f5a7a21a;
     --transition: 0.5s;
+    --transition-short: 0.25s;
 }
 
 /* html{
@@ -161,6 +166,8 @@ body {
     flex-grow: 1;
     flex-direction: column;
     min-height: 100vh;
+
+    --hr-content: "Ceasium";
 }
 
 body>header {
@@ -178,12 +185,14 @@ body>header {
 }
 
 .socialMediaIcon {
+    position: sticky;
     width: 24px;
     height: 24px;
     margin-left: 12px;
 }
 
 .socialMediaIconRedbook {
+    position: sticky;
     width: 48px;
     height: 48px;
     margin-left: 12px;
@@ -205,13 +214,20 @@ body>footer {
 
 .gparts {
     display: grid;
-    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     /* 三列，每列最小300px */
     grid-gap: 25px;
     transition: var(--transition);
 }
 
 .gpart {
+    box-shadow: 2px 2px 4px var(--text-normal-shallow);
+
+    /* 3D变形效果 */
+    transform:
+        perspective(1000px) rotate3d(.5, -.8, .5, 4deg) scale3d(0.95, 0.95, 0.95);
+    transition: transform 0.5s ease;
+
     background-color: var(--background-g);
     padding: 24px;
     border-radius: 8px;
@@ -221,11 +237,34 @@ body>footer {
 }
 
 .gpart:hover {
+    transform: translateY(-5px);
+    box-shadow: 6px 8px 2px var(--text-normal-shallow);
+
     background-color: var(--background-ghover);
     border-style: solid;
     border-width: 5px;
     border-color: var(--background-g);
     color: var(--text-g-hover);
+}
+
+.gpart:active,
+.gpart.active-delay {
+    transition: var(--transition-short);
+    transform: translateY(5px);
+    box-shadow: 0px 0px 0px var(--text-normal-shallow);
+}
+
+.icons {
+    /* position: absolute;
+    top: -10px; */
+
+    padding: 0;
+    margin-bottom: 0em;
+    border: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+
 }
 
 .title {
@@ -237,11 +276,23 @@ body>footer {
     color: #ececec;
     padding-bottom: 16px;
     z-index: 2;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 让主标题内容和菜单分组 */
+.title-headtext {
+    flex: 1 1 100%;
 }
 
 .title::after {
     content: attr(data-text);
     position: absolute;
+    width: 100%;
+    height: 100%;
     left: 3px;
     top: 3px;
     color: var(--background-corner-border);
@@ -259,11 +310,20 @@ body>footer {
 
 @media only screen and (max-width: 1080px) {
     .gparts {
-        grid-template-columns: 1fr;
+        /* grid-template-columns: 1fr; */
     }
 
     .gpart {
-        width: 98%;
+        /* width: 98%; */
+    }
+
+    .title {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .icons {
+        margin-bottom: 4em;
     }
 }
 
@@ -352,13 +412,16 @@ div#ads {
 /* 扫描线效果 */
 .scanline {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -10%;
+    right: 0%;
+    width: 150%;
+    height: 45%;
     background: linear-gradient(to bottom, transparent 50%, var(--scanline-color) 51%);
     background-size: 100% 8px;
     pointer-events: none;
+    transform: rotate(-30deg);
+    transform-origin: center;
+    z-index: 999;
 }
 
 .formulaText {
@@ -587,6 +650,7 @@ figure {
 
 @media only screen and (max-width: 1280px) {
     body>div>header {
+        position: relative;
         padding: 8px;
     }
 

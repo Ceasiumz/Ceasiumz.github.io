@@ -1,4 +1,8 @@
 /*@Lavi & @嘴 的Flamingo主题色（原Pink Topaz）*/
+@import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/sunburst.min.css");
+body {
+  --hr-content: "Ceasium" !important;
+}
 body.color-scheme-options-flamingo.theme-light,
 body.theme-light {
 
@@ -19,7 +23,7 @@ body.theme-light {
   --text-normal: #37291a;
   --text-muted: #37291a;
   --text-faint: #37291a;
-  --accent-strong: #37291a;
+  --accent-strong: var(--text-link-hover);
   --text-error: #f5a7a2;
   --text-error-hover: #fefcf9;
 
@@ -30,7 +34,7 @@ body.theme-light {
   --text-highlight-bg: hsla(var(--text-highlight-bg-h), var(--text-highlight-bg-s), var(--text-highlight-bg-l), var(--text-highlight-bg-a));
   --text-selection: #f39ba044;
 
-  --interactive-accent-rgb: 245,167,162;
+  --interactive-accent-rgb: 245, 167, 162;
   --accent-h: 4;
   --accent-s: 81%;
   --accent-l: 80%;
@@ -71,12 +75,12 @@ body.theme-light {
   --tag4: #40916c;
   --tag5: #68c7a4;
 
-  --h1-color: var(--print-h1-color,#f39ba0);
-  --h2-color: var(--print-h2-color,#f39ba0);
-  --h3-color: var(--print-h3-color,#f39ba0);
-  --h4-color: var(--print-h4-color,#f39ba0);
-  --h5-color: var(--print-h5-color,#f39ba0);
-  --h6-color: var(--print-h6-color,#f39ba0);
+  --h1-color: var(--print-h1-color, #f39ba0);
+  --h2-color: var(--print-h2-color, #f39ba0);
+  --h3-color: var(--print-h3-color, #f39ba0);
+  --h4-color: var(--print-h4-color, #f39ba0);
+  --h5-color: var(--print-h5-color, #f39ba0);
+  --h6-color: var(--print-h6-color, #f39ba0);
 
   --graph-text-color: #37291a;
   --graph-tag: #ffdece;
@@ -127,6 +131,8 @@ body.theme-light {
   --table-color-rgb: 214, 118, 146;
   --scrollbar-thumb-bg: #f39ba050;
   --scrollbar-active-thumb-bg: #f39ba0;
+
+  --block-quote-bg: #8c8cff33;
 }
 
 
@@ -145,7 +151,7 @@ body.theme-dark {
   --text-normal: #efe9d9;
   --text-muted: #efe9d9;
   --text-faint: #efe9d9;
-  --accent-strong: #efe9d9;
+  --accent-strong: var(--text-link-hover);
   --text-em-color: #f93759;
   --text-error: #f93759;
   --text-error-hover: #f93759;
@@ -197,12 +203,12 @@ body.theme-dark {
   --tag4: #c47a5e;
   --tag5: #004f2d;
 
-  --h1-color: var(--print-h1-color,#ffccbc);
-  --h2-color: var(--print-h2-color,#ffccbc);
-  --h3-color: var(--print-h3-color,#ffccbc);
-  --h4-color: var(--print-h4-color,#ffccbc);
-  --h5-color: var(--print-h5-color,#ffccbc);
-  --h6-color: var(--print-h6-color,#ffccbc);
+  --h1-color: var(--print-h1-color, #ffccbc);
+  --h2-color: var(--print-h2-color, #ffccbc);
+  --h3-color: var(--print-h3-color, #ffccbc);
+  --h4-color: var(--print-h4-color, #ffccbc);
+  --h5-color: var(--print-h5-color, #ffccbc);
+  --h6-color: var(--print-h6-color, #ffccbc);
 
   --graph-text-color: #efe9d9;
   --graph-tag: #f39ba0;
@@ -253,6 +259,8 @@ body.theme-dark {
   --table-color-rgb: 215, 86, 125;
   --scrollbar-thumb-bg: #e2bdbd50;
   --scrollbar-active-thumb-bg: #e2bdbd;
+
+  --block-quote-bg: #9191ca33;
 }
 
 body.color-scheme-options-flamingo.theme-light #calendar-container {
@@ -375,8 +383,10 @@ body.color-scheme-options-flamingo.theme-light .admonition {
 }
 
 body.color-scheme-options-flamingo.theme-light {
-  --font-family-vault: Arlrdbd, 'Source Han Sans', 'Noto Sans CJK', 'Source Sans Pro' !important; /*左侧库名字体*/
-  --font-family-folder-file-title: Arlrdbd, 'Source Han Sans', 'Noto Sans CJK', 'Source Sans Pro' !important;/*左侧边栏文件、文件夹字体*/
+  --font-family-vault: Arlrdbd, 'Source Han Sans', 'Noto Sans CJK', 'Source Sans Pro' !important;
+  /*左侧库名字体*/
+  --font-family-folder-file-title: Arlrdbd, 'Source Han Sans', 'Noto Sans CJK', 'Source Sans Pro' !important;
+  /*左侧边栏文件、文件夹字体*/
 }
 
 body.color-scheme-options-flamingo.theme-light .tag[href^="#DailyNote"] {
@@ -406,7 +416,7 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
   color: var(--text-normal, #222);
   border-radius: 8px;
   font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'Liberation Sans', sans-serif;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* 标题 */
@@ -421,6 +431,15 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
   margin-top: 2em;
   margin-bottom: 1em;
   font-weight: bold;
+
+  /* padding-top: 1.25rem; */
+  margin: 45px 0 20px 0;
+  position: relative;
+  padding-bottom: 10px;
+  border-bottom: 1px solid;
+  border-width: 0.25em;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, var(--text-faint) 10%, var(--background-primary) 50%);
 }
 
 /* 段落 */
@@ -440,8 +459,8 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
 }
 
 /* 代码块 */
-#markdown-container pre {
-  background: #23272e;
+/* #markdown-container pre {
+  background: #171717;
   color: #e6e6e6;
   padding: 1em;
   border-radius: 6px;
@@ -450,7 +469,7 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
   font-size: 1em;
   margin: 1.5em 0;
   line-height: 1.6;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 #markdown-container code {
@@ -468,7 +487,7 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
   padding: 0;
   border-radius: 0;
   font-size: 1em;
-}
+} */
 
 /* 链接 */
 #markdown-container a {
@@ -499,12 +518,14 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
 }
 
 /* 引用 */
-#markdown-container blockquote {
+#markdown-container blockquote,
+blockquote {
+  transition: var(--transition);
   border-left: 4px solid var(--accent-strong, #fd355a);
-  background: #fff6f6;
+  background: var(--block-quote-bg, rgba(84, 84, 84, 0.322));
   margin: 1em 0;
   padding: 0.5em 1em;
-  color: #555;
+  color: var(--text-faint, #666);
 }
 
 /* 图片 */
@@ -512,4 +533,86 @@ body.color-scheme-options-flamingo.theme-light .search-result-file-match {
   max-width: 100%;
   border-radius: 4px;
   margin: 1em 0;
+}
+
+/** hr styles -- PREVIEW MODE */
+.cm-line hr,
+.markdown-preview-view hr,
+hr {
+  margin-block-start: 4em;
+  margin-block-end: 4em;
+  border: none;
+  height: 0;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-width: 4px;
+  border-image-source: linear-gradient(to right, transparent, var(--accent-strong), transparent);
+}
+
+.cm-line hr::after,
+.markdown-preview-view hr::after,
+hr::after {
+  content: var(--hr-content, 'ᓚᘏᗢ');
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transform-origin: 50% 50%;
+  padding: 0.5rem;
+  color: var(--text-link);
+  background-color: var(--background-primary)
+}
+
+
+/** code syntax theme **/
+
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-comment {
+  color: #6272a4;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-string,
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-string-2 {
+  color: #f1fa8c;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-number {
+  color: #bd93f9;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-variable {
+  color: #50fa7b;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-variable-2 {
+  color: white;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-def {
+  color: #50fa7b;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-operator {
+  color: #ff79c6;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-keyword {
+  color: #ff79c6;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-atom {
+  color: #bd93f9;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-meta {
+  color: #f8f8f2;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-tag {
+  color: #ff79c6;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-attribute {
+  color: #50fa7b;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-qualifier {
+  color: #50fa7b;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-property {
+  color: #66d9ef;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-builtin {
+  color: #50fa7b;
+}
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-variable-3,
+.theme-dark .cm-s-obsidian pre.HyperMD-codeblock span.cm-type {
+  color: #ffb86c;
 }

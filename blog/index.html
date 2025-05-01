@@ -1,25 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="keywords"
-            content="周日, 技术美术, ceasium, ceasiumz, ta,tech artist game development, art, demoscene, computer graphics, rendering, demo, 3D, realtime, shader, raytracing, shadertoy, glsl, raymarching, painting with maths">
-        <meta name="description"
-            content="Articles and Porfolio by 周日Ceasium on tech arts, shaders, computer graphics and more.">
-        <meta name="author" content="Ceasium">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#101010">
-        <link rel="icon" type="image/png" href="/favicon.png">
-        <link rel="apple-touch-icon" href="/favicon.png" />
-        <link rel="canonical" href="https://ceasium.github.io/pros" />
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/style.css">
-        <title>Ceasium: painter, render and programmer</title>
-    </head>
-    <body class="theme-light">
-        <div id="main">
-            Blogs
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords"
+        content="周日, 技术美术, ceasium, ceasiumz, ta,tech artist game development, art, demoscene, computer graphics, rendering, demo, 3D, realtime, shader, raytracing, shadertoy, glsl, raymarching, painting with maths">
+    <meta name="description"
+        content="Articles and Porfolio by 周日Ceasium on tech arts, shaders, computer graphics and more.">
+    <meta name="author" content="Ceasium">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101010">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="canonical" href="https://ceasium.github.io/pros" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <title>Ceasium: painter, render and programmer</title>
+</head>
+
+<body class="theme-light">
+    <div id="main">
+        <div>Blogs
+            <style>
+                /* 新增卡片变形样式 */
+                .tilt-card {
+                    position: relative;
+                    width: 300px;
+                    background: rgb(209, 148, 148);
+                    border-radius: 15px;
+                    padding: 2rem;
+                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+
+                    /* 3D变形效果 */
+                    transform:
+                        perspective(1000px) rotate3d(.5, -.8, .5, 4deg) scale3d(1.05, 1.05, 1.05);
+                    transition: transform 0.5s ease;
+                }
+
+                /* 悬停动态效果 */
+                .tilt-card:hover {
+                    transform:
+                        perspective(1000px) rotate3d(0, 0, 0, 0deg) scale3d(1, 1, 1);
+                }
+
+                /* 卡片内容反向变形（可选） */
+                .card-content {
+                    transform: rotate(-1deg);
+                }
+
+                /* 从文档2中提取的阴影增强 */
+                .tilt-card::after {
+                    content: '';
+                    position: absolute;
+                    width: 90%;
+                    height: 10px;
+                    background: rgba(0, 0, 0, 0.1);
+                    bottom: -15px;
+                    left: 5%;
+                    filter: blur(10px);
+                    z-index: -1;
+                }
+            </style>
+
+            <!-- 示例卡片结构 -->
+            <div class="tilt-card">
+                <div class="card-content">
+                    <h3>倾斜卡片标题</h3>
+                    <p>使用3D变形实现的动态卡片效果，结合从源码提取的阴影增强...</p>
+                    <!-- 使用文档2中的按钮样式 -->
+                    <button class="btn-primary svelte-1fd792j">了解更多</button>
+                </div>
+            </div>
         </div>
-    </body>
+        <div>
+            <style>
+                :root {
+                    --primary: #FF6B35;
+                    /* 主橙色 */
+                    --bg: #0A0A0A;
+                    /* 背景黑 */
+                    --text: #EDE7E3;
+                    /* 辅助白 */
+                }
+
+                .tech-map {
+                    background: var(--bg);
+                    padding: 2rem;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                    gap: 1.5rem;
+                    font-family: 'Roboto Condensed', sans-serif;
+                }
+
+                .category {
+                    border: 3px solid var(--primary);
+                    border-radius: 8px;
+                    padding: 1.2rem;
+                    transition: transform 0.3s ease;
+                }
+
+                .category:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
+                }
+
+                .category-title {
+                    color: var(--primary);
+                    font-size: 1.4rem;
+                    margin-bottom: 1rem;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    position: relative;
+                }
+
+                .category-title::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -8px;
+                    left: 0;
+                    width: 40px;
+                    height: 2px;
+                    background: var(--primary);
+                }
+
+                .tech-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                    gap: 0.8rem;
+                }
+
+                .tech-item {
+                    background: rgba(0, 0, 0, 0.8);
+                    color: var(--primary);
+                    padding: 0.6rem 1rem;
+                    border-radius: 4px;
+                    font-size: 0.9rem;
+                    text-align: center;
+                    transition: all 0.2s ease;
+                }
+
+                .tech-item:hover {
+                    background: var(--primary);
+                    color: var(--bg);
+                    cursor: pointer;
+                }
+
+                /* 响应式调整 */
+                @media (max-width: 768px) {
+                    .tech-map {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .category {
+                        margin-bottom: 1.5rem;
+                    }
+                }
+            </style>
+
+            <div class="tech-map">
+                <!-- .NET Essentials -->
+                <div class="category">
+                    <h3 class="category-title">.NET Essentials</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">C#</div>
+                        <div class="tech-item">F#</div>
+                        <div class="tech-item">ASP.NET</div>
+                        <div class="tech-item">NuGet</div>
+                        <div class="tech-item">EF Core</div>
+                        <div class="tech-item">Razor</div>
+                    </div>
+                </div>
+
+                <!-- Web -->
+                <div class="category">
+                    <h3 class="category-title">Web</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">Blazer</div>
+                        <div class="tech-item">JS/TS</div>
+                        <div class="tech-item">ASP.NET</div>
+                        <div class="tech-item">REST API</div>
+                    </div>
+                </div>
+
+                <!-- Gaming -->
+                <div class="category">
+                    <h3 class="category-title">Gaming</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">Unity</div>
+                        <div class="tech-item">Unreal Engine</div>
+                        <div class="tech-item">Godot</div>
+                        <div class="tech-item">Consoles</div>
+                    </div>
+                </div>
+
+                <!-- 其他分类类似结构... -->
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>
 <script src="/jump.js"></script>
