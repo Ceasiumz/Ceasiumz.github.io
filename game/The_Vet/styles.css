@@ -65,8 +65,8 @@ img {
 }
 
 img#logo {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     vertical-align: middle;
     margin-left: 8px;
     /* inline-block */
@@ -94,7 +94,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem clamp(1.5rem, 5vw, 4rem);
+    padding: .2rem clamp(1.5rem, 5vw, 4rem);
     background: var(--paper-deep);
     border-bottom: var(--border-thick);
     box-shadow: var(--panel-shadow);
@@ -111,6 +111,10 @@ footer {
     font-size: 1.8rem;
     text-transform: uppercase;
     letter-spacing: 0.25rem;
+}
+
+.text-accent {
+    color: var(--accent-red);
 }
 
 .primary-nav {
@@ -516,7 +520,7 @@ section {
     margin: 0.3rem 0 0;
     font-family: 'Huntesla Gloficka', sans-serif;
     letter-spacing: 0.08em;
-    font-size: 2rem;
+    font-size: 2    rem;
 }
 
 .dev-card span {
@@ -640,6 +644,18 @@ section {
     border-radius: var(--radius);
     padding: 0.9rem 1rem;
     font-size: 1rem;
+    box-shadow: 4px 4px 0 #050403;
+}
+
+.form-success {
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border: var(--border-thick);
+    border-radius: var(--radius);
+    background: var(--accent-green);
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
     box-shadow: 4px 4px 0 #050403;
 }
 
