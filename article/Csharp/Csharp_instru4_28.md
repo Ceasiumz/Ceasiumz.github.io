@@ -212,7 +212,7 @@ var aliveEnemies = currentBattle.Units
 
 > ​**技巧**​：链式组合`Where`过滤与`Average`聚合，替代传统循环累加
 
-### 案例2：背包系统优化
+### 案例2：*背包系统优化*
 
 ```csharp
 // 按品质分组并排序

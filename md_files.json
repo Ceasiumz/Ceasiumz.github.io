@@ -1,5 +1,9 @@
 [
   {
+    "name": "Discrete Mathematics",
+    "url": "/Ceasiumz.github.io/article/CSC3001/Discrete Mathematics.md"
+  },
+  {
     "name": "Csharp_instru3_22",
     "url": "/Ceasiumz.github.io/article/Csharp/Csharp_instru3_22.md"
   },
@@ -12,11 +16,47 @@
     "url": "/Ceasiumz.github.io/article/Csharp/Csharp_instru4_28.md"
   },
   {
-    "name": "Untitled",
-    "url": "/Ceasiumz.github.io/article/Csharp/Untitled.md"
+    "name": "Csharp_instru5_21",
+    "url": "/Ceasiumz.github.io/article/Csharp/Csharp_instru5_21.md"
   },
   {
-    "name": "Economics notes",
-    "url": "/Ceasiumz.github.io/article/Eco/Economics notes.md"
+    "name": "README",
+    "url": "/Ceasiumz.github.io/article/Eco/README.md"
+  },
+  {
+    "name": "Compute Shader(輕量幽默)",
+    "url": "/Ceasiumz.github.io/article/Graphic/Compute Shader(輕量幽默).md"
+  },
+  {
+    "name": "Untitled",
+    "url": "/Ceasiumz.github.io/article/Graphic/Untitled.md"
+  },
+  {
+    "name": "Urp lit passes",
+    "url": "/Ceasiumz.github.io/article/Graphic/Urp lit passes.md"
+  },
+  {
+    "name": "浪漫的语言--图形学入门(一)",
+    "url": "/Ceasiumz.github.io/article/Graphic/浪漫的语言--图形学入门(一).md"
+  },
+  {
+    "name": "身似飞鸿踏雪泥",
+    "url": "/Ceasiumz.github.io/article/Graphic/身似飞鸿踏雪泥.md"
+  },
+  {
+    "name": "Notes-ZhouMingJun",
+    "url": "/Ceasiumz.github.io/article/Phi/Notes-ZhouMingJun.md"
+  },
+  {
+    "name": "prompt",
+    "url": "/Ceasiumz.github.io/article/Phi/prompt.md"
+  },
+  {
+    "name": "裝置部_關機賦",
+    "url": "/Ceasiumz.github.io/article/Phi/裝置部_關機賦.md"
+  },
+  {
+    "name": "Statics notes",
+    "url": "/Ceasiumz.github.io/article/STA_tut/Statics notes.md"
   }
 ]

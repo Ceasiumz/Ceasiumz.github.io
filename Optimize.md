@@ -1,0 +1,13 @@
+- 缩贴图
+	- 直接转大小
+	- 合并通道
+	- 合并贴图+uv
+	- 金属度/光滑度缩精度
+- 减面数
+	- front only
+	- 看不到的删掉
+	- view occlusion
+	- camera occlusion
+	- 拓扑
+- 管线
+	- 按物体分uv

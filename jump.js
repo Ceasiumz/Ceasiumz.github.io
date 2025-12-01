@@ -124,6 +124,7 @@ function PjaxBlock() {
     const path = window.location.pathname;
     if (path === '/' || path === '/index.html') {
         const params = new URLSearchParams(window.location.search);
+        console.log('URL Parameters:', params.toString());
         const pjaxTarget = params.get('pjax');
         if (pjaxTarget) {
             console.log('?pjax main site detected! PJAX needed: ', pjaxTarget);
@@ -182,7 +183,7 @@ if (gMenu[2] != null && gMenu[2] != '') {
     }
 }
 
-// ==================== Emoji特效 ====================
+// ==================== 鼠標特效 ====================
 
 const emojis = ['🌸', '🌼', '🍃', '🌺', '🌷', '🥰'];
 document.addEventListener('click', function (e) {
