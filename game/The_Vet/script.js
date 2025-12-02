@@ -41,15 +41,15 @@ const hotspotData = [
 
 const storyPointMedia = [
     {
-        img: './assets/desk.png',
+        img: './assets/operation_idle.png',
         alt: 'Patient waits in the dim hallway outside the operating room.',
     },
     {
-        img: './assets/poster.png',
+        img: './assets/operation_normal.png',
         alt: 'Thoracic surgery setup with Vet Clinic instruments.',
     },
     {
-        img: './assets/portrait.jpg',
+        img: './assets/operation_analog.png',
         alt: 'Recovered organ sealed in a crate ready for transport.',
     },
 ];
@@ -260,6 +260,7 @@ const initStoryPointGallery = () => {
     previewImg.hidden = true;
     preview.appendChild(previewImg);
     storyList.insertAdjacentElement('afterend', preview);
+    preview.hidden = true;
 
     const clearActive = () => items.forEach((item) => item.classList.remove('active'));
 
@@ -270,6 +271,7 @@ const initStoryPointGallery = () => {
         previewImg.src = media.img;
         previewImg.alt = media.alt || item.textContent.trim();
         previewImg.hidden = false;
+        preview.hidden = false;
     };
 
     items.forEach((item, index) => {
@@ -290,9 +292,6 @@ const initStoryPointGallery = () => {
         });
     });
 
-    const firstMedia = storyPointMedia.find((media) => media?.img);
-    const firstItemWithMedia = firstMedia ? items[storyPointMedia.indexOf(firstMedia)] : null;
-    if (firstMedia && firstItemWithMedia) activateItem(firstItemWithMedia, firstMedia);
 };
 
 const renderDevelopers = () => {

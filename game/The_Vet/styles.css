@@ -358,6 +358,10 @@ section {
     font-size: 1.5rem;
 }
 
+.story-points li:hover {
+    background-color: var(--accent-red);
+}
+
 .story-points li.active {
     color: var(--ink);
 }
