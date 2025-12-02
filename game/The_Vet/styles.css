@@ -16,6 +16,7 @@
     --panel-shadow: 10px 10px 0 #050403;
     --panel-shadow2: -10px 10px 0 #050403;
     --transparent-2: transparent;
+    --panel-bg-image: #000000;
 }
 
 *,
@@ -84,6 +85,10 @@ footer {
     position: relative;
     z-index: 1;
     max-height: 100%;
+}
+
+section.ov {
+    display: flex;
 }
 
 .site-header {
@@ -341,9 +346,10 @@ section {
 }
 
 .story-points li::before {
-    content: '!';
+    content: '!.?.';
     position: absolute;
-    left: 0.3rem;
+    left: 0.1rem;
+    right: 1rem;
     top: -0.1rem;
     font-family: 'Bangers';
     color: var(--accent-red);
@@ -378,7 +384,8 @@ section {
 
 .world__visual {
     display: flex;
-    align-items: stretch;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 .world__map {
@@ -421,7 +428,10 @@ section {
     right: 1.5rem;
     bottom: 1.5rem;
     width: min(320px, 80%);
-    background: var(--paper);
+    /* background: var(--paper); */
+    background-image: var(--panel-bg-image), linear-gradient(rgba(249,240,220,0.9), rgba(249,240,220,0.7));
+    background-size: cover, auto;
+    background-position: center;
     border: var(--border-thick);
     border-radius: var(--radius);
     padding: 1.2rem 1.5rem;

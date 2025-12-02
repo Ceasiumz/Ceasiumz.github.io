@@ -34,9 +34,9 @@ const timelineData = [
 ];
 
 const hotspotData = [
-    { label: 'Skylance Docks', copy: 'Smuggler haven hovering above the quarantine zone.', x: '40%', y: '15%' },
-    { label: 'Hone Core', copy: 'Corporate citadel pulsing with surveillance arrays.', x: '25%', y: '20%' },
-    { label: 'Undermarket 12', copy: 'Bazaar for outlaw med-tech & rogue AI surgeons.', x: '25%', y: '30%' },
+    { label: 'High-position', copy: 'Check if patient still have breath.', x: '40%', y: '15%', img: './assets/position-high.png' },
+    { label: 'Medium-position', copy: 'Check if patient still have pulse', x: '25%', y: '20%', img: './assets/position-medium.png' },
+    { label: 'Low-position', copy: 'Check if patient still have heart', x: '25%', y: '30%', img: './assets/position-low.png' },
 ];
 
 const mediaData = [
@@ -206,12 +206,14 @@ const renderHotspots = () => {
     });
 };
 
-const updateMapPanel = ({ label, copy }) => {
+const updateMapPanel = ({ label, copy, img }) => {
     if (!mapPanel) return;
     const heading = mapPanel.querySelector('h3');
     const body = mapPanel.querySelector('p');
     if (heading) heading.textContent = label;
     if (body) body.textContent = copy;
+    if (img) //set style variable posImg to img
+        mapPanel.style.setProperty('--panel-bg-image', `url(${img})`);
 };
 
 const renderMedia = () => {
