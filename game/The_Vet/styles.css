@@ -343,6 +343,8 @@ section {
     position: relative;
     padding-left: 2rem;
     font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
 }
 
 .story-points li::before {
@@ -354,6 +356,25 @@ section {
     font-family: 'Bangers';
     color: var(--accent-red);
     font-size: 1.5rem;
+}
+
+.story-points li.active {
+    color: var(--ink);
+}
+
+.story-points__preview {
+    margin-top: 1.2rem;
+    border: var(--border-thick);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--panel-shadow);
+    background: var(--paper);
+}
+
+.story-points__preview img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 .world {

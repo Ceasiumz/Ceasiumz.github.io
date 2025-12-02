@@ -26,10 +26,10 @@ const featureData = [
 ];
 
 const timelineData = [
-    { date: 'Q1 2025', title: 'Reveal Trailer', detail: 'Cinematic premiere with first look at Aya and Delta-12.' },
-    { date: 'Q2 2025', title: 'Closed Alpha', detail: 'Invite-only PC test for medical gameplay loop feedback.' },
-    { date: 'Q3 2025', title: 'Lore Anthology', detail: 'Three-part narrative podcast bridging uprising events.' },
-    { date: 'Q4 2025', title: 'Open Demo', detail: 'Multi-platform slice with vertical hospital raid.' },
+    { date: 'Q1 2026', title: 'Reveal Trailer', detail: 'Cinematic premiere with first look at Aya and Delta-12.' },
+    { date: 'Q2 2026', title: 'Closed Alpha', detail: 'Invite-only PC test for medical gameplay loop feedback.' },
+    { date: 'Q3 2026', title: 'Lore Anthology', detail: 'Three-part narrative podcast bridging uprising events.' },
+    { date: 'Q4 2026', title: 'Open Demo', detail: 'Multi-platform slice with vertical hospital raid.' },
     { date: 'Launch', title: 'Global Release', detail: 'Full campaign, co-op ops, and live event cadence.' },
 ];
 
@@ -37,6 +37,21 @@ const hotspotData = [
     { label: 'High-position', copy: 'Check if patient still have breath.', x: '40%', y: '15%', img: './assets/position-high.png' },
     { label: 'Medium-position', copy: 'Check if patient still have pulse', x: '25%', y: '20%', img: './assets/position-medium.png' },
     { label: 'Low-position', copy: 'Check if patient still have heart', x: '25%', y: '30%', img: './assets/position-low.png' },
+];
+
+const storyPointMedia = [
+    {
+        img: './assets/desk.png',
+        alt: 'Patient waits in the dim hallway outside the operating room.',
+    },
+    {
+        img: './assets/poster.png',
+        alt: 'Thoracic surgery setup with Vet Clinic instruments.',
+    },
+    {
+        img: './assets/portrait.jpg',
+        alt: 'Recovered organ sealed in a crate ready for transport.',
+    },
 ];
 
 const mediaData = [
@@ -231,6 +246,55 @@ const renderMedia = () => {
     });
 };
 
+const initStoryPointGallery = () => {
+    const storyList = document.querySelector('.split .story-points');
+    if (!storyList) return;
+    const items = Array.from(storyList.querySelectorAll('li'));
+    if (!items.length) return;
+
+    const preview = document.createElement('div');
+    preview.className = 'story-points__preview';
+    const previewImg = document.createElement('img');
+    previewImg.loading = 'lazy';
+    previewImg.alt = '';
+    previewImg.hidden = true;
+    preview.appendChild(previewImg);
+    storyList.insertAdjacentElement('afterend', preview);
+
+    const clearActive = () => items.forEach((item) => item.classList.remove('active'));
+
+    const activateItem = (item, media) => {
+        if (!media?.img) return;
+        clearActive();
+        item.classList.add('active');
+        previewImg.src = media.img;
+        previewImg.alt = media.alt || item.textContent.trim();
+        previewImg.hidden = false;
+    };
+
+    items.forEach((item, index) => {
+        const media = storyPointMedia[index];
+        if (!media) return;
+        item.dataset.img = media.img;
+        item.dataset.alt = media.alt || item.textContent.trim();
+        item.tabIndex = 0;
+        const handleSelect = (event) => {
+            event.preventDefault();
+            activateItem(item, media);
+        };
+        item.addEventListener('click', handleSelect);
+        item.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                handleSelect(event);
+            }
+        });
+    });
+
+    const firstMedia = storyPointMedia.find((media) => media?.img);
+    const firstItemWithMedia = firstMedia ? items[storyPointMedia.indexOf(firstMedia)] : null;
+    if (firstMedia && firstItemWithMedia) activateItem(firstItemWithMedia, firstMedia);
+};
+
 const renderDevelopers = () => {
     if (!developerGrid) return;
     developerGrid.innerHTML = '';
@@ -348,6 +412,7 @@ const init = () => {
     initSmoothScroll();
     initReveal();
     initTrailerButton();
+    initStoryPointGallery();
     initEmailJS();
     initCommunityForm();
     handleScrollHeader();
