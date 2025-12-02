@@ -7,8 +7,8 @@
     --ink-muted: #423526;
     --stripe-light: #fff7e1;
     --stripe-dark: #ebd09b;
-    --accent-red: #f2545b;
-    --accent-yellow: #f6c93b;
+    --accent-red: #f2545c89;
+    --accent-yellow: #f6ca3ba2;
     --accent-blue: #006175;
     --accent-green: #0b8b6d;
     --border-thick: 4px solid #050403;
@@ -30,7 +30,7 @@ body {
     background-image: url(./assets/bkgPaper.png);
     background-repeat: repeat;
     color: var(--ink);
-    min-height: 100vh;
+    min-height: 100%;
     position: relative;
 }
 /* 
@@ -83,7 +83,7 @@ footer {
 .section {
     position: relative;
     z-index: 1;
-    max-height: 100vh;
+    max-height: 100%;
 }
 
 .site-header {
@@ -145,7 +145,7 @@ footer {
     letter-spacing: 0.08rem;
     text-transform: uppercase;
     color: var(--ink);
-    background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red));
+    background: linear-gradient(135deg, var(--accent-yellow, 0.5), var(--accent-red, 0.5));
     cursor: pointer;
     box-shadow: 6px 6px 0 #050403;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -213,8 +213,8 @@ section {
 .hero__actions {
     display:flex;
     margin-top: 50vh;
-    gap: 8rem;
-    flex-wrap: wrap;
+    gap: 5rem;
+    flex-wrap: nowrap;
 }
 
 .eyebrow {
@@ -246,7 +246,7 @@ section {
     background: transparent;
     border-top: var(--border-thick);
     border-bottom: var(--border-thick);
-    height: 100vh;
+    height: 100%;
 }
 
 .features__grid {
@@ -257,7 +257,9 @@ section {
 }
 
 .feature-card {
-    background: linear-gradient(120deg, var(--stripe-light), var(--stripe-dark));
+    background-image: linear-gradient(rgba(249,240,220,0.7), rgba(249,240,220,.9)), var(--card-bg-image);
+    background-size: 50% auto, cover;
+    background-position: 50% 50%, center;
     border: var(--border-thick);
     border-radius: var(--radius);
     padding: 2rem;
@@ -278,7 +280,10 @@ section {
 }
 
 .feature-card p {
-    color: var(--ink-muted);
+    --card-bg-image: none;
+    /* background-image: var(--card-bg-image), linear-gradient(120deg, var(--stripe-light), var(--stripe-dark)); */
+    background-size: cover, auto;
+    background-position: center;
     font-size: 1rem;
 }
 
@@ -290,7 +295,7 @@ section {
     background: transparent;
     border-top: var(--border-thick);
     border-bottom: var(--border-thick);
-    height: 100vh;
+    height: 100%;
 }
 
 .glow-card {
@@ -349,7 +354,7 @@ section {
     background: transparent;
     border-top: var(--border-thick);
     border-bottom: var(--border-thick);
-    min-height: 100vh;
+    min-height: 100%;
 }
 
 .world__layout {
@@ -416,7 +421,7 @@ section {
     right: 1.5rem;
     bottom: 1.5rem;
     width: min(320px, 80%);
-    background: var(--transparent-2);
+    background: var(--paper);
     border: var(--border-thick);
     border-radius: var(--radius);
     padding: 1.2rem 1.5rem;

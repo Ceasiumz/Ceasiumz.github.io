@@ -9,16 +9,19 @@ const EMAILJS_CONFIG = {
 // ------------------------data------------------------
 const featureData = [
     {
-        title: 'Chrono-Triage Combat',
-        blurb: 'Freeze micro-moments, reroute syringe drones, and decide who lives when the room goes flatline.',
+        title: 'Narrivation: Event Driven',
+        blurb: 'The unit of game progression is an operation instead of a mission, but each operation is driven by emergent events. You never know what kind of patient you will get, or what kind of complications will arise during surgery. Adapt your strategy on the fly to deal with as many lives as possible.',
+        img: './assets/logo_v.png',
     },
     {
-        title: 'Squad Psyche Web',
-        blurb: 'Every dosage and dialogue thread shifts the loyalty lattice of your four squadmates.',
+        title: 'Narrivation: Deep Dialogue',
+        blurb: 'As Doc. Blank, you can start all kinds of dialogue with the weirdest patient to find out their problems—both physically and psychologically. Meanwhile, you can choose to be faithful to your patients, or you can always show your fangs, and double cross your patients.',
+        img: './assets/logo_e.png',
     },
     {
-        title: 'Living City Systems',
-        blurb: 'Weather cascades, power brownouts, and faction alarms change routes every mission.',
+        title: 'Interaction: Operation Simulation',
+        blurb: 'You have access to a wide range of medical tools and equipment to perform surgeries. Each tool has its own unique function and can be used in different ways to achieve the desired outcome. Master the use of these tools to become a skilled surgeon in the chaotic world of The Vet.',
+        img: './assets/logo_t.png',
     },
 ];
 
@@ -31,9 +34,9 @@ const timelineData = [
 ];
 
 const hotspotData = [
-    { label: 'Skylance Docks', copy: 'Smuggler haven hovering above the quarantine zone.', x: '65%', y: '20%' },
-    { label: 'Hone Core', copy: 'Corporate citadel pulsing with surveillance arrays.', x: '40%', y: '45%' },
-    { label: 'Undermarket 12', copy: 'Bazaar for outlaw med-tech & rogue AI surgeons.', x: '25%', y: '70%' },
+    { label: 'Skylance Docks', copy: 'Smuggler haven hovering above the quarantine zone.', x: '40%', y: '15%' },
+    { label: 'Hone Core', copy: 'Corporate citadel pulsing with surveillance arrays.', x: '25%', y: '20%' },
+    { label: 'Undermarket 12', copy: 'Bazaar for outlaw med-tech & rogue AI surgeons.', x: '25%', y: '30%' },
 ];
 
 const mediaData = [
@@ -142,7 +145,9 @@ const renderFeatures = () => {
         card.innerHTML = `
       <span class="eyebrow">${feature.title}</span>
       <p>${feature.blurb}</p>
-    `;
+      `;
+      card.style.setProperty('--card-bg-image', `url(${feature.img})`);
+      console.log(feature.img);
         featureGrid.appendChild(card);
     });
 };
