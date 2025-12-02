@@ -31,3 +31,8 @@
 - Eternal life and immortality
 - modern times treasure hunter(protecter)
 ## 12.2
+### II.5 Out of the mountain
+- Chinese culture
+- emotional resonance
+- mortal narrative
+- - protagonist

@@ -122,6 +122,10 @@ section.ov {
     color: var(--accent-red);
 }
 
+.text-accent:hover {
+    color: var(--accent-blue);
+}
+
 .primary-nav {
     display: flex;
     gap: 1.2rem;
@@ -262,8 +266,8 @@ section {
 }
 
 .feature-card {
-    background-image: linear-gradient(rgba(249,240,220,0.7), rgba(249,240,220,.9)), var(--card-bg-image);
-    background-size: 50% auto, cover;
+    background-image:  var(--card-bg-image);
+    background-size: 100% auto, cover;
     background-position: 50% 50%, center;
     border: var(--border-thick);
     border-radius: var(--radius);
@@ -274,6 +278,12 @@ section {
     gap: 0.8rem;
     position: relative;
     box-shadow: var(--panel-shadow);
+}
+
+.feature-card:hover {
+    background-image: linear-gradient(rgba(249,240,220,.9), rgba(235, 164, 142,0.8)), var(--card-bg-image);
+    background-size: 50% auto, cover;
+    background-position: 50% 50%, center;
 }
 
 .feature-card::after {
@@ -359,7 +369,11 @@ section {
 }
 
 .story-points li:hover {
-    background-color: var(--accent-red);
+    /* background-color: var(--accent-red); */
+    border: var(--accent-red);
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 5px;
 }
 
 .story-points li.active {
@@ -446,6 +460,11 @@ section {
     background: var(--accent-yellow);
     box-shadow: 4px 4px 0 #050403;
     cursor: pointer;
+}
+.hotspot:hover{
+    width: 26px;
+    height: 26px;
+    box-shadow: 6px 6px 0 #050403;
 }
 
 .world__panel {
@@ -558,6 +577,11 @@ section {
     box-shadow: 6px 6px 0 #050403;
     object-fit: cover;
     background: var(--stripe-light);
+}
+
+.dev-card img:hover {
+    transform: scale(1.1);
+    box-shadow: 10px 10px 0 #050403;
 }
 
 .dev-card h3 {
