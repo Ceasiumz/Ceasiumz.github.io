@@ -58,21 +58,21 @@ const mediaData = [
 const developerData = [
     {
         name: 'Zhou Mingjun',
-        role: 'Visual Designer',
+        role: 'Visual Designer, Character Designer',
         bio: 'Present: Organ transplantation, Doctor propaganda, Indoor Scenes.',
         portrait: './avatorZMJ.png',
     },
     {
         name: 'Ou Pengfan',
-        role: 'Script Writer',
+        role: 'Script Writer, Scene Writer',
         bio: 'Present: Narrative arcs, Character dialogues, Worldbuilding lore.',
-        portrait: './favicon.png',
+        portrait: './avatorOPF.png',
     },
     {
         name: 'Xu Sule',
-        role: 'Mechanism Builder',
+        role: 'Mechanism Builder, System Builder',
         bio: 'Present: Game mechanics, Player progression.',
-        portrait: './favicon.png',
+        portrait: './avatorXSL.png',
     },
 ];
 

@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Space+Grotesk:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap');
 
 :root {
-    --paper: #f9f0dc;
-    --paper-deep: #f3e4c1;
+    --paper: #f9f0dcb6;
+    --paper-deep: #f3e4c1a4;
     --ink: #130c03;
     --ink-muted: #423526;
     --stripe-light: #fff7e1;
@@ -15,7 +15,7 @@
     --radius: 16px;
     --panel-shadow: 10px 10px 0 #050403;
     --panel-shadow2: -10px 10px 0 #050403;
-    --transparent-2: #f3e4c180;
+    --transparent-2: transparent;
 }
 
 *,
@@ -27,7 +27,8 @@
 body {
     margin: 0;
     font-family: 'Space Grotesk', 'Arial', sans-serif;
-    background: var(--paper);
+    background-image: url(./assets/bkgPaper.png);
+    background-repeat: repeat;
     color: var(--ink);
     min-height: 100vh;
     position: relative;
@@ -65,10 +66,9 @@ img {
 }
 
 img#logo {
-    width: 80px;
-    height: 80px;
+    width: 100px;
     vertical-align: middle;
-    margin-left: 8px;
+    margin-left: 0px;
     /* inline-block */
     display: inline-block;
 }
@@ -94,10 +94,10 @@ footer {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: .2rem clamp(1.5rem, 5vw, 4rem);
+    padding: .5rem clamp(1.5rem, 5vw, 4rem);
     background: var(--paper-deep);
     border-bottom: var(--border-thick);
-    box-shadow: var(--panel-shadow);
+    /* box-shadow: var(--panel-shadow); */
     transform: translate(-6px, -6px);
     transition: transform 0.3s ease;
 }
@@ -172,7 +172,7 @@ section {
     justify-content: center;
     overflow: hidden;
     border-bottom: var(--border-thick);
-    background: var(--paper-deep);
+    /* background: var(--paper-deep); */
 }
 
 .hero__video,
@@ -184,13 +184,14 @@ section {
     object-fit: cover;
 }
 
-.hero__video {
-    mix-blend-mode: multiply;
-    filter: saturate(0.55) contrast(1.05);
+.hero__image {
+    position: absolute;
+    max-height: 100%;
 }
 
 .hero__overlay {
-    background: linear-gradient(120deg, rgba(249, 240, 220, 0.4), rgba(6, 5, 4, 0.8));
+    /* background: linear-gradient(120deg, rgba(249, 240, 220, 0.4), rgba(144, 105, 65, 0.6)); */
+    background: transparent;
 }
 
 .hero__content {
