@@ -167,7 +167,7 @@ function PjaxBlock() {
 // ==================== 菜单相关 ====================
 
 if (!window.gMenu) {
-    window.gMenu = ['Resume', 'resume', 'Portfolio', 'portfolio'];
+    window.gMenu = ['Resume', '/resume/resume.pdf', 'Portfolio', '/portfolio/portfolio.pdf'];
 }
 
 // 处理页面菜单显示

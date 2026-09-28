@@ -92,10 +92,6 @@
     "url": "/article/Phi/Notes-ZhouMingJun.md"
   },
   {
-    "name": "prompt",
-    "url": "/article/Phi/prompt.md"
-  },
-  {
     "name": "The Planets, Jupiter",
     "url": "/article/Phi/The%20Planets%2C%20Jupiter.md"
   },
@@ -108,20 +104,16 @@
     "url": "/article/STA_tut/Statics%20notes.md"
   },
   {
-    "name": "未命名",
-    "url": "/blog/%E6%9C%AA%E5%91%BD%E5%90%8D.md"
-  },
-  {
     "name": "庸人自扰",
     "url": "/blog/%E5%BA%B8%E4%BA%BA%E8%87%AA%E6%89%B0.md"
   },
   {
-    "name": "README",
-    "url": "/contact/README.md"
+    "name": "prompt",
+    "url": "/blog/prompt.md"
   },
   {
-    "name": "Suicide Miracle Warlock",
-    "url": "/game/Hearthstone/Suicide%20Miracle%20Warlock.md"
+    "name": "README",
+    "url": "/contact/README.md"
   },
   {
     "name": "README",
@@ -156,12 +148,12 @@
     "url": "/portfolio/%E8%AE%BA%E6%96%87%E6%8A%80%E6%9C%AF%E6%8A%A5%E5%91%8A.md"
   },
   {
-    "name": "未命名",
-    "url": "/portfolio/%E6%9C%AA%E5%91%BD%E5%90%8D.md"
-  },
-  {
     "name": "用户视角系统设计报告",
     "url": "/portfolio/%E7%94%A8%E6%88%B7%E8%A7%86%E8%A7%92%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A.md"
+  },
+  {
+    "name": "VR牙科焦虑文本",
+    "url": "/portfolio/VR%E7%89%99%E7%A7%91%E7%84%A6%E8%99%91%E6%96%87%E6%9C%AC.md"
   },
   {
     "name": "Probability and Statistical Inference, 9th Global Edition (Robert V. Hogg, Elliot A. Tanis etc.) (Z-Library).pdf",

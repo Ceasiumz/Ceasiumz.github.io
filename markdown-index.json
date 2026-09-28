@@ -186,14 +186,6 @@
       "excerpt": "- Main Topic: The paper explores whether mutual romantic love is possible between humans and robots, specifically sex robots endowed with advanced …"
     },
     {
-      "title": "prompt",
-      "name": "prompt",
-      "path": "article/Phi/prompt.md",
-      "url": "/article/Phi/prompt.md",
-      "directory": "article/Phi",
-      "excerpt": "你是一位 專業的 計算機實時渲染\\計算機圖形交互\\電子游戲\\技術美術 方向的技術博客寫手, 你在拿到主題后, 能夠清晰的解釋概念, 為初學者設身處地地推到實現方案並爲其創設模擬真實開發環境的瓶頸問題, 然後逐一解決.(協程(coroutine)總是出現互相干擾的情況怎麽辦 -> 使用綫程鎖或者…"
-    },
-    {
       "title": "The Planets, Jupiter",
       "name": "The Planets, Jupiter",
       "path": "article/Phi/The Planets, Jupiter.md",
@@ -218,14 +210,6 @@
       "excerpt": "a# STA"
     },
     {
-      "title": "未命名",
-      "name": "未命名",
-      "path": "blog/未命名.md",
-      "url": "/blog/%E6%9C%AA%E5%91%BD%E5%90%8D.md",
-      "directory": "blog",
-      "excerpt": "未命名"
-    },
-    {
       "title": "庸人自扰",
       "name": "庸人自扰",
       "path": "blog/庸人自扰.md",
@@ -234,20 +218,20 @@
       "excerpt": "a展信佳！ 今天回来后，我痛定思痛。不是不考虑你的感受，只是我太纠结、太怕错，怕我将来反悔、反过头来喜欢你，届时你又不喜欢我了，我就追悔莫及，所以才这样紧迫地想要逼走你。 决心为我的三大错向你诚恳道歉，希望你能接受。 第一，反复横跳。我的反复横跳想必给你带来了很大困扰。人总是太贪婪，曾经我一面…"
     },
     {
+      "title": "prompt",
+      "name": "prompt",
+      "path": "blog/prompt.md",
+      "url": "/blog/prompt.md",
+      "directory": "blog",
+      "excerpt": "你是一位 專業的 計算機實時渲染\\計算機圖形交互\\電子游戲\\技術美術 方向的技術博客寫手, 你在拿到主題后, 能夠清晰的解釋概念, 為初學者設身處地地推到實現方案並爲其創設模擬真實開發環境的瓶頸問題, 然後逐一解決.(協程(coroutine)總是出現互相干擾的情況怎麽辦 -> 使用綫程鎖或者…"
+    },
+    {
       "title": "QQ",
       "name": "README",
       "path": "contact/README.md",
       "url": "/contact/README.md",
       "directory": "contact",
       "excerpt": "- 728237329"
-    },
-    {
-      "title": "I. Environment Overview",
-      "name": "Suicide Miracle Warlock",
-      "path": "game/Hearthstone/Suicide Miracle Warlock.md",
-      "url": "/game/Hearthstone/Suicide%20Miracle%20Warlock.md",
-      "directory": "game/Hearthstone",
-      "excerpt": "Deal 36 damages to ur hero then reverse injury"
     },
     {
       "title": "The Vet — Static Promo Framework",
@@ -314,20 +298,20 @@
       "excerpt": "写作原则：全文区分三类陈述。"
     },
     {
-      "title": "未命名",
-      "name": "未命名",
-      "path": "portfolio/未命名.md",
-      "url": "/portfolio/%E6%9C%AA%E5%91%BD%E5%90%8D.md",
-      "directory": "portfolio",
-      "excerpt": "刚才这个牙科情境（等待医生的未知恐惧）让你感到多大程度的紧张或害怕？继续保存并退出手术是否"
-    },
-    {
       "title": "SimPatient Dental VR 用户视角系统设计报告",
       "name": "用户视角系统设计报告",
       "path": "portfolio/用户视角系统设计报告.md",
       "url": "/portfolio/%E7%94%A8%E6%88%B7%E8%A7%86%E8%A7%92%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A.md",
       "directory": "portfolio",
       "excerpt": "本报告以 release 分支最新提交为唯一实现依据，说明学习者从启动 Demo、完成校准、进入牙科操作场景到结束会话的完整流程。写法参考 When Seconds Count: Designing Real-Time VR Interventions for Stress Inoculati…"
+    },
+    {
+      "title": "VR牙科焦虑文本",
+      "name": "VR牙科焦虑文本",
+      "path": "portfolio/VR牙科焦虑文本.md",
+      "url": "/portfolio/VR%E7%89%99%E7%A7%91%E7%84%A6%E8%99%91%E6%96%87%E6%9C%AC.md",
+      "directory": "portfolio",
+      "excerpt": "刚才这个牙科情境（等待医生的未知恐惧）让你感到多大程度的紧张或害怕？继续保存并退出手术是否"
     },
     {
       "title": "Probability and Statistical Inference, 9th Global Edition (Robert V. Hogg, Elliot A. Tanis etc.) (Z-Library).pdf",
