@@ -1,0 +1,373 @@
+{
+  "version": 1,
+  "documents": [
+    {
+      "title": "「你感到异样的目光正向你聚集…」v2.0",
+      "name": "「你感到异样的目光正向你聚集…」v2.0",
+      "path": "「你感到异样的目光正向你聚集…」v2.0.md",
+      "url": "/%E3%80%8C%E4%BD%A0%E6%84%9F%E5%88%B0%E5%BC%82%E6%A0%B7%E7%9A%84%E7%9B%AE%E5%85%89%E6%AD%A3%E5%90%91%E4%BD%A0%E8%81%9A%E9%9B%86%E2%80%A6%E3%80%8Dv2.0.md",
+      "directory": "",
+      "excerpt": "——奥利奥咸奶油千层蛋糕"
+    },
+    {
+      "title": "@ref",
+      "name": "@ref",
+      "path": "@ref.md",
+      "url": "/%40ref.md",
+      "directory": "",
+      "excerpt": "@ref"
+    },
+    {
+      "title": "简历",
+      "name": "简历",
+      "path": "简历.md",
+      "url": "/%E7%AE%80%E5%8E%86.md",
+      "directory": "",
+      "excerpt": "姓名：周明骏（CEASIUM）"
+    },
+    {
+      "title": "csc3060as5",
+      "name": "csc3060as5",
+      "path": "article/CSC3001/csc3060as5.md",
+      "url": "/article/CSC3001/csc3060as5.md",
+      "directory": "article/CSC3001",
+      "excerpt": "Since load must fetch a value that later instructions may consume, while store does not produce a register result and is simplified as a short oper…"
+    },
+    {
+      "title": "Data Lab Report",
+      "name": "Data Lab Report",
+      "path": "article/CSC3001/Data Lab Report.md",
+      "url": "/article/CSC3001/Data%20Lab%20Report.md",
+      "directory": "article/CSC3001",
+      "excerpt": "- Bitwise Operations Only: Operations using XOR (^), AND (&), OR (|), NOT (~), left shift (<<), as well as right shift (>>)."
+    },
+    {
+      "title": "I. Logic",
+      "name": "Discrete Mathematics",
+      "path": "article/CSC3001/Discrete Mathematics.md",
+      "url": "/article/CSC3001/Discrete%20Mathematics.md",
+      "directory": "article/CSC3001",
+      "excerpt": "2. ¬ -> NOT"
+    },
+    {
+      "title": "Mat3007_2026S_HW2 Solution",
+      "name": "Mat3007_2026S_HW2 Solution",
+      "path": "article/CSC3001/Mat3007_2026S_HW2 Solution.md",
+      "url": "/article/CSC3001/Mat3007_2026S_HW2%20Solution.md",
+      "directory": "article/CSC3001",
+      "excerpt": "这里是对您关于“Mat30072026SHW2”问题的回答和详细解析，内容来源于您提供的文献资料："
+    },
+    {
+      "title": "quiz2",
+      "name": "quiz2",
+      "path": "article/CSC3001/quiz2.md",
+      "url": "/article/CSC3001/quiz2.md",
+      "directory": "article/CSC3001",
+      "excerpt": "---"
+    },
+    {
+      "title": "每日CSharp: 基类调用",
+      "name": "Csharp_instru3_22",
+      "path": "article/Csharp/Csharp_instru3_22.md",
+      "url": "/article/Csharp/Csharp_instru3_22.md",
+      "directory": "article/Csharp",
+      "excerpt": "今天周小日在涉及卡牌游戏的架构时, 在 MoveCardsAction 的构造函数中, 使用了基类调用："
+    },
+    {
+      "title": "Csharp_instru3_23",
+      "name": "Csharp_instru3_23",
+      "path": "article/Csharp/Csharp_instru3_23.md",
+      "url": "/article/Csharp/Csharp_instru3_23.md",
+      "directory": "article/Csharp",
+      "excerpt": "在C#中, ??= 是一个新的运算符, 称为\"空合并赋值运算符\"（null-coalescing assignment operator."
+    },
+    {
+      "title": "每日CSharp: linq轮椅",
+      "name": "Csharp_instru4_28",
+      "path": "article/Csharp/Csharp_instru4_28.md",
+      "url": "/article/Csharp/Csharp_instru4_28.md",
+      "directory": "article/Csharp",
+      "excerpt": "周小日难得抽出时间, 这次写Linq, 这位是我喜欢C#的一大推力, 真的超好用哇."
+    },
+    {
+      "title": "每日CSharp: inline method——游戏编程中的性能利刃",
+      "name": "Csharp_instru5_21",
+      "path": "article/Csharp/Csharp_instru5_21.md",
+      "url": "/article/Csharp/Csharp_instru5_21.md",
+      "directory": "article/Csharp",
+      "excerpt": "周小日正在转型技术美术, 逐渐意识到inline 方法在游戏开发中的重要作用. 本文将解析inline method（inline 方法）与in/out/ref三个关键字的组合应用, 结合Unity引擎帮助你理解运用."
+    },
+    {
+      "title": "L1 Intro",
+      "name": "Eco3011 Intermediate Microeconomics",
+      "path": "article/Eco/Eco3011 Intermediate Microeconomics.md",
+      "url": "/article/Eco/Eco3011%20Intermediate%20Microeconomics.md",
+      "directory": "article/Eco",
+      "excerpt": "- About"
+    },
+    {
+      "title": "Microeconomics",
+      "name": "README",
+      "path": "article/Eco/README.md",
+      "url": "/article/Eco/README.md",
+      "directory": "article/Eco",
+      "excerpt": "Free market: Market without government intervene"
+    },
+    {
+      "title": "基于Unity 6的URP Lit.shader重构指南（2025卷王必看版）",
+      "name": "浪漫的语言--图形学入门(一)",
+      "path": "article/Graphic/浪漫的语言--图形学入门(一).md",
+      "url": "/article/Graphic/%E6%B5%AA%E6%BC%AB%E7%9A%84%E8%AF%AD%E8%A8%80--%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8(%E4%B8%80).md",
+      "directory": "article/Graphic",
+      "excerpt": "做游戏的程序员们都是很温柔很浪漫的人啊."
+    },
+    {
+      "title": "身似飞鸿踏雪泥",
+      "name": "身似飞鸿踏雪泥",
+      "path": "article/Graphic/身似飞鸿踏雪泥.md",
+      "url": "/article/Graphic/%E8%BA%AB%E4%BC%BC%E9%A3%9E%E9%B8%BF%E8%B8%8F%E9%9B%AA%E6%B3%A5.md",
+      "directory": "article/Graphic",
+      "excerpt": "@Unity技术美术: 如何在电子游戏中实现角色-地形交互"
+    },
+    {
+      "title": "Compute Shader在3A游戏中的魔法：从战神雪地到Unity 6的黑科技",
+      "name": "Compute Shader(輕量幽默)",
+      "path": "article/Graphic/Compute Shader(輕量幽默).md",
+      "url": "/article/Graphic/Compute%20Shader(%E8%BC%95%E9%87%8F%E5%B9%BD%E9%BB%98).md",
+      "directory": "article/Graphic",
+      "excerpt": "​​\"让GPU干点正事\"​——这大概是Compute Shader诞生的真实心声。传统Shader就像流水线上的工人，Vertex Shader负责捏脸，Pixel Shader负责化妆，各司其职但毫无创意。而Compute Shader直接掀桌：\"老子不画三角形了，我要算物理！\"2"
+    },
+    {
+      "title": "Untitled",
+      "name": "Untitled",
+      "path": "article/Graphic/Untitled.md",
+      "url": "/article/Graphic/Untitled.md",
+      "directory": "article/Graphic",
+      "excerpt": "Untitled"
+    },
+    {
+      "title": "Urp lit passes",
+      "name": "Urp lit passes",
+      "path": "article/Graphic/Urp lit passes.md",
+      "url": "/article/Graphic/Urp%20lit%20passes.md",
+      "directory": "article/Graphic",
+      "excerpt": "以下是不依赖Unity封装函数、展现核心着色逻辑的7个Pass实现（关键算法逐行注释）："
+    },
+    {
+      "title": "O",
+      "name": "草木部_水沉香",
+      "path": "article/Phi/草木部_水沉香.md",
+      "url": "/article/Phi/%E8%8D%89%E6%9C%A8%E9%83%A8_%E6%B0%B4%E6%B2%89%E9%A6%99.md",
+      "directory": "article/Phi",
+      "excerpt": "水沉香"
+    },
+    {
+      "title": "O",
+      "name": "草木部_雪落深沼",
+      "path": "article/Phi/草木部_雪落深沼.md",
+      "url": "/article/Phi/%E8%8D%89%E6%9C%A8%E9%83%A8_%E9%9B%AA%E8%90%BD%E6%B7%B1%E6%B2%BC.md",
+      "directory": "article/Phi",
+      "excerpt": "For her who with pale face upon green sweater"
+    },
+    {
+      "title": "裝置部_關機賦",
+      "name": "裝置部_關機賦",
+      "path": "article/Phi/裝置部_關機賦.md",
+      "url": "/article/Phi/%E8%A3%9D%E7%BD%AE%E9%83%A8_%E9%97%9C%E6%A9%9F%E8%B3%A6.md",
+      "directory": "article/Phi",
+      "excerpt": "獻給美麗的新世界"
+    },
+    {
+      "title": "Presentation Notes: \"From Sex Robots to Love Robots: Is Mutual Love with a Robot Possible?\"",
+      "name": "Notes-ZhouMingJun",
+      "path": "article/Phi/Notes-ZhouMingJun.md",
+      "url": "/article/Phi/Notes-ZhouMingJun.md",
+      "directory": "article/Phi",
+      "excerpt": "- Main Topic: The paper explores whether mutual romantic love is possible between humans and robots, specifically sex robots endowed with advanced …"
+    },
+    {
+      "title": "prompt",
+      "name": "prompt",
+      "path": "article/Phi/prompt.md",
+      "url": "/article/Phi/prompt.md",
+      "directory": "article/Phi",
+      "excerpt": "你是一位 專業的 計算機實時渲染\\計算機圖形交互\\電子游戲\\技術美術 方向的技術博客寫手, 你在拿到主題后, 能夠清晰的解釋概念, 為初學者設身處地地推到實現方案並爲其創設模擬真實開發環境的瓶頸問題, 然後逐一解決.(協程(coroutine)總是出現互相干擾的情況怎麽辦 -> 使用綫程鎖或者…"
+    },
+    {
+      "title": "The Planets, Jupiter",
+      "name": "The Planets, Jupiter",
+      "path": "article/Phi/The Planets, Jupiter.md",
+      "url": "/article/Phi/The%20Planets%2C%20Jupiter.md",
+      "directory": "article/Phi",
+      "excerpt": "花開花落不長久, 落紅滿地歸寂中, 夕必教譴若為留."
+    },
+    {
+      "title": "Optimization notes",
+      "name": "Optimization notes",
+      "path": "article/STA_tut/Optimization notes.md",
+      "url": "/article/STA_tut/Optimization%20notes.md",
+      "directory": "article/STA_tut",
+      "excerpt": "Optimization notes"
+    },
+    {
+      "title": "DDA",
+      "name": "Statics notes",
+      "path": "article/STA_tut/Statics notes.md",
+      "url": "/article/STA_tut/Statics%20notes.md",
+      "directory": "article/STA_tut",
+      "excerpt": "a# STA"
+    },
+    {
+      "title": "未命名",
+      "name": "未命名",
+      "path": "blog/未命名.md",
+      "url": "/blog/%E6%9C%AA%E5%91%BD%E5%90%8D.md",
+      "directory": "blog",
+      "excerpt": "未命名"
+    },
+    {
+      "title": "庸人自扰",
+      "name": "庸人自扰",
+      "path": "blog/庸人自扰.md",
+      "url": "/blog/%E5%BA%B8%E4%BA%BA%E8%87%AA%E6%89%B0.md",
+      "directory": "blog",
+      "excerpt": "a展信佳！ 今天回来后，我痛定思痛。不是不考虑你的感受，只是我太纠结、太怕错，怕我将来反悔、反过头来喜欢你，届时你又不喜欢我了，我就追悔莫及，所以才这样紧迫地想要逼走你。 决心为我的三大错向你诚恳道歉，希望你能接受。 第一，反复横跳。我的反复横跳想必给你带来了很大困扰。人总是太贪婪，曾经我一面…"
+    },
+    {
+      "title": "QQ",
+      "name": "README",
+      "path": "contact/README.md",
+      "url": "/contact/README.md",
+      "directory": "contact",
+      "excerpt": "- 728237329"
+    },
+    {
+      "title": "I. Environment Overview",
+      "name": "Suicide Miracle Warlock",
+      "path": "game/Hearthstone/Suicide Miracle Warlock.md",
+      "url": "/game/Hearthstone/Suicide%20Miracle%20Warlock.md",
+      "directory": "game/Hearthstone",
+      "excerpt": "Deal 36 damages to ur hero then reverse injury"
+    },
+    {
+      "title": "The Vet — Static Promo Framework",
+      "name": "README",
+      "path": "game/The_Vet/README.md",
+      "url": "/game/The_Vet/README.md",
+      "directory": "game/The_Vet",
+      "excerpt": "This folder contains a static, single-page experience inspired by cinematic AAA launch sites. It is intentionally light on assets so you can plug r…"
+    },
+    {
+      "title": "政法是如何誕生的",
+      "name": "GFN Essay -ZhouMingjun",
+      "path": "GFN Essay -ZhouMingjun.md",
+      "url": "/GFN%20Essay%20-ZhouMingjun.md",
+      "directory": "",
+      "excerpt": "從明末清初反叛知識分子活躍看精英式政治如何引導民主式政治"
+    },
+    {
+      "title": "Chapter I, Household",
+      "name": "CryptoZooLogist",
+      "path": "Narr2025/CryptoZooLogist.md",
+      "url": "/Narr2025/CryptoZooLogist.md",
+      "directory": "Narr2025",
+      "excerpt": "For ALLLLL Lovers of Disco Elysium, who have been repeatedly kicked over by trash cans and then stood up to do it again"
+    },
+    {
+      "title": "Final_Game",
+      "name": "Final_Game",
+      "path": "Narr2025/Final_Game.md",
+      "url": "/Narr2025/Final_Game.md",
+      "directory": "Narr2025",
+      "excerpt": "| 123 | 321 | 1321 | |"
+    },
+    {
+      "title": "I. Review on Self",
+      "name": "Final_report",
+      "path": "Narr2025/Final_report.md",
+      "url": "/Narr2025/Final_report.md",
+      "directory": "Narr2025",
+      "excerpt": "- The Vet is an event driven 2D RPG. You have the chance to play as Doctor Blank, a mob doctor without legit identities but do operations for the u…"
+    },
+    {
+      "title": "Recipe in prison",
+      "name": "Recipe in prison",
+      "path": "Narr2025/Recipe in prison.md",
+      "url": "/Narr2025/Recipe%20in%20prison.md",
+      "directory": "Narr2025",
+      "excerpt": "Recipe in prison"
+    },
+    {
+      "title": "Optimize",
+      "name": "Optimize",
+      "path": "Optimize.md",
+      "url": "/Optimize.md",
+      "directory": "",
+      "excerpt": "- 缩贴图"
+    },
+    {
+      "title": "论文技术报告 — 面向迁移训练的牙科临床检查 VR 系统",
+      "name": "论文技术报告",
+      "path": "portfolio/论文技术报告.md",
+      "url": "/portfolio/%E8%AE%BA%E6%96%87%E6%8A%80%E6%9C%AF%E6%8A%A5%E5%91%8A.md",
+      "directory": "portfolio",
+      "excerpt": "写作原则：全文区分三类陈述。"
+    },
+    {
+      "title": "未命名",
+      "name": "未命名",
+      "path": "portfolio/未命名.md",
+      "url": "/portfolio/%E6%9C%AA%E5%91%BD%E5%90%8D.md",
+      "directory": "portfolio",
+      "excerpt": "刚才这个牙科情境（等待医生的未知恐惧）让你感到多大程度的紧张或害怕？继续保存并退出手术是否"
+    },
+    {
+      "title": "SimPatient Dental VR 用户视角系统设计报告",
+      "name": "用户视角系统设计报告",
+      "path": "portfolio/用户视角系统设计报告.md",
+      "url": "/portfolio/%E7%94%A8%E6%88%B7%E8%A7%86%E8%A7%92%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A.md",
+      "directory": "portfolio",
+      "excerpt": "本报告以 release 分支最新提交为唯一实现依据，说明学习者从启动 Demo、完成校准、进入牙科操作场景到结束会话的完整流程。写法参考 When Seconds Count: Designing Real-Time VR Interventions for Stress Inoculati…"
+    },
+    {
+      "title": "Probability and Statistical Inference, 9th Global Edition (Robert V. Hogg, Elliot A. Tanis etc.) (Z-Library).pdf",
+      "name": "Probability and Statistical Inference, 9th Global Edition (Robert V. Hogg, Elliot A. Tanis etc.) (Z-Library).pdf",
+      "path": "Probability and Statistical Inference, 9th Global Edition (Robert V. Hogg, Elliot A. Tanis etc.) (Z-Library).pdf.md",
+      "url": "/Probability%20and%20Statistical%20Inference%2C%209th%20Global%20Edition%20(Robert%20V.%20Hogg%2C%20Elliot%20A.%20Tanis%20etc.)%20(Z-Library).pdf.md",
+      "directory": "",
+      "excerpt": "Probability and Statistical Inference, 9th Global Edition (Robert V. Hogg, Elliot A. Tanis etc.) (Z-Library).pdf"
+    },
+    {
+      "title": ": 关于",
+      "name": "# README",
+      "path": "resume/# README.md",
+      "url": "/resume/%23%20README.md",
+      "directory": "resume",
+      "excerpt": "电邮:: ceasiuzmj@gmail.com 官网:: ceasiumz.github.io"
+    },
+    {
+      "title": "游戏经历",
+      "name": "游戏经历",
+      "path": "resume/游戏经历.md",
+      "url": "/resume/%E6%B8%B8%E6%88%8F%E7%BB%8F%E5%8E%86.md",
+      "directory": "resume",
+      "excerpt": "游戏经历"
+    },
+    {
+      "title": "BIO",
+      "name": "README en",
+      "path": "resume/README en.md",
+      "url": "/resume/README%20en.md",
+      "directory": "resume",
+      "excerpt": "---"
+    },
+    {
+      "title": "Untitled",
+      "name": "Untitled",
+      "path": "Untitled.md",
+      "url": "/Untitled.md",
+      "directory": "",
+      "excerpt": "Untitled"
+    }
+  ]
+}

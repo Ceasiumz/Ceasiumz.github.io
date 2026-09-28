@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "content:index": "node md_menu.js",
+    "prepublishOnly": "npm run content:index"
+  }
+}

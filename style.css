@@ -276,6 +276,181 @@ body>footer {
     box-shadow: 0px 0px 0px var(--text-normal-shallow);
 }
 
+.markdown-library {
+    margin-top: 4rem;
+}
+
+.markdown-library__intro {
+    max-width: 62rem;
+    margin: -0.35rem 0 1.5rem;
+    color: var(--text-normal-shallow);
+}
+
+.markdown-directory {
+    display: grid;
+    gap: 2.25rem;
+}
+
+.markdown-folder__heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 2px solid var(--background-corner-border);
+    color: var(--text-normal);
+    font-weight: bold;
+}
+
+.markdown-folder__heading small {
+    color: var(--text-normal-shallow);
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+.markdown-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.markdown-card {
+    min-height: 12.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    font: inherit;
+    color: var(--text-g);
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    background: var(--background-g);
+    padding: 1.25rem;
+    box-shadow: 2px 2px 4px var(--text-normal-shallow);
+    transition: transform var(--transition), background-color var(--transition), border-color var(--transition), box-shadow var(--transition), color var(--transition);
+}
+
+.markdown-card:hover,
+.markdown-card:focus-visible {
+    transform: translateY(-4px);
+    background: var(--background-ghover);
+    border-color: var(--background-corner-border);
+    box-shadow: 6px 8px 2px var(--text-normal-shallow);
+    color: var(--text-g-hover);
+    outline: none;
+}
+
+.markdown-card:focus-visible,
+.markdown-reader__close:focus-visible {
+    outline: 3px solid var(--text-link-hover);
+    outline-offset: 3px;
+}
+
+.markdown-card__folder,
+.markdown-card__open {
+    color: var(--text-normal-shallow);
+    font-size: 0.75rem;
+}
+
+.markdown-card__title {
+    margin: 0.75rem 0 0.5rem;
+    color: currentColor;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.35;
+}
+
+.markdown-card__excerpt {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    color: currentColor;
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+
+.markdown-card__open {
+    margin-top: auto;
+    padding-top: 0.8rem;
+}
+
+.markdown-reader {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    border: 3px solid var(--background-corner-border);
+    border-radius: 8px;
+    background: var(--background-secondary);
+}
+
+.markdown-reader__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--text-normal-shallow);
+}
+
+.markdown-reader__title {
+    color: var(--h1-color);
+    font-size: 1.35rem;
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.markdown-reader__path {
+    margin-top: 0.25rem;
+    color: var(--text-normal-shallow);
+    font-size: 0.8rem;
+    overflow-wrap: anywhere;
+}
+
+.markdown-reader__close {
+    flex: 0 0 auto;
+    cursor: pointer;
+    border: 2px solid var(--background-corner-border);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-normal);
+    font: inherit;
+    padding: 0.4rem 0.7rem;
+}
+
+.markdown-reader__close:hover {
+    background: var(--background-ghover);
+}
+
+.markdown-reader__content {
+    overflow-wrap: anywhere;
+}
+
+.markdown-reader__content pre {
+    max-width: 100%;
+}
+
+.markdown-reader__loading,
+.markdown-reader__error,
+.markdown-library__error {
+    color: var(--text-normal-shallow);
+}
+
+@media only screen and (max-width: 640px) {
+    .markdown-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .markdown-reader {
+        padding: 1rem;
+    }
+
+    .markdown-reader__header {
+        flex-direction: column;
+    }
+}
+
 .icons {
     /* position: absolute;
     top: -10px; */
