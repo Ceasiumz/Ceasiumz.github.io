@@ -3,11 +3,6 @@ name: Update Markdown index
 on:
   push:
     branches: [master]
-    paths:
-      - '**.md'
-      - 'md_menu.js'
-      - 'directory-page.html'
-      - '.github/workflows/markdown-index.yml'
   workflow_dispatch:
 
 permissions:
