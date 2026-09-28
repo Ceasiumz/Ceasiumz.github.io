@@ -2,14 +2,6 @@
   "version": 1,
   "documents": [
     {
-      "title": "「你感到异样的目光正向你聚集…」v2.0",
-      "name": "「你感到异样的目光正向你聚集…」v2.0",
-      "path": "「你感到异样的目光正向你聚集…」v2.0.md",
-      "url": "/%E3%80%8C%E4%BD%A0%E6%84%9F%E5%88%B0%E5%BC%82%E6%A0%B7%E7%9A%84%E7%9B%AE%E5%85%89%E6%AD%A3%E5%90%91%E4%BD%A0%E8%81%9A%E9%9B%86%E2%80%A6%E3%80%8Dv2.0.md",
-      "directory": "",
-      "excerpt": "——奥利奥咸奶油千层蛋糕"
-    },
-    {
       "title": "@ref",
       "name": "@ref",
       "path": "@ref.md",
@@ -138,60 +130,12 @@
       "excerpt": "​​\"让GPU干点正事\"​——这大概是Compute Shader诞生的真实心声。传统Shader就像流水线上的工人，Vertex Shader负责捏脸，Pixel Shader负责化妆，各司其职但毫无创意。而Compute Shader直接掀桌：\"老子不画三角形了，我要算物理！\"2"
     },
     {
-      "title": "Untitled",
-      "name": "Untitled",
-      "path": "article/Graphic/Untitled.md",
-      "url": "/article/Graphic/Untitled.md",
-      "directory": "article/Graphic",
-      "excerpt": "Untitled"
-    },
-    {
       "title": "Urp lit passes",
       "name": "Urp lit passes",
       "path": "article/Graphic/Urp lit passes.md",
       "url": "/article/Graphic/Urp%20lit%20passes.md",
       "directory": "article/Graphic",
       "excerpt": "以下是不依赖Unity封装函数、展现核心着色逻辑的7个Pass实现（关键算法逐行注释）："
-    },
-    {
-      "title": "O",
-      "name": "草木部_水沉香",
-      "path": "article/Phi/草木部_水沉香.md",
-      "url": "/article/Phi/%E8%8D%89%E6%9C%A8%E9%83%A8_%E6%B0%B4%E6%B2%89%E9%A6%99.md",
-      "directory": "article/Phi",
-      "excerpt": "水沉香"
-    },
-    {
-      "title": "O",
-      "name": "草木部_雪落深沼",
-      "path": "article/Phi/草木部_雪落深沼.md",
-      "url": "/article/Phi/%E8%8D%89%E6%9C%A8%E9%83%A8_%E9%9B%AA%E8%90%BD%E6%B7%B1%E6%B2%BC.md",
-      "directory": "article/Phi",
-      "excerpt": "For her who with pale face upon green sweater"
-    },
-    {
-      "title": "裝置部_關機賦",
-      "name": "裝置部_關機賦",
-      "path": "article/Phi/裝置部_關機賦.md",
-      "url": "/article/Phi/%E8%A3%9D%E7%BD%AE%E9%83%A8_%E9%97%9C%E6%A9%9F%E8%B3%A6.md",
-      "directory": "article/Phi",
-      "excerpt": "獻給美麗的新世界"
-    },
-    {
-      "title": "Presentation Notes: \"From Sex Robots to Love Robots: Is Mutual Love with a Robot Possible?\"",
-      "name": "Notes-ZhouMingJun",
-      "path": "article/Phi/Notes-ZhouMingJun.md",
-      "url": "/article/Phi/Notes-ZhouMingJun.md",
-      "directory": "article/Phi",
-      "excerpt": "- Main Topic: The paper explores whether mutual romantic love is possible between humans and robots, specifically sex robots endowed with advanced …"
-    },
-    {
-      "title": "The Planets, Jupiter",
-      "name": "The Planets, Jupiter",
-      "path": "article/Phi/The Planets, Jupiter.md",
-      "url": "/article/Phi/The%20Planets%2C%20Jupiter.md",
-      "directory": "article/Phi",
-      "excerpt": "花開花落不長久, 落紅滿地歸寂中, 夕必教譴若為留."
     },
     {
       "title": "Optimization notes",
@@ -210,20 +154,76 @@
       "excerpt": "a# STA"
     },
     {
-      "title": "庸人自扰",
-      "name": "庸人自扰",
-      "path": "blog/庸人自扰.md",
-      "url": "/blog/%E5%BA%B8%E4%BA%BA%E8%87%AA%E6%89%B0.md",
-      "directory": "blog",
-      "excerpt": "a展信佳！ 今天回来后，我痛定思痛。不是不考虑你的感受，只是我太纠结、太怕错，怕我将来反悔、反过头来喜欢你，届时你又不喜欢我了，我就追悔莫及，所以才这样紧迫地想要逼走你。 决心为我的三大错向你诚恳道歉，希望你能接受。 第一，反复横跳。我的反复横跳想必给你带来了很大困扰。人总是太贪婪，曾经我一面…"
+      "title": "「你感到异样的目光正向你聚集…」v2.0",
+      "name": "「你感到异样的目光正向你聚集…」v2.0",
+      "path": "blog/activity/「你感到异样的目光正向你聚集…」v2.0.md",
+      "url": "/blog/activity/%E3%80%8C%E4%BD%A0%E6%84%9F%E5%88%B0%E5%BC%82%E6%A0%B7%E7%9A%84%E7%9B%AE%E5%85%89%E6%AD%A3%E5%90%91%E4%BD%A0%E8%81%9A%E9%9B%86%E2%80%A6%E3%80%8Dv2.0.md",
+      "directory": "blog/activity",
+      "excerpt": "——奥利奥咸奶油千层蛋糕"
     },
     {
-      "title": "prompt",
-      "name": "prompt",
-      "path": "blog/prompt.md",
-      "url": "/blog/prompt.md",
-      "directory": "blog",
-      "excerpt": "你是一位 專業的 計算機實時渲染\\計算機圖形交互\\電子游戲\\技術美術 方向的技術博客寫手, 你在拿到主題后, 能夠清晰的解釋概念, 為初學者設身處地地推到實現方案並爲其創設模擬真實開發環境的瓶頸問題, 然後逐一解決.(協程(coroutine)總是出現互相干擾的情況怎麽辦 -> 使用綫程鎖或者…"
+      "title": "论文技术报告 — 面向迁移训练的牙科临床检查 VR 系统",
+      "name": "论文技术报告",
+      "path": "blog/essay/论文技术报告.md",
+      "url": "/blog/essay/%E8%AE%BA%E6%96%87%E6%8A%80%E6%9C%AF%E6%8A%A5%E5%91%8A.md",
+      "directory": "blog/essay",
+      "excerpt": "写作原则：全文区分三类陈述。"
+    },
+    {
+      "title": "SimPatient Dental VR 用户视角系统设计报告",
+      "name": "用户视角系统设计报告",
+      "path": "blog/essay/用户视角系统设计报告.md",
+      "url": "/blog/essay/%E7%94%A8%E6%88%B7%E8%A7%86%E8%A7%92%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A.md",
+      "directory": "blog/essay",
+      "excerpt": "本报告以 release 分支最新提交为唯一实现依据，说明学习者从启动 Demo、完成校准、进入牙科操作场景到结束会话的完整流程。写法参考 When Seconds Count: Designing Real-Time VR Interventions for Stress Inoculati…"
+    },
+    {
+      "title": "Presentation Notes: \"From Sex Robots to Love Robots: Is Mutual Love with a Robot Possible?\"",
+      "name": "Notes-ZhouMingJun",
+      "path": "blog/essay/Notes-ZhouMingJun.md",
+      "url": "/blog/essay/Notes-ZhouMingJun.md",
+      "directory": "blog/essay",
+      "excerpt": "- Main Topic: The paper explores whether mutual romantic love is possible between humans and robots, specifically sex robots endowed with advanced …"
+    },
+    {
+      "title": "VR牙科焦虑文本",
+      "name": "VR牙科焦虑文本",
+      "path": "blog/essay/VR牙科焦虑文本.md",
+      "url": "/blog/essay/VR%E7%89%99%E7%A7%91%E7%84%A6%E8%99%91%E6%96%87%E6%9C%AC.md",
+      "directory": "blog/essay",
+      "excerpt": "刚才这个牙科情境（等待医生的未知恐惧）让你感到多大程度的紧张或害怕？继续保存并退出手术是否"
+    },
+    {
+      "title": "O",
+      "name": "草木部_水沉香",
+      "path": "blog/poetry/草木部_水沉香.md",
+      "url": "/blog/poetry/%E8%8D%89%E6%9C%A8%E9%83%A8_%E6%B0%B4%E6%B2%89%E9%A6%99.md",
+      "directory": "blog/poetry",
+      "excerpt": "水沉香"
+    },
+    {
+      "title": "O",
+      "name": "草木部_雪落深沼",
+      "path": "blog/poetry/草木部_雪落深沼.md",
+      "url": "/blog/poetry/%E8%8D%89%E6%9C%A8%E9%83%A8_%E9%9B%AA%E8%90%BD%E6%B7%B1%E6%B2%BC.md",
+      "directory": "blog/poetry",
+      "excerpt": "For her who with pale face upon green sweater"
+    },
+    {
+      "title": "裝置部_關機賦",
+      "name": "裝置部_關機賦",
+      "path": "blog/poetry/裝置部_關機賦.md",
+      "url": "/blog/poetry/%E8%A3%9D%E7%BD%AE%E9%83%A8_%E9%97%9C%E6%A9%9F%E8%B3%A6.md",
+      "directory": "blog/poetry",
+      "excerpt": "獻給美麗的新世界"
+    },
+    {
+      "title": "The Planets, Jupiter",
+      "name": "The Planets, Jupiter",
+      "path": "blog/poetry/The Planets, Jupiter.md",
+      "url": "/blog/poetry/The%20Planets%2C%20Jupiter.md",
+      "directory": "blog/poetry",
+      "excerpt": "花開花落不長久, 落紅滿地歸寂中, 夕必教譴若為留."
     },
     {
       "title": "QQ",
@@ -258,14 +258,6 @@
       "excerpt": "For ALLLLL Lovers of Disco Elysium, who have been repeatedly kicked over by trash cans and then stood up to do it again"
     },
     {
-      "title": "Final_Game",
-      "name": "Final_Game",
-      "path": "Narr2025/Final_Game.md",
-      "url": "/Narr2025/Final_Game.md",
-      "directory": "Narr2025",
-      "excerpt": "| 123 | 321 | 1321 | |"
-    },
-    {
       "title": "I. Review on Self",
       "name": "Final_report",
       "path": "Narr2025/Final_report.md",
@@ -288,30 +280,6 @@
       "url": "/Optimize.md",
       "directory": "",
       "excerpt": "- 缩贴图"
-    },
-    {
-      "title": "论文技术报告 — 面向迁移训练的牙科临床检查 VR 系统",
-      "name": "论文技术报告",
-      "path": "portfolio/论文技术报告.md",
-      "url": "/portfolio/%E8%AE%BA%E6%96%87%E6%8A%80%E6%9C%AF%E6%8A%A5%E5%91%8A.md",
-      "directory": "portfolio",
-      "excerpt": "写作原则：全文区分三类陈述。"
-    },
-    {
-      "title": "SimPatient Dental VR 用户视角系统设计报告",
-      "name": "用户视角系统设计报告",
-      "path": "portfolio/用户视角系统设计报告.md",
-      "url": "/portfolio/%E7%94%A8%E6%88%B7%E8%A7%86%E8%A7%92%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%8A%A5%E5%91%8A.md",
-      "directory": "portfolio",
-      "excerpt": "本报告以 release 分支最新提交为唯一实现依据，说明学习者从启动 Demo、完成校准、进入牙科操作场景到结束会话的完整流程。写法参考 When Seconds Count: Designing Real-Time VR Interventions for Stress Inoculati…"
-    },
-    {
-      "title": "VR牙科焦虑文本",
-      "name": "VR牙科焦虑文本",
-      "path": "portfolio/VR牙科焦虑文本.md",
-      "url": "/portfolio/VR%E7%89%99%E7%A7%91%E7%84%A6%E8%99%91%E6%96%87%E6%9C%AC.md",
-      "directory": "portfolio",
-      "excerpt": "刚才这个牙科情境（等待医生的未知恐惧）让你感到多大程度的紧张或害怕？继续保存并退出手术是否"
     },
     {
       "title": "Probability and Statistical Inference, 9th Global Edition (Robert V. Hogg, Elliot A. Tanis etc.) (Z-Library).pdf",

@@ -26,7 +26,9 @@
     directory.split('/').forEach((part, index, parts) => {
         breadcrumbs.append(' / ', link(part, encodePath(parts.slice(0, index + 1).join('/')) + '/'));
     });
-    title.textContent = directory.split('/').pop();
+    const directoryName = directory.split('/').pop();
+    title.textContent = directoryName;
+    document.title = `${directoryName} · Ceasium`;
     back.href = directoryUrl;
 
     function card(label, description, href) {

@@ -72,6 +72,7 @@ const documents = walk(root)
       excerpt: firstExcerpt(markdown, name),
     };
   })
+  .filter((document) => !document.path.startsWith('blog/hide/'))
   .sort((left, right) => left.path.localeCompare(right.path, 'zh-Hans-CN'));
 
 const manifest = {
@@ -87,12 +88,14 @@ fs.writeFileSync(path.join(root, 'md_files.json'), `${JSON.stringify(legacyIndex
 
 console.log(`Indexed ${documents.length} Markdown files in markdown-index.json.`);
 
-// Materialize article directory URLs for static hosts (including new folders).
+// Materialize article and blog directory URLs for static hosts (including new folders).
 // Never replace unrelated custom pages.
 const template = fs.readFileSync(path.join(root, 'directory-page.html'), 'utf8');
-const directories = new Set(['article']);
+const contentRoots = new Set(['article', 'blog']);
+const directories = new Set(contentRoots);
 for (const document of documents) {
-  if (!document.directory.startsWith('article/')) continue;
+  const rootDirectory = document.directory.split('/')[0];
+  if (!contentRoots.has(rootDirectory)) continue;
   const parts = document.directory.split('/');
   while (parts.length) {
     directories.add(parts.join('/'));
@@ -102,7 +105,7 @@ for (const document of documents) {
 for (const directory of directories) {
   const destination = path.join(root, directory, 'index.html');
   const existing = fs.existsSync(destination) ? fs.readFileSync(destination, 'utf8') : '';
-  const migratedPages = ['article', 'article/Csharp', 'article/Eco'];
+  const migratedPages = ['article', 'article/Csharp', 'article/Eco', 'blog'];
   if (!existing || existing.includes('data-markdown-directory') || migratedPages.includes(directory)) {
     fs.writeFileSync(destination, template, 'utf8');
   }
