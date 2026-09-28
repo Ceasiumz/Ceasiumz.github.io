@@ -1,26 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="keywords"
-            content="周日, 技术美术, ceasium, ceasiumz, ta,tech artist game development, art, demoscene, computer graphics, rendering, demo, 3D, realtime, shader, raytracing, shadertoy, glsl, raymarching, painting with maths">
-        <meta name="description"
-            content="Articles and Porfolio by 周日Ceasium on tech arts, shaders, computer graphics and more.">
-        <meta name="author" content="Ceasium">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#101010">
-        <link rel="icon" type="image/png" href="/favicon.png">
-        <link rel="apple-touch-icon" href="/favicon.png" />
-        <link rel="canonical" href="https://ceasium.github.io/pros" />
-        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/style.css">
-        <title>Ceasium: painter, render and programmer</title>
-    </head>
-    <body class="theme-light">
-        <div id="main">
-            <div id="markdowns-container"></div>
-            <script src="/code/md_combined.js"></script>
+<!-- Generated directory pages use this shared template. -->
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/style.css">
+    <title>Article · Ceasium</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script defer src="/markdown-library.js?v=directory-2"></script>
+    <script defer src="/jump.js?v=directory-2"></script>
+</head>
+<body class="theme-dark">
+    <div id="topRightButton"><span id="topRightText">Dark / Light</span></div>
+    <div class="scanline"></div>
+    <header>
+        <a class="menu" href="/"><div class="title">Ceasium: painter, render and programmer</div></a>
+        <nav><a class="menu" href="/resume/">Resume</a> / <a class="menu" href="/portfolio/">Portfolio</a></nav>
+    </header>
+    <main id="main">
+        <div id="container" data-markdown-directory>
+            <nav class="directory-breadcrumbs" aria-label="目录路径"></nav>
+            <h1 class="title" id="directory-title">Article</h1>
+            <div class="gparts directory-cards" id="markdown-directory" aria-live="polite">正在读取目录…</div>
+            <section class="directory-reader" hidden>
+                <a class="menu" id="directory-back" href="./">← 返回文章目录</a>
+                <article id="markdown-container" aria-live="polite"></article>
+            </section>
         </div>
-    </body>
+    </main>
+    <footer><a class="menu" href="/">🥰 爱来自周日Ceasium</a></footer>
+</body>
 </html>
-<script src="/jump.js"></script>

@@ -86,3 +86,24 @@ const legacyIndex = documents.map(({ name, url }) => ({ name, url }));
 fs.writeFileSync(path.join(root, 'md_files.json'), `${JSON.stringify(legacyIndex, null, 2)}\n`, 'utf8');
 
 console.log(`Indexed ${documents.length} Markdown files in markdown-index.json.`);
+
+// Materialize article directory URLs for static hosts (including new folders).
+// Never replace unrelated custom pages.
+const template = fs.readFileSync(path.join(root, 'directory-page.html'), 'utf8');
+const directories = new Set(['article']);
+for (const document of documents) {
+  if (!document.directory.startsWith('article/')) continue;
+  const parts = document.directory.split('/');
+  while (parts.length) {
+    directories.add(parts.join('/'));
+    parts.pop();
+  }
+}
+for (const directory of directories) {
+  const destination = path.join(root, directory, 'index.html');
+  const existing = fs.existsSync(destination) ? fs.readFileSync(destination, 'utf8') : '';
+  const migratedPages = ['article', 'article/Csharp', 'article/Eco'];
+  if (!existing || existing.includes('data-markdown-directory') || migratedPages.includes(directory)) {
+    fs.writeFileSync(destination, template, 'utf8');
+  }
+}

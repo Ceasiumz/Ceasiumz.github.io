@@ -57,6 +57,10 @@ document.addEventListener('mousedown', function (e) {
 
 // PJAX加载内容
 function loadContentpjax(url) {
+    if (new URL(url, location.href).pathname.startsWith('/article')) {
+        location.assign(url);
+        return;
+    }
     fetch(url)
         .then(res => res.text())
         .then(html => {
@@ -120,6 +124,7 @@ function loadContentMd(url) {
 
 // PJAX阻挡直接访问
 function PjaxBlock() {
+    if (document.querySelector('[data-markdown-directory]')) return;
     // 只在主站首页豁免，其它页面都拦截
     const path = window.location.pathname;
     if (path === '/' || path === '/index.html') {
@@ -269,7 +274,7 @@ function ToggleTheme() {
 window.onload = function () {
     // 读取主题
     var theme = localStorage.getItem('theme');
-    if (theme === 'theme-dark') {
+    if (theme !== 'theme-light') {
         document.body.classList.remove('theme-light');
         document.body.classList.add('theme-dark');
     } else {
@@ -333,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 支持浏览器前进后退
     window.addEventListener('popstate', function () {
-        loadContentpjax(location.pathname);
+        if (!document.querySelector('[data-markdown-directory]')) loadContentpjax(location.pathname);
     });
 
     if (window.__fromPjax) {

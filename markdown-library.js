@@ -1,158 +1,138 @@
 (function () {
     'use strict';
-
-    const indexUrl = '/markdown-index.json';
-    const library = document.getElementById('markdown-library');
-    if (!library) return;
-
-    const directoryContainer = document.getElementById('markdown-directory');
-    const reader = document.getElementById('markdown-reader');
-    const readerTitle = document.getElementById('markdown-reader-title');
-    const readerPath = document.getElementById('markdown-reader-path');
-    const readerContent = document.getElementById('markdown-reader-content');
-    const closeButton = document.getElementById('markdown-reader-close');
+    const root = document.querySelector('[data-markdown-directory]');
+    if (!root) return;
+    const directory = decodeURIComponent(location.pathname).replace(/\/index\.html$/, '').replace(/^\/|\/$/g, '');
+    const cards = document.getElementById('markdown-directory');
+    const reader = root.querySelector('.directory-reader');
+    const content = document.getElementById('markdown-container');
+    const back = document.getElementById('directory-back');
+    const title = document.getElementById('directory-title');
+    const breadcrumbs = root.querySelector('.directory-breadcrumbs');
+    const encodePath = value => '/' + value.split('/').map(encodeURIComponent).join('/');
+    const directoryUrl = encodePath(directory) + '/';
     let documents = [];
+    let requestId = 0;
 
-    function folderName(directory) {
-        return directory ? directory.split('/').join(' / ') : '主页根目录';
+    function link(label, href) {
+        const anchor = document.createElement('a');
+        anchor.textContent = label;
+        anchor.href = href;
+        anchor.className = 'menu';
+        return anchor;
     }
 
-    function escapeHtml(value) {
-        const element = document.createElement('span');
-        element.textContent = value || '';
-        return element.innerHTML;
+    breadcrumbs.append(link('Home', '/'));
+    directory.split('/').forEach((part, index, parts) => {
+        breadcrumbs.append(' / ', link(part, encodePath(parts.slice(0, index + 1).join('/')) + '/'));
+    });
+    title.textContent = directory.split('/').pop();
+    back.href = directoryUrl;
+
+    function card(label, description, href) {
+        const anchor = link('', href);
+        const box = document.createElement('div');
+        box.className = 'gpart';
+        const heading = document.createElement('div');
+        heading.className = 'title';
+        heading.textContent = label;
+        const excerpt = document.createElement('div');
+        excerpt.className = 'card-excerpt';
+        excerpt.textContent = description;
+        box.append(heading, excerpt);
+        anchor.append(box);
+        cards.append(anchor);
     }
 
-    function createCard(document) {
-        const card = window.document.createElement('button');
-        card.className = 'markdown-card';
-        card.type = 'button';
-        card.dataset.markdownPath = document.path;
-        card.innerHTML = `
-            <span class="markdown-card__folder">${escapeHtml(folderName(document.directory))}</span>
-            <span class="markdown-card__title">${escapeHtml(document.title)}</span>
-            <span class="markdown-card__excerpt">${escapeHtml(document.excerpt)}</span>
-            <span class="markdown-card__open" aria-hidden="true">打开笔记 →</span>
-        `;
-        return card;
-    }
-
-    function renderDirectory() {
-        const groups = new Map();
-        documents.forEach((document) => {
-            const directory = document.directory || '';
-            if (!groups.has(directory)) groups.set(directory, []);
-            groups.get(directory).push(document);
+    function renderCards() {
+        cards.replaceChildren();
+        const prefix = directory + '/';
+        const folders = new Set();
+        documents.forEach(item => {
+            if (item.directory.startsWith(prefix)) folders.add(item.directory.slice(prefix.length).split('/')[0]);
         });
-
-        directoryContainer.replaceChildren();
-        [...groups.entries()].forEach(([directory, entries]) => {
-            const section = window.document.createElement('section');
-            section.className = 'markdown-folder';
-            section.innerHTML = `<div class="markdown-folder__heading"><span>${escapeHtml(folderName(directory))}</span><small>${entries.length} 篇</small></div>`;
-            const cards = window.document.createElement('div');
-            cards.className = 'markdown-card-grid';
-            entries.forEach((document) => cards.appendChild(createCard(document)));
-            section.appendChild(cards);
-            directoryContainer.appendChild(section);
+        [...folders].sort().forEach(folder => {
+            const nested = prefix + folder;
+            const count = documents.filter(item => item.directory === nested || item.directory.startsWith(nested + '/')).length;
+            card(folder, count + ' 篇文章', encodePath(nested) + '/');
         });
-    }
-
-    function getDocumentFromUrl() {
-        const notePath = new URLSearchParams(window.location.search).get('note');
-        return documents.find((document) => document.path === notePath);
-    }
-
-    function setUrl(document, mode) {
-        const url = new URL(window.location.href);
-        if (document) url.searchParams.set('note', document.path);
-        else url.searchParams.delete('note');
-        window.history[mode]({}, '', `${url.pathname}${url.search}${url.hash}`);
-    }
-
-    function resolveMarkdownLinks(container, markdownUrl) {
-        container.querySelectorAll('a[href], img[src]').forEach((element) => {
-            const attribute = element.tagName === 'IMG' ? 'src' : 'href';
-            const value = element.getAttribute(attribute);
-            if (!value || value.startsWith('#') || /^[a-z][a-z\d+.-]*:/i.test(value) || value.startsWith('/')) return;
-
-            const absoluteUrl = new URL(value, new URL(markdownUrl, window.location.origin));
-            const matchingDocument = documents.find((document) => {
-                const documentUrl = new URL(document.url, window.location.origin);
-                return documentUrl.pathname === absoluteUrl.pathname;
-            });
-
-            if (matchingDocument && element.tagName === 'A') {
-                element.href = `?note=${encodeURIComponent(matchingDocument.path)}`;
-                element.dataset.markdownPath = matchingDocument.path;
-            } else {
-                element.setAttribute(attribute, absoluteUrl.href);
-            }
+        documents.filter(item => item.directory === directory).forEach(item => {
+            card(item.name, item.excerpt, directoryUrl + '?note=' + encodeURIComponent(item.path));
         });
+        if (!cards.children.length) cards.textContent = '此目录暂无 Markdown 文章。';
     }
 
-    async function openDocument(document, historyMode) {
-        if (!document) return;
-
-        reader.hidden = false;
-        readerTitle.textContent = document.title;
-        readerPath.textContent = document.path;
-        readerContent.innerHTML = '<p class="markdown-reader__loading">正在读取 Markdown…</p>';
-        setUrl(document, historyMode || 'pushState');
-
+    async function renderRoute() {
+        const currentRequest = ++requestId;
+        const note = new URLSearchParams(location.search).get('note');
+        cards.hidden = Boolean(note);
+        reader.hidden = !note;
+        if (!note) {
+            content.replaceChildren();
+            return;
+        }
+        const item = documents.find(item => item.path === note && item.directory === directory);
+        content.textContent = '正在读取文章…';
+        if (!item) {
+            content.textContent = '文章不存在，请返回目录。';
+            return;
+        }
         try {
-            const response = await fetch(document.url, { cache: 'no-cache' });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const response = await fetch(item.url);
+            if (!response.ok) throw new Error('HTTP ' + response.status);
             const source = await response.text();
-            readerContent.innerHTML = window.marked ? window.marked.parse(source) : `<pre>${escapeHtml(source)}</pre>`;
-            resolveMarkdownLinks(readerContent, document.url);
-            readerContent.querySelectorAll('pre code').forEach((block) => window.hljs && window.hljs.highlightElement(block));
-            reader.scrollIntoView({ behavior: historyMode === 'popstate' ? 'auto' : 'smooth', block: 'start' });
+            if (currentRequest !== requestId) return;
+            if (window.marked && window.DOMPurify) {
+                content.innerHTML = window.DOMPurify.sanitize(window.marked.parse(source));
+                content.querySelectorAll('a[href], img[src]').forEach(element => {
+                    const attribute = element.tagName === 'IMG' ? 'src' : 'href';
+                    const value = element.getAttribute(attribute);
+                    if (!value || value.startsWith('#')) return;
+                    const target = new URL(value, new URL(item.url, location.origin));
+                    const matching = documents.find(doc => new URL(doc.url, location.origin).href === target.origin + target.pathname);
+                    if (attribute === 'href' && matching) {
+                        element.href = encodePath(matching.directory) + '/?note=' + encodeURIComponent(matching.path) + target.hash;
+                    } else {
+                        element.setAttribute(attribute, target.href);
+                    }
+                });
+                content.querySelectorAll('pre code').forEach(block => {
+                    if (window.hljs) window.hljs.highlightElement(block);
+                });
+            } else {
+                const pre = document.createElement('pre');
+                pre.textContent = source;
+                content.replaceChildren(pre);
+            }
         } catch (error) {
-            readerContent.innerHTML = '<p class="markdown-reader__error">笔记无法加载，请稍后再试。</p>';
-            console.error('Unable to load Markdown:', error);
+            if (currentRequest === requestId) content.textContent = '文章加载失败，请刷新重试或返回目录。';
+            console.error(error);
         }
     }
 
-    function closeDocument(historyMode) {
-        reader.hidden = true;
-        readerContent.replaceChildren();
-        setUrl(null, historyMode || 'pushState');
-    }
-
-    directoryContainer.addEventListener('click', (event) => {
-        const card = event.target.closest('[data-markdown-path]');
-        if (!card) return;
-        openDocument(documents.find((item) => item.path === card.dataset.markdownPath), 'pushState');
-    });
-
-    readerContent.addEventListener('click', (event) => {
-        const link = event.target.closest('a[data-markdown-path]');
-        if (!link) return;
+    root.addEventListener('click', event => {
+        const anchor = event.target.closest('a');
+        if (!anchor || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        const url = new URL(anchor.href);
+        if (url.origin !== location.origin || url.pathname !== directoryUrl || url.hash) return;
         event.preventDefault();
-        openDocument(documents.find((item) => item.path === link.dataset.markdownPath), 'pushState');
+        history.pushState({}, '', url);
+        renderRoute();
     });
+    window.addEventListener('popstate', renderRoute);
 
-    closeButton.addEventListener('click', () => closeDocument('pushState'));
-    window.addEventListener('popstate', () => {
-        const document = getDocumentFromUrl();
-        if (document) openDocument(document, 'replaceState');
-        else closeDocument('replaceState');
-    });
-
-    fetch(indexUrl, { cache: 'no-cache' })
-        .then((response) => {
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    fetch('/markdown-index.json', { cache: 'no-cache' })
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
             return response.json();
         })
-        .then((manifest) => {
-            documents = Array.isArray(manifest.documents) ? manifest.documents : [];
-            renderDirectory();
-            const document = getDocumentFromUrl();
-            if (document) openDocument(document, 'replaceState');
+        .then(manifest => {
+            documents = manifest.documents;
+            renderCards();
+            renderRoute();
         })
-        .catch((error) => {
-            directoryContainer.innerHTML = '<p class="markdown-library__error">目录索引暂时不可用。</p>';
-            console.error('Unable to load Markdown index:', error);
+        .catch(error => {
+            cards.textContent = '目录加载失败，请刷新重试。';
+            console.error(error);
         });
 })();
