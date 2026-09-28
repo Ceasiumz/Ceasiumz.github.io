@@ -50,7 +50,7 @@ async function loadMarkdownFiles() {
           }
           const markdownContent = await response.text();
           container.id = 'markdown-container'; // 设置容器 ID
-          container.innerHTML = marked.parse(markdownContent); // 使用 marked 解析 Markdown
+          container.innerHTML = marked.parse(markdownContent, { breaks: true }); // 使用 Obsidian 式软换行渲染 Markdown
           console.log('Navigating to:', file.url);
           window.history.pushState({ path: file.url }, '', '');
           window.addEventListener('popstate', async (event) => {

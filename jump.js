@@ -114,7 +114,9 @@ function loadContentMd(url) {
         .then(mdContent => {
             const mdContainer = document.getElementById('markdown-container');
             if (mdContainer) {
-                mdContainer.innerHTML = mdContent;
+                mdContainer.innerHTML = window.marked
+                    ? window.marked.parse(mdContent, { breaks: true })
+                    : mdContent;
                 window.history.pushState({}, '', url);
                 console.log('Markdown content loaded!');
             }

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 marked.setOptions({
+  breaks: true,
   highlight: function (code, lang) {
     // 检测语言是否支持
     const validLang = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -10,7 +11,6 @@ marked.setOptions({
     return hljs.highlight(code, { language: validLang }).value;
   },
   langPrefix: 'hljs language-', // 生成的CSS类名前缀
-  breaks: true
 });
 
 function loadMarkdown(url) {

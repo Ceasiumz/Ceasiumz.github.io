@@ -83,7 +83,7 @@
             const source = await response.text();
             if (currentRequest !== requestId) return;
             if (window.marked && window.DOMPurify) {
-                content.innerHTML = window.DOMPurify.sanitize(window.marked.parse(source));
+                content.innerHTML = window.DOMPurify.sanitize(window.marked.parse(source, { breaks: true }));
                 content.querySelectorAll('a[href], img[src]').forEach(element => {
                     const attribute = element.tagName === 'IMG' ? 'src' : 'href';
                     const value = element.getAttribute(attribute);

@@ -295,6 +295,13 @@ body>footer {
 .directory-reader img { max-width: 100%; }
 .directory-reader { padding-bottom: 2rem; }
 
+/* Keep Markdown source indentation visible in regular prose. */
+#markdown-container p,
+#markdown-container blockquote,
+#markdown-container li {
+    white-space: pre-wrap;
+}
+
 .icons {
     /* position: absolute;
     top: -10px; */

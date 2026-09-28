@@ -7,13 +7,13 @@ if (typeof marked === 'undefined') {
 
 // Configure marked.js
 marked.setOptions({
+  breaks: true,
   highlight: function (code, lang) {
     const validLang = hljs.getLanguage(lang) ? lang : 'plaintext';
     console.log('Highlighting code with language:', validLang);
     return hljs.highlight(code, { language: validLang }).value;
   },
-  langPrefix: 'hljs language-',
-  breaks: true
+  langPrefix: 'hljs language-'
 });
 
 // Load and render a single Markdown file
