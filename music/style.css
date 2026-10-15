@@ -6,3 +6,5 @@
 
 /* Distinct botanical illustrations share a square, uncropped image slot. */
 .plant-illustration{display:block;object-fit:contain}.plant-preview .plant-illustration{width:78px;height:100px}.result-art .plant-illustration{width:100%;height:100%}#atlas-list .plant-illustration{width:70px;height:90px}
+
+.home-return{padding-top:22px;font-size:13px}.home-return a{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:5px;text-decoration:none;background:#fffdf577}.home-return a:hover{background:#e9ecde;border-color:var(--green)}
