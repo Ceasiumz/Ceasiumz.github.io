@@ -3,3 +3,6 @@
 
 /* Grass Lovers identity and supplied cover artwork. */
 .brand-icon{width:40px;height:40px;object-fit:contain;border-radius:6px;flex-shrink:0}.specimen-image:before{display:none}.hero-image{display:block;width:min(100%,360px);height:auto;aspect-ratio:227 / 222;border-radius:12px}@media(max-width:700px){.brand-icon{width:34px;height:34px}.specimen-image{padding:20px 0;min-height:0}.hero-image{width:min(85%,280px)}}
+
+/* Distinct botanical illustrations share a square, uncropped image slot. */
+.plant-illustration{display:block;object-fit:contain}.plant-preview .plant-illustration{width:78px;height:100px}.result-art .plant-illustration{width:100%;height:100%}#atlas-list .plant-illustration{width:70px;height:90px}

@@ -1,0 +1,57 @@
+{
+  "mode": "built-in image_gen",
+  "size": [
+    512,
+    512
+  ],
+  "assets": [
+    {
+      "slug": "clover-four",
+      "subject": "Exactly FOUR separate heart-shaped leaflets at top, arranged at 12, 3, 6, 9 o’clock; bare curved stalk below. Corrected generation selected after visual QA.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. ONE four-leaf clover on one long curved thin bare stem. Exactly FOUR heart-shaped leaflets at the TOP arranged as a four-leaf clover, each separated clearly. Absolutely NO leaves along the stem. No other plants. Correction: four clearly separate leaflets, cardinal cross arrangement, never three.",
+      "file": "grass-lovers-clover-four.png"
+    },
+    {
+      "slug": "mint",
+      "subject": "ONE mint sprig with three pairs of large broad opposite oval mint leaves, sharply SERRATED jagged edges and visible veins, short branching stem, distinctive lush upright silhouette. No clover.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. ONE mint sprig with three pairs of large broad opposite oval mint leaves, sharply SERRATED jagged edges and visible veins, short branching stem, distinctive lush upright silhouette. No clover.",
+      "file": "grass-lovers-mint.png"
+    },
+    {
+      "slug": "mimosa",
+      "subject": "ONE sensitive plant Mimosa pudica with two spreading arched stems bearing FEATHERY paired tiny leaflets in narrow opposing rows, delicate fernlike silhouette and a small round pale pink pompom blossom. Not broad leaves.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. ONE sensitive plant Mimosa pudica with two spreading arched stems bearing FEATHERY paired tiny leaflets in narrow opposing rows, delicate fernlike silhouette and a small round pale pink pompom blossom. Not broad leaves.",
+      "file": "grass-lovers-mimosa.png"
+    },
+    {
+      "slug": "dandelion",
+      "subject": "ONE dandelion seed head, a large airy spherical white cream SEED BALL at the top with many fine radiating parachute seeds, sage green central disk, single long slender bare stalk. NO leaves anywhere on the stalk or at the base. No yellow flower. Dark green fine outlines keep white seeds legible on cream page.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. ONE dandelion seed head, a large airy spherical white cream SEED BALL at the top with many fine radiating parachute seeds, sage green central disk, single long slender bare stalk. NO leaves anywhere on the stalk or at the base. No yellow flower. Dark green fine outlines keep white seeds legible on cream page.",
+      "file": "grass-lovers-dandelion.png"
+    },
+    {
+      "slug": "foxtail",
+      "subject": "ONE foxtail grass consisting of three gracefully curved thin bare stems at different heights, each topped with a long dense fuzzy golden green cylindrical bristly seed spike, very recognizable foxtail heads. NO leaves anywhere, no leafy base.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. ONE foxtail grass consisting of three gracefully curved thin bare stems at different heights, each topped with a long dense fuzzy golden green cylindrical bristly seed spike, very recognizable foxtail heads. NO leaves anywhere, no leafy base.",
+      "file": "grass-lovers-foxtail.png"
+    },
+    {
+      "slug": "clover-three",
+      "subject": "ONE three-leaf clover on one curved thin bare stalk. Exactly THREE rounded heart-shaped leaflets at the TOP in a triangular shamrock arrangement, one facing up and two angled left/right. Visibly three, not four. No leaves on stalk.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. ONE three-leaf clover on one curved thin bare stalk. Exactly THREE rounded heart-shaped leaflets at the TOP in a triangular shamrock arrangement, one facing up and two angled left/right. Visibly three, not four. No leaves on stalk.",
+      "file": "grass-lovers-clover-three.png"
+    },
+    {
+      "slug": "rosemary",
+      "subject": "ONE rosemary sprig branching into three upright woody stems, covered in numerous slender elongated NEEDLE-shaped dark sage leaves in opposing pairs. Needle leaves narrow and pointed, distinctive upright herbal silhouette. Two tiny pale lavender flowers near the top. No broad oval leaves.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. ONE rosemary sprig branching into three upright woody stems, covered in numerous slender elongated NEEDLE-shaped dark sage leaves in opposing pairs. Needle leaves narrow and pointed, distinctive upright herbal silhouette. Two tiny pale lavender flowers near the top. No broad oval leaves.",
+      "file": "grass-lovers-rosemary.png"
+    },
+    {
+      "slug": "moss",
+      "subject": "A low compact cushion of moss attached to ONE smooth rounded grey sage stone. Dense miniature primitive fernlike shoots and tiny bare forked stems, delicate low bryophyte texture, all growth hugging the stone. Very LOW and WIDE silhouette with no tall central stem, no flowers, no broad leaves. Stone visible in lower half.",
+      "prompt": "A cohesive botanical illustration for Grass Lovers personality quiz. Flat hand-drawn illustration, deep forest green #273d2d slightly irregular clean outlines, sage #8ca96b and pale lime #c8df99 fills, soft warm friendly aesthetic, matte flat colors, front view, no photorealism, no gradients, no humans, no face, no text or labels or border. Truly transparent background, single plant centered in square 1024x1024 composition with 12 percent padding, strong silhouette recognizable at 80 pixels. A low compact cushion of moss attached to ONE smooth rounded grey sage stone. Dense miniature primitive fernlike shoots and tiny bare forked stems, delicate low bryophyte texture, all growth hugging the stone. Very LOW and WIDE silhouette with no tall central stem, no flowers, no broad leaves. Stone visible in lower half.",
+      "file": "grass-lovers-moss.png"
+    }
+  ]
+}
