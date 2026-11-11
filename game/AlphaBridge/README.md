@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-开发端口默认是 5173。`npm run build` 生成 `dist/`，`npm run preview` 可预览构建。将 `dist/` 内容部署到 HTTPS 静态站点即可从 Chromium 的安装入口安装。相对资源路径支持站点子目录。
+开发端口默认是 5173。`npm run build` 生成 `dist/`，之后可用 `npm run preview:site` 预览静态网页。将 `dist/` 内容部署到 HTTPS 静态站点即可从 Chromium 的安装入口安装。相对资源路径支持站点子目录。
 
 ## 场景与组件
 
@@ -39,15 +39,29 @@ npm run dev
 
 反馈接口位于 `feedback/worker.js`。访客提交正文后，Worker 用 `Ceasiumz` 的专用令牌创建公开 Issue。Issue 作者为 `Ceasiumz`，正文包含访客填写的内容。接口按来源检查请求，按访客 IP 和站点限流。Cloudflare 限流按数据中心分别计数。
 
+在 AlphaBridge 目录运行以下 npm 脚本。脚本用 `npm run build` 调用 `package.json` 里的构建任务。只有构建成功，`&&` 后面的 Wrangler 命令才会执行。
+
+| 命令 | 用途 |
+| --- | --- |
+| `npm run deploy` | 构建前端后，按 `feedback/wrangler.toml` 把反馈 Worker 部署到 Cloudflare。需先完成 Cloudflare 认证。 |
+| `npm run preview` | 构建前端后，在本机启动反馈 Worker。Wrangler 默认监听 8787，可测试 `/feedback`。 |
+
+前端的 `dist/` 由 GitHub Pages 发布。Wrangler 负责反馈接口。 [Wrangler 命令说明](https://developers.cloudflare.com/workers/wrangler/commands/workers/)
+
+如果终端当前位于 `Ceasiumz.github.io` 仓库根目录，运行 `npm --prefix game/AlphaBridge run deploy`。这条命令会读取项目自带的 `feedback/wrangler.toml` 并部署 `alphabridge-feedback`。如果 Wrangler 询问框架、输出目录和构建命令，退出自动配置后改用这条命令。
+
 1. 使用 `Ceasiumz` 登录 GitHub，创建 [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new)。仓库仅选择 `Ceasiumz.github.io`，仓库权限选择 `Issues: Read and write`。
-2. 用 Wrangler 4.36 或更新版本登录 Cloudflare，部署 Worker，然后在提示中输入令牌。令牌只存入 Worker 的 secret。
+2. 用 Wrangler 4.119 或更新版本登录 Cloudflare。设备授权模式可以跳过本机的 `localhost:8976` 回调。确认 `whoami` 显示正确账号后，部署 Worker，然后在提示中输入令牌。令牌只存入 Worker 的 secret。
 
    ```sh
-   npx wrangler@4 login
-   npx wrangler@4 deploy --config feedback/wrangler.toml
+   npx wrangler@4 login --device --browser=false
+   npx wrangler@4 whoami
+   npm run deploy
    npx wrangler@4 secret put GITHUB_ISSUES_TOKEN --config feedback/wrangler.toml
    ```
 
-3. 在 GitHub 仓库的 Actions Variables 中设置 `VITE_FEEDBACK_URL` 为 Worker 的公开 HTTPS 地址，末尾加 `/feedback`，然后重新运行 Pages 发布流程。使用自定义域名时，同步更新 `feedback/wrangler.toml` 的 `SITE_ORIGIN`。没有配置接口的构建会打开 GitHub Issue 草稿。
+3. 在 GitHub 仓库的 Actions Variables 中设置 `VITE_FEEDBACK_URL` 为 Worker 的公开 HTTPS 地址，末尾加 `/feedback`，然后重新运行 Pages 发布流程。使用自定义域名时，同步更新 `feedback/wrangler.toml` 的 `SITE_ORIGIN`。反馈表单始终提供 GitHub Issue 草稿入口，配置接口后同时启用匿名提交。
+
+如果设备授权在生成设备码前返回 HTML 403，可在 Cloudflare 控制台用 **Edit Cloudflare Workers** 模板为目标账号创建 API Token。在当前 PowerShell 会话设置 `CLOUDFLARE_API_TOKEN` 和 `CLOUDFLARE_ACCOUNT_ID`，再运行第 2 步中的 `whoami`、`deploy` 和 `secret put`。Cloudflare API Token 用来部署 Worker，`GITHUB_ISSUES_TOKEN` 是另一个由 GitHub 签发的令牌。 [Cloudflare API Token 配置](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/#api-token)
 
 图鉴展示约定叫的简明示例。模拟按本方叫品的顺序和叫牌者匹配应叫与再叫，普通 Pass 和对方插叫可以穿插。特定竞争规则优先解释同一个叫品，逆朱瑞和平衡位置等约定仍检查各自的 Pass 条件。候选叫品由当前牌局的合法叫品范围约束。

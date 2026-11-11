@@ -68,10 +68,8 @@ function About({ system, t, lang }) {
   const [feedback,setFeedback] = useState(null);
   const sending = feedback?.status==='sending';
   const summary = report.trim().split('\n',1)[0].trim().slice(0,72);
-  async function submitFeedback(event) {
-    if (!feedbackEndpoint) return;
-    event.preventDefault();
-    if (!summary || sending) return;
+  async function submitAnonymousFeedback() {
+    if (!feedbackEndpoint || !summary || sending) return;
     setFeedback({status:'sending'});
     try {
       const response = await fetch(feedbackEndpoint,{
@@ -104,20 +102,24 @@ function About({ system, t, lang }) {
       </dl>
       <a className="source-link" href={system.sourceUrl} target="_blank" rel="noreferrer">{system.source[lang]} ↗</a>
     </section>
-    <form className="panel feedback-form" action={feedbackEndpoint ? undefined : 'https://github.com/Ceasiumz/Ceasiumz.github.io/issues/new'}
-      onSubmit={submitFeedback}
-      method={feedbackEndpoint?'post':'get'} target={feedbackEndpoint?undefined:'_blank'}
-      rel="noopener noreferrer" aria-labelledby="feedback-title">
+    <form className="panel feedback-form" action="https://github.com/Ceasiumz/Ceasiumz.github.io/issues/new"
+      method="get" target="_blank" rel="noopener noreferrer" aria-labelledby="feedback-title">
       <h2 id="feedback-title">{t.feedback}</h2>
       <label htmlFor="feedback-body">{t.feedbackDescription}</label>
       <textarea id="feedback-body" name="body" rows={4} maxLength={600} required disabled={sending}
         value={report} onChange={event=>{setReport(event.target.value);setFeedback(null);}} aria-describedby="feedback-help"/>
-      {!feedbackEndpoint && <input type="hidden" name="title" value={'[AlphaBridge] '+summary}/>}
-      <p className="hint" id="feedback-help">{feedbackEndpoint?t.anonymousFeedbackHelp:t.feedbackHelp}</p>
-      <button className="button primary" type="submit" disabled={!summary || sending}>
-        {feedbackEndpoint ? (sending?t.sendingFeedback:t.sendFeedback) : t.openIssue}
-        {!feedbackEndpoint && <span aria-hidden="true">↗</span>}
-      </button>
+      <input type="hidden" name="title" value={'[AlphaBridge] '+summary}/>
+      <p className="hint" id="feedback-help">{t.feedbackHelp}</p>
+      <div className="feedback-actions">
+        <button className="button primary" type="submit" disabled={!summary || sending}>
+          {t.openIssue} <span aria-hidden="true">↗</span>
+        </button>
+        <button className="button outline" type="button" onClick={submitAnonymousFeedback}
+          disabled={!feedbackEndpoint || !summary || sending} aria-describedby="anonymous-feedback-help">
+          {sending?t.sendingFeedback:t.sendFeedback}
+        </button>
+      </div>
+      <p className="hint" id="anonymous-feedback-help">{feedbackEndpoint?t.anonymousFeedbackHelp:t.anonymousUnavailable}</p>
       {feedback && !sending && <p className="hint" role="status">
         {t[feedback.status]} {feedback.url && <a className="source-link" href={feedback.url} target="_blank" rel="noreferrer">{t.viewIssue} ↗</a>}
       </p>}

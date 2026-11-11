@@ -1,8 +1,9 @@
 export const copy = {
   zh: {
     feedback:'问题反馈', feedbackDescription:'描述遇到的问题和复现步骤',
-    feedbackHelp:'在 GitHub 检查内容并提交 Issue。', openIssue:'前往 GitHub',
-    anonymousFeedbackHelp:'无需登录。反馈正文将发布到公开的 GitHub Issues。',
+    feedbackHelp:'反馈正文将发布到公开的 GitHub Issues。', openIssue:'登录 GitHub 并提交',
+    anonymousFeedbackHelp:'匿名提交无需登录，Issue 作者显示为 Ceasiumz。',
+    anonymousUnavailable:'匿名提交服务暂未启用。',
     sendFeedback:'匿名提交', sendingFeedback:'提交中…', submitted:'反馈已提交。', viewIssue:'查看 Issue',
     rateLimited:'提交过于频繁，请稍后再试。', submitError:'未能确认提交结果，反馈内容已保留。',
     menu:'主菜单', back:'返回', startTable:'进入叫牌台', resume:'继续上一局', reviewLast:'复盘上一局', tableConfig:'牌局配置',
@@ -40,8 +41,9 @@ export const copy = {
   },
   en: {
     feedback:'Report a bug', feedbackDescription:'Describe the problem and how to reproduce it',
-    feedbackHelp:'Review your report and submit it on GitHub.', openIssue:'Continue to GitHub',
-    anonymousFeedbackHelp:'No sign-in needed. Your report will appear in public GitHub Issues.',
+    feedbackHelp:'Your report will appear in public GitHub Issues.', openIssue:'Sign in and submit on GitHub',
+    anonymousFeedbackHelp:'Anonymous reports need no sign-in and appear under Ceasiumz.',
+    anonymousUnavailable:'Anonymous submission is currently unavailable.',
     sendFeedback:'Submit anonymously', sendingFeedback:'Submitting…', submitted:'Report submitted.', viewIssue:'View issue',
     rateLimited:'Too many submissions. Try again shortly.', submitError:'Submission could not be confirmed. Your report has been kept.',
     menu:'Main menu', back:'Back', startTable:'Enter table', resume:'Resume auction', reviewLast:'Review last auction', tableConfig:'Table setup',
