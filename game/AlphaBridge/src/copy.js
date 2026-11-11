@@ -1,5 +1,7 @@
 export const copy = {
   zh: {
+    feedback:'问题反馈', feedbackDescription:'描述遇到的问题和复现步骤',
+    feedbackHelp:'在 GitHub 检查内容并提交 Issue。', openIssue:'前往 GitHub',
     menu:'主菜单', back:'返回', startTable:'进入叫牌台', resume:'继续上一局', reviewLast:'复盘上一局', tableConfig:'牌局配置',
     history:'模拟历史', inProgress:'进行中', callCount:'{n} 声叫牌', emptyHistory:'完成第一声叫牌后，牌局就会出现在这里。',
     storage:'Cookie 与本机存储', storagePrompt:'是否允许在此浏览器保存语言、设置和模拟历史？',
@@ -30,6 +32,8 @@ export const copy = {
     editAction:'应用修改',
   },
   en: {
+    feedback:'Report a bug', feedbackDescription:'Describe the problem and how to reproduce it',
+    feedbackHelp:'Review your report and submit it on GitHub.', openIssue:'Continue to GitHub',
     menu:'Main menu', back:'Back', startTable:'Enter table', resume:'Resume auction', reviewLast:'Review last auction', tableConfig:'Table setup',
     history:'Auction history', inProgress:'In progress', callCount:'{n} calls', emptyHistory:'Auctions appear here after their first call.',
     storage:'Cookies and local storage', storagePrompt:'Allow this browser to remember your language, settings and auction history?',

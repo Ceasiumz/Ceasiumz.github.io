@@ -147,6 +147,10 @@ select { min-height: 42px; padding: 7px 11px; background: var(--paper); border: 
 .scene-entry:hover { border-color: #7a9786; background: #fcfdf6; }
 .entry-icon { flex: 0 0 30px; height: 30px; display: grid; place-items: center; background: var(--green-light); color: var(--green); border-radius: 7px; font: 1.1rem "Segoe UI Symbol", serif; }
 .consent-panel, .about-panel, .setup { padding: 15px; }
+.feedback-form { display: grid; gap: 9px; padding: 15px; margin-top: 14px; }
+.feedback-form label { font-size: .88rem; font-weight: 650; }
+.feedback-form textarea { width: 100%; min-width: 0; padding: 9px; resize: vertical; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); font: inherit; }
+.feedback-form .button { justify-self: start; }
 .consent-panel { margin-top: 14px; }
 .consent-panel h2, .setup h2 { font-size: 1.08rem; }
 .consent-panel p { color: var(--subtle); font-size: .88rem; margin-top: 5px; }

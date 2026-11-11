@@ -63,6 +63,8 @@ function Settings({ settings, onSetting, t, lang, install, onInstall }) {
 }
 
 function About({ system, t, lang }) {
+  const [report,setReport] = useState('');
+  const summary = report.trim().split('\n',1)[0].trim().slice(0,72);
   return <>
     <h1 className="scene-title">{t.about}</h1>
     <section className="panel about-panel">
@@ -73,6 +75,16 @@ function About({ system, t, lang }) {
       </dl>
       <a className="source-link" href={system.sourceUrl} target="_blank" rel="noreferrer">{system.source[lang]} ↗</a>
     </section>
+    <form className="panel feedback-form" action="https://github.com/Ceasiumz/Ceasiumz.github.io/issues/new"
+      method="get" target="_blank" rel="noopener noreferrer" aria-labelledby="feedback-title">
+      <h2 id="feedback-title">{t.feedback}</h2>
+      <label htmlFor="feedback-body">{t.feedbackDescription}</label>
+      <textarea id="feedback-body" name="body" rows={4} maxLength={600} required
+        value={report} onChange={event=>setReport(event.target.value)} aria-describedby="feedback-help"/>
+      <input type="hidden" name="title" value={'[AlphaBridge] '+summary}/>
+      <p className="hint" id="feedback-help">{t.feedbackHelp}</p>
+      <button className="button primary" type="submit" disabled={!summary}>{t.openIssue} <span aria-hidden="true">↗</span></button>
+    </form>
   </>;
 }
 

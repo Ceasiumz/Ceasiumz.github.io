@@ -1,4 +1,4 @@
-import { bids, seatAt, side, strain, bidLabel } from './auction.js';
+import { auctionState, bids, seatAt, side, strain, bidLabel } from './auction.js';
 
 const both = (zh, en) => ({ zh, en });
 const opening = (call, zh, en, detailZh, detailEn, page, range, shape, special = false) =>
@@ -41,14 +41,15 @@ const openingRules = [
 ];
 
 const situations = [];
-// A sequence is relative to its first non-pass call. Quiet auctions insert a pass between every bid.
+// The library shows the shortest example. Response rules match partnership bids at the table.
 function add(path, page, rows, { competitive = false, when, group = 'responses' } = {}) {
-  const seq = competitive ? path.split(' ') : path.split(' ').flatMap(call => [call, 'P']);
+  const pattern = path.split(' ');
+  const seq = competitive ? pattern : pattern.flatMap(call => [call, 'P']);
   const rules = rows.flatMap(([calls, zh, en, detailZh, detailEn, range, shape, special]) =>
     calls.split('/').map(call => ({
       call, name: both(zh, en), text: both(detailZh, detailEn), page, range, shape, special,
     })));
-  situations.push({ seq, page, rules, when, group });
+  situations.push({ pattern, seq, page, rules, when, group });
 }
 const transfer = (call, target, level, texas = false) => [
   call, texas ? '德克萨斯转移' : '转移叫', texas ? 'Texas transfer' : 'Transfer',
@@ -153,7 +154,7 @@ add('1H 1S 1NT 2C',11,[relay('2D','2D')]);
 
 for (const m of majors) {
   const om = m === 'H' ? 'S' : 'H';
-  const hasPassed = ({ first }) => first >= 2;
+  const hasPassed = ({ passedResponder }) => passedResponder;
   const gameRaise = ['4'+m,'封局加叫','Game raise','通常 5+ 张支持。无局约 6 点以下，有局 5–8 点。','Usually 5+ support. About 6 HCP or less nonvulnerable, 5–8 vulnerable.',span(0,8),'fit'];
   add('1'+m, 15, [
     ...(m==='H' ? [natural('1S','6–11 点，4+ 张黑桃，无三张红心，不逼叫。','6–11 HCP, 4+ spades, fewer than three hearts, nonforcing.',span(6,11),'major')] : []),
@@ -416,9 +417,26 @@ const slam = {seq:['4NT','P'],page:28,group:'slam',rules:keycards};
 const slamAsk = {seq:[],page:28,group:'slam',rules:[keycardAsk]};
 const openings = {seq:[],page:1,group:'opening',rules:openingRules};
 
+function matchesResponse(pattern, partnership, seat) {
+  const first = partnership[0];
+  const last = partnership.at(-1);
+  if (!last || last.bidder===seat || last.call!==pattern.at(-1)) return false;
+  if (pattern.length===1) return first===last;
+  if (first===last || first.call!==pattern[0] || (first.bidder===seat)!==(pattern.length%2===0)) return false;
+
+  let next = 1;
+  for (const {call,bidder} of partnership.slice(1,-1)) {
+    if (next===pattern.length-1) break;
+    const fromCurrentSeat = (pattern.length-1-next)%2===1;
+    if (call===pattern[next] && (bidder===seat)===fromCurrentSeat) next++;
+  }
+  return next===pattern.length-1;
+}
+
 function rulesFor({dealer,calls,vulnerability='none'}) {
   const first = calls.findIndex(call=>call!=='P');
-  const seat = seatAt(dealer,calls.length);
+  const {seat,legal} = auctionState(dealer,calls);
+  if (!legal.length) return [];
   const vulnerable = vulnerability==='both' || (vulnerability==='ns' && side(seat)===0) || (vulnerability==='ew' && side(seat)===1);
   if (first === -1) return openingRules.map(rule=>{
     if (calls.length===3 && ['2D','2H','2S'].includes(rule.call)) return {...rule,range:[9,12]};
@@ -426,22 +444,43 @@ function rulesFor({dealer,calls,vulnerability='none'}) {
     return rule;
   });
   const seq = calls.slice(first);
-  const effectiveSeq = seq.slice(0,6).join(' ')==='2C P 2D P 2NT P' ? seq.slice(4) : seq;
-  const matches = situations.filter(entry=>entry.seq.length===effectiveSeq.length &&
-    entry.seq.every((call,i)=>call===effectiveSeq[i]) && (!entry.when || entry.when({first,dealer,vulnerable})));
-  const rules = matches.flatMap(entry=>entry.rules);
-  const sameSide = calls.flatMap((call,i)=>{
-    const bidder=seatAt(dealer,i);
-    return bids.includes(call) && side(bidder)===side(seat) ? [{call,bidder}] : [];
+  const partnership = calls.flatMap((call,index)=>{
+    const bidder=seatAt(dealer,index);
+    return bids.includes(call) && side(bidder)===side(seat) ? [{call,bidder,index}] : [];
   });
-  const firstSuit = sameSide[0]?.call;
+  const opener = partnership[0];
+  const passedResponder = !!opener && calls.slice(0,opener.index).some((call,i)=>
+    call==='P' && side(seatAt(dealer,i))===side(seat) && seatAt(dealer,i)!==opener.bidder);
+  const strongNotrump = partnership.slice(0,3).map(({call})=>call).join(' ')==='2C 2D 2NT' &&
+    partnership[0].bidder===partnership[2].bidder && partnership[0].bidder!==partnership[1].bidder;
+  const responseBids = strongNotrump ? partnership.slice(2) : partnership;
+  const matches = situations.filter(entry=>{
+    if (entry.when && !entry.when({passedResponder,vulnerable})) return false;
+    if (entry.group==='competition') {
+      return entry.seq.length===seq.length && entry.seq.every((call,i)=>call===seq[i]);
+    }
+    return matchesResponse(entry.pattern,responseBids,seat);
+  }).sort((a,b)=>Number(b.group==='competition')-Number(a.group==='competition') || b.pattern.length-a.pattern.length);
+  const rules = [];
+  const claimed = new Set();
+  for (const entry of matches) {
+    const available = entry.rules.filter(rule=>legal.includes(rule.call) && !claimed.has(rule.call));
+    rules.push(...available);
+    for (const rule of available) claimed.add(rule.call);
+  }
+
+  const firstSuit = opener?.call;
   const denomination = strain(firstSuit);
-  const agreed = colors.includes(denomination) && sameSide.some(({call,bidder})=>
-    bidder!==sameSide[0].bidder && strain(call)===denomination) ||
-    (['1H','1S'].includes(firstSuit) && ['3C','3D','2NT'].includes(sameSide[1]?.call) && seq[1]==='P' && first<2);
-  const asks = seq.at(-2)==='4NT' && seq.at(-1)==='P';
-  if (agreed && asks && !rules.length) return keycards;
-  if (agreed && !asks && !rules.some(rule=>rule.call==='4NT')) rules.push(keycardAsk);
+  const agreed = colors.includes(denomination) && partnership.some(({call,bidder})=>
+    bidder!==opener.bidder && strain(call)===denomination) ||
+    (['1H','1S'].includes(firstSuit) && ['3C','3D','2NT'].includes(partnership[1]?.call) &&
+      partnership[1].bidder!==opener.bidder && !passedResponder);
+  const ask = partnership.at(-1);
+  if (agreed && ask?.call==='4NT' && ask.bidder!==seat &&
+      rulesFor({dealer,calls:calls.slice(0,ask.index),vulnerability}).includes(keycardAsk)) {
+    return [...rules,...keycards.filter(rule=>legal.includes(rule.call) && !claimed.has(rule.call))];
+  }
+  if (agreed && legal.includes('4NT') && !claimed.has('4NT')) rules.push(keycardAsk);
   return rules;
 }
 
