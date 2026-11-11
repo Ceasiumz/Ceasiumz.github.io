@@ -247,7 +247,7 @@
       "path": "game/AlphaBridge/README.md",
       "url": "/game/AlphaBridge/README.md",
       "directory": "game/AlphaBridge",
-      "excerpt": "新睿 CCBA v2.2 桥牌叫品图鉴与模拟台。React 纯前端，界面支持简体中文和英语。"
+      "excerpt": "手机竖屏优先的桥牌叫牌助手。基于 React 与 Vite，内置新睿 CCBA v2.2 规则，支持简体中文和英语。"
     },
     {
       "title": "The Vet — Static Promo Framework",
