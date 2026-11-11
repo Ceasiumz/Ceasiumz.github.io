@@ -1,6 +1,8 @@
 {
   "private": true,
   "scripts": {
+    "dev": "python -m http.server 8080 --bind 127.0.0.1",
+    "build": "npm run content:index",
     "content:index": "node md_menu.js",
     "prepublishOnly": "npm run content:index"
   }
