@@ -123,7 +123,15 @@ select { min-height: 42px; padding: 7px 11px; background: var(--paper); border: 
 .brand { font-size: 1.08rem; font-weight: 780; letter-spacing: -.04em; text-decoration: none; min-height: 44px; }
 .brand-icon { display: grid; place-items: center; width: 32px; height: 32px; background: var(--green); color: var(--gold); border-radius: 8px; font: 1.35rem "Segoe UI Symbol", serif; }
 .back-button { display: grid; place-items: center; text-decoration: none; font-size: 1.6rem; line-height: 1; }
-.language-select { font-size: 1rem; min-height: 44px; }
+.language-switch { display: flex; align-items: center; color: var(--subtle); white-space: nowrap; }
+.language-switch button { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0 4px; border: 0; border-radius: 7px; background: transparent; font-size: .85rem; font-weight: 700; }
+.language-switch button span { transition: transform 160ms ease, color 160ms ease; }
+.language-switch button[aria-pressed="true"] span { transform: scale(1.14); color: var(--green); }
+.language-switch button:hover { color: var(--green); }
+.language-divider { font-size: .8rem; }
+@media (prefers-reduced-motion: reduce) {
+  .language-switch button span { transition: none; }
+}
 .container { padding-block: 16px max(20px, env(safe-area-inset-bottom)); }
 .container:focus { outline: none; }
 .scene-title { margin: 2px 0 14px; font-size: clamp(1.65rem, 5.4vw, 2.25rem); }
@@ -170,25 +178,28 @@ select { min-height: 42px; padding: 7px 11px; background: var(--paper); border: 
 .timeline { margin-bottom: 9px; }
 .timeline-head { gap: 5px 8px; flex-wrap: wrap; }
 .timeline-scroll { overflow-x: auto; }
-.timeline-list { display: flex; gap: 0; width: max-content; list-style: none; padding: 4px; margin: 4px 0 0; }
-.timeline-list li { display: grid; place-items: center; position: relative; isolation: isolate; }
-.timeline-list li::before { content: ""; position: absolute; z-index: -1; top: 50%; width: 100%; border-top: 1px solid #9daea3; }
+.timeline-list { --call-height: 44px; --call-size: 1.03rem; display: flex; gap: 0; width: max-content; list-style: none; padding: 4px; margin: 4px 0 0; }
+.timeline-list li { display: grid; justify-items: center; align-content: end; gap: 3px; position: relative; isolation: isolate; }
+.timeline-list li::before { content: ""; position: absolute; z-index: -1; bottom: calc(var(--call-height) / 2); width: 100%; border-top: 1px solid #9daea3; }
 .timeline-list li:first-child::before { right: 0; width: 50%; }
 .timeline-list li:last-child::before { left: 0; width: 50%; }
 .timeline-list li:only-child::before { display: none; }
 .timeline-list li:has(.timeline-chip) { padding-inline: 3px; }
-.timeline-list button { min-width: 44px; min-height: 44px; padding: 0 5px; border: 1px solid transparent; border-radius: 8px; font-weight: 700; }
-.timeline-chip { background: var(--green-light); border-color: #d9e2d7 !important; font-size: 1.03rem; }
-.timeline-mark { display: grid; place-items: center; background: transparent; }
-.timeline-mark span { padding-inline: 2px; background: var(--paper); font: 750 1.12rem/1 "Segoe UI Symbol", sans-serif; }
+.timeline-seat { color: var(--subtle); font-size: .72rem; line-height: 1.2; white-space: nowrap; padding-inline: 3px; }
+.timeline-list button { display: grid; place-items: center; min-width: 44px; height: var(--call-height); padding: 0 5px; border: 1px solid transparent; border-radius: 8px; font-size: var(--call-size); font-weight: 750; line-height: 1; }
+.timeline-list .timeline-chip { background-color: var(--green-light); border-color: #d9e2d7; }
+.timeline-mark { background-color: transparent; }
+.timeline-mark span { padding-inline: 2px; background: var(--paper); }
 .timeline-mark.mark-P { color: #202320; }
 .timeline-mark:not(.mark-P) { color: var(--red); }
-.timeline-list button[aria-pressed="true"] { border-color: #48715a !important; }
+.timeline-list button[data-role="mine"] { --call-accent: #378459; }
+.timeline-list button[data-role="partner"] { --call-accent: #417cb2; }
+.timeline-list button:is([data-role="mine"], [data-role="partner"]) { background-image: linear-gradient(var(--call-accent) 10%, transparent 10%); background-origin: border-box; }
+.timeline-list button[aria-pressed="true"] { border-color: #48715a; }
 .timeline-empty { color: var(--subtle); font-size: .86rem; margin-top: 5px; }
 .timeline.expanded { padding-block: 15px; }
-.expanded .timeline-list { flex-wrap: wrap; width: 100%; row-gap: 8px; }
-.expanded .timeline-chip { min-width: 56px; min-height: 50px; font-size: 1.3rem; }
-.expanded .timeline-mark span { font-size: 1.28rem; }
+.expanded .timeline-list { --call-height: 50px; --call-size: 1.3rem; flex-wrap: wrap; width: 100%; row-gap: 8px; }
+.expanded .timeline-chip { min-width: 56px; }
 .timeline-meaning { margin-bottom: 9px; }
 .timeline-meaning .meaning { margin: 6px 0 0; }
 .inspect-actions { display: flex; gap: 5px; align-items: center; }

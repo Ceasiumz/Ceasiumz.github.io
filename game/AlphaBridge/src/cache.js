@@ -14,6 +14,7 @@ function readPreferences(value, defaults, systemIds) {
     system: systemIds.includes(value?.system) ? value.system : defaults.system,
     skipRecall: value?.skipRecall === true,
     skipSpecial: value?.skipSpecial === true,
+    showTimelineSeats: value?.showTimelineSeats === true,
   };
 }
 

@@ -7,7 +7,7 @@ import { Library } from './library.jsx';
 import { History, Setup, Table } from './simulator.jsx';
 import './style.css';
 
-const defaults = { lang:'zh', system:systems[0].id, skipRecall:false, skipSpecial:false };
+const defaults = { lang:'zh', system:systems[0].id, skipRecall:false, skipSpecial:false, showTimelineSeats:false };
 const systemIds = systems.map(system=>system.id);
 const browserStorage = () => window.localStorage;
 const menu = [['atlas','▤'],['simulation','♠'],['settings','⚙'],['about','ⓘ']];
@@ -52,7 +52,7 @@ function Settings({ settings, onSetting, t, lang, install, onInstall }) {
       <label className="setting"><strong>{t.system}</strong>
         <select value={settings.system} onChange={e=>onSetting('system',e.target.value)}>{systems.map(system=><option value={system.id} key={system.id}>{system.name[lang]} v{system.version}</option>)}</select>
       </label>
-      {['skipRecall','skipSpecial'].map(id=><label className="setting" key={id}>
+      {['skipRecall','skipSpecial','showTimelineSeats'].map(id=><label className="setting" key={id}>
         <span><strong>{t[id]}</strong><small>{t[id+'Help']}</small></span><input type="checkbox" role="switch" checked={settings[id]} onChange={e=>onSetting(id,e.target.checked)}/>
       </label>)}
       <div className="setting"><span><strong>{t.install}</strong><small>{window.matchMedia('(display-mode: standalone)').matches?t.installed:t.installHint}</small></span>
@@ -154,9 +154,11 @@ function App() {
         {scene!=='menu' && <a className="icon-button back-button" href={'#'+back} aria-label={t.back}>‹</a>}
         <a className="brand" href="#menu" aria-label={t.menu}><span className="brand-icon" aria-hidden="true">♠</span><span>AlphaBridge</span></a>
       </div>
-      <select className="language-select" aria-label={t.language} value={lang} onChange={event=>onSetting('lang',event.target.value)}>
-        <option value="zh">中文</option><option value="en">EN</option>
-      </select>
+      <div className="language-switch" role="group" aria-label={t.language}>
+        <button type="button" lang="zh-CN" aria-pressed={lang==='zh'} onClick={()=>onSetting('lang','zh')}><span>中文</span></button>
+        <span className="language-divider" aria-hidden="true">/</span>
+        <button type="button" lang="en" aria-pressed={lang==='en'} onClick={()=>onSetting('lang','en')}><span>EN</span></button>
+      </div>
     </div></header>
     <main className={'container scene-'+scene} tabIndex={-1} ref={main}>
       {scene==='menu' && <><MainScene t={t}/>{(!consent || storageFailed) && storagePanel}</>}

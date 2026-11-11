@@ -103,7 +103,7 @@ export function History({ games, onOpen, t, lang }) {
       {visibleGames.map(game=>{
         const state = auctionState(game.dealer,game.calls);
         return <li key={game.id}><button className="history-card panel" onClick={()=>onOpen(game.id)}>
-          <span className="bid-tile history-bid">{state.contract ? <Contract state={state} t={t}/> : '○'}</span>
+          <span className="bid-tile history-bid">{state.contract ? <Contract state={state} t={t}/> : 'P'}</span>
           <span className="history-copy">
             <strong>{state.done ? (state.contract?t.finished:t.passedOut) : t.inProgress}</strong>
             <span>{date.format(game.updatedAt)} · {fill(t.callCount,{n:game.calls.length})}</span>
@@ -115,8 +115,8 @@ export function History({ games, onOpen, t, lang }) {
   </>;
 }
 
-const marks = { P:'○', X:'×', XX:'××' };
-function Timeline({ calls, dealer, done, t, onInspect, onEdit, active }) {
+const marks = { P:'P', X:'X', XX:'XX' };
+function Timeline({ calls, dealer, player, done, showSeats, t, onInspect, onEdit, active }) {
   const scroll = useRef(null);
   useEffect(()=>{
     const area=scroll.current;
@@ -126,13 +126,18 @@ function Timeline({ calls, dealer, done, t, onInspect, onEdit, active }) {
     <div className="timeline-head"><h2>{done?t.review:t.timeline}</h2>{!!calls.length && <p>{t.timelineTip}</p>}</div>
     <div className="timeline-scroll" ref={scroll}>
       {calls.length ? <ol className="timeline-list">
-        {calls.map((call,i)=><li key={i}>
-          <button className={marks[call]?'timeline-mark mark-'+call:'timeline-chip'}
-            aria-pressed={active===i} aria-label={t[seatAt(dealer,i)]+' · '+callName(call,t)}
-            onClick={()=>onInspect(i)} onDoubleClick={()=>onEdit(i)} onKeyDown={e=>{if(e.key==='F2'){e.preventDefault();onEdit(i);}}}>
-            {marks[call] ? <span aria-hidden="true">{marks[call]}</span> : <Bid call={call} t={t}/>}
-          </button>
-        </li>)}
+        {calls.map((call,i)=>{
+          const seat = seatAt(dealer,i);
+          const role = seat===player ? 'mine' : side(seat)===side(player) ? 'partner' : 'opponent';
+          return <li key={i}>
+            {showSeats && <span className="timeline-seat" aria-hidden="true">{t[seat]}</span>}
+            <button className={marks[call]?'timeline-mark mark-'+call:'timeline-chip'} data-role={role}
+              aria-pressed={active===i} aria-label={t[seat]+' · '+callName(call,t)}
+              onClick={()=>onInspect(i)} onDoubleClick={()=>onEdit(i)} onKeyDown={e=>{if(e.key==='F2'){e.preventDefault();onEdit(i);}}}>
+              {marks[call] ? <span aria-hidden="true">{marks[call]}</span> : <Bid call={call} t={t}/>}
+            </button>
+          </li>;
+        })}
       </ol> : <p className="timeline-empty">{t.timelineEmpty}</p>}
     </div>
   </section>;
@@ -177,7 +182,8 @@ export function Table({ game, onUpdate, onNew, t, settings, system, lang }) {
         {state.contract && <p>{t.declarer+' · '+t[state.declarer]}</p>}</div>
       <Contract state={state} t={t}/>
     </section>}
-    <Timeline calls={calls} dealer={dealer} done={state.done} t={t} onInspect={setInspected} onEdit={openEdit} active={inspected}/>
+    <Timeline calls={calls} dealer={dealer} player={player} done={state.done} showSeats={settings.showTimelineSeats}
+      t={t} onInspect={setInspected} onEdit={openEdit} active={inspected}/>
     {inspected!==null && <section className="panel timeline-meaning" aria-live="polite">
       <div className="timeline-head">
         <h2>{callName(calls[inspected],t)}</h2>
