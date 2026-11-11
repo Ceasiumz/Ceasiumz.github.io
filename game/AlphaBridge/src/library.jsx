@@ -1,6 +1,91 @@
 import React, { useState } from 'react';
 import { bidLabel, strain } from './auction.js';
-import { Bid, Modal, Meaning, callName } from './ui.jsx';
+import { contextualTerms, glossary } from './glossary.js';
+import { Bid, Modal, callName, fill } from './ui.jsx';
+
+const groups = ['opening','responses','competition','slam','glossary'];
+const filters = ['all','minor','major','balanced','preempt'];
+
+function matchesBid({rule,seq}, group, filter, search) {
+  const opening = group==='opening' ? rule.call : seq.find(call=>call!=='P');
+  const denomination = strain(opening);
+  const isPreempt = opening && denomination!=='NT' &&
+    (Number(opening[0])>=3 || ['2D','2H','2S'].includes(opening));
+  const category = {
+    all:true, preempt:isPreempt, balanced:['1NT','2NT'].includes(opening),
+    major:['H','S'].includes(denomination), minor:['C','D'].includes(denomination),
+  };
+  const path = [...seq,rule.call];
+  return category[filter] && (!search || [
+    ...Object.values(rule.name), ...Object.values(rule.text), path.map(bidLabel).join(' '), path.join(' '),
+    bidLabel(rule.call),
+  ].some(value=>value.toLowerCase().includes(search)));
+}
+
+function groupedBids(library, group) {
+  const calls = new Map();
+  for (const {seq,rules,condition} of library.filter(entry=>entry.group===group)) {
+    for (const rule of rules) {
+      if (!calls.has(rule.call)) calls.set(rule.call, []);
+      calls.get(rule.call).push({rule,seq,condition});
+    }
+  }
+  return [...calls].map(([call,entries])=>({call,entries}));
+}
+
+function TermDialog({ entry, lang, t, onClose }) {
+  return <Modal title={entry.name[lang]} t={t} onClose={onClose}>
+    <p className="term-translation" lang={lang==='zh'?'en':'zh-CN'}>{entry.name[lang==='zh'?'en':'zh']}</p>
+    <p>{entry.definition[lang]}</p>
+  </Modal>;
+}
+
+function BidDetails({ item, lang, t, onClose }) {
+  const [term,setTerm] = useState(null);
+  const terms = contextualTerms(item.entries.map(({rule})=>rule))
+    .sort((a,b)=>a.name[lang].localeCompare(b.name[lang],lang));
+  return <>
+    <Modal title={callName(item.call,t)} t={t} onClose={onClose}>
+      {!!terms.length && <section className="related-terms" aria-label={t.relatedTerms}>
+        <h3>{t.relatedTerms}</h3>
+        <div className="term-links">
+          {terms.map(entry=><button type="button" key={entry.name.en} onClick={()=>setTerm(entry)} aria-haspopup="dialog">
+            {entry.name[lang]}
+          </button>)}
+        </div>
+      </section>}
+      <ul className="bid-cases">
+        {item.entries.map(({rule,seq,condition},index)=><li key={index}>
+          <h3>{rule.name[lang]}</h3>
+          {!!seq.length && <p className="case-sequence">
+            <span>{t.exampleSequence}</span> {[...seq,rule.call].map(call=>callName(call,t)).join(' → ')}
+          </p>}
+          {condition && <p className="case-condition">{t[condition]}</p>}
+          <p>{rule.text[lang]}</p>
+        </li>)}
+      </ul>
+    </Modal>
+    {term && <TermDialog entry={term} lang={lang} t={t} onClose={()=>setTerm(null)}/>}
+  </>;
+}
+
+function GlossaryList({ search, lang, t }) {
+  const [selected,setSelected] = useState(null);
+  const terms = glossary.filter(entry=>[
+    ...Object.values(entry.name), ...Object.values(entry.definition), ...entry.aliases,
+  ].some(value=>value.toLowerCase().includes(search)))
+    .sort((a,b)=>a.name[lang].localeCompare(b.name[lang],lang));
+  if (!terms.length) return <p className="empty">{t.emptyGlossary}</p>;
+  return <>
+    <div className="library-grid">
+      {terms.map(entry=><button className="library-card glossary-card" key={entry.name.en} onClick={()=>setSelected(entry)} aria-haspopup="dialog">
+        <span className="card-copy"><strong>{entry.name[lang]}</strong><span>{entry.definition[lang]}</span></span>
+        <span className="card-arrow" aria-hidden="true">↗</span>
+      </button>)}
+    </div>
+    {selected && <TermDialog entry={selected} lang={lang} t={t} onClose={()=>setSelected(null)}/>}
+  </>;
+}
 
 export function Library({ system, lang, t }) {
   const [group,setGroup] = useState('opening');
@@ -8,47 +93,43 @@ export function Library({ system, lang, t }) {
   const [query,setQuery] = useState('');
   const [selected,setSelected] = useState(null);
   const search = query.toLowerCase().trim();
-  const rows = system.library.filter(entry=>entry.group===group).flatMap((entry,i)=>entry.rules.map(rule=>({rule,seq:entry.seq,key:i+'-'+rule.call})));
-  const filtered = rows.filter(({rule,seq})=>{
-    const opening = group==='opening' ? rule.call : seq.find(call=>call!=='P');
-    const denomination = strain(opening);
-    const isPreempt = opening && denomination!=='NT' && (Number(opening[0])>=3 || ['2D','2H','2S'].includes(opening));
-    const category = filter==='all' || (filter==='preempt' ? isPreempt : filter==='balanced' ? ['1NT','2NT'].includes(opening) : filter==='major' ? ['H','S'].includes(denomination) : ['C','D'].includes(denomination));
-    const path = [...seq,rule.call];
-    return category && (!search || [rule.name[lang],rule.text[lang],path.map(bidLabel).join(' '),path.join(' ')].some(value=>value.toLowerCase().includes(search)));
-  });
+  const inGlossary = group==='glossary';
+  const placeholder = inGlossary?t.searchGlossary:t.search;
+  const visible = groupedBids(system.library,group).filter(item=>
+    item.entries.some(entry=>matchesBid(entry,group,filter,search)));
+
   return <>
     <section className="library" aria-label={t.atlas}>
       <div className="section-header">
         <h2>{group==='opening'?t.browse:t[group]}</h2>
-        <label className="search"><span aria-hidden="true">⌕</span><input type="search" aria-label={t.search} placeholder={t.search} value={query} onChange={e=>setQuery(e.target.value)}/></label>
+        <label className="search"><span aria-hidden="true">⌕</span><input type="search" aria-label={placeholder} placeholder={placeholder} value={query} onChange={e=>setQuery(e.target.value)}/></label>
       </div>
       <div className="category-bar">
         <div className="segmented" aria-label={t.context}>
-          {['opening','responses','competition','slam'].map(id=><button key={id} aria-pressed={group===id} onClick={()=>{setGroup(id);setFilter('all');}}>{t[id]}</button>)}
+          {groups.map(id=><button key={id} aria-pressed={group===id} onClick={()=>{setGroup(id);setFilter('all');}}>{t[id]}</button>)}
         </div>
-        {group!=='slam' && <div className="filters">
-          {['all','minor','major','balanced','preempt'].map(id=><button key={id} aria-pressed={filter===id} onClick={()=>setFilter(id)}>{t[id]}</button>)}
+        {!inGlossary && group!=='slam' && <div className="filters">
+          {filters.map(id=><button key={id} aria-pressed={filter===id} onClick={()=>setFilter(id)}>{t[id]}</button>)}
         </div>}
       </div>
-      <div className="library-grid">
-        {filtered.map(item=>{
-          const {rule,seq,key}=item;
-          return <button className="library-card" key={key} onClick={()=>setSelected(item)}>
-            <span className="bid-tile"><Bid call={rule.call} t={t}/></span>
-            <span className="card-copy"><strong>{rule.name[lang]}</strong>
-              <span>{group==='opening' ? rule.text[lang] : seq.filter(call=>call!=='P').map(bidLabel).join(' → ') || t.slam}</span>
-            </span>
-            <span className="card-arrow" aria-hidden="true">↗</span>
-          </button>;
-        })}
-      </div>
-      {!filtered.length && <p className="empty">{t.empty}</p>}
+      {inGlossary ? <GlossaryList search={search} lang={lang} t={t}/> : <>
+        <div className="library-grid">
+          {visible.map(item=>{
+            const {call,entries}=item;
+            const names = [...new Set(entries.map(({rule})=>rule.name[lang]))];
+            return <button className="library-card" key={call} onClick={()=>setSelected(item)} aria-haspopup="dialog">
+              <span className="bid-tile"><Bid call={call} t={t}/></span>
+              <span className="card-copy">
+                <strong>{entries.length===1?names[0]:fill(t.ruleCount,{n:entries.length})}</strong>
+                <span>{entries.length===1?entries[0].rule.text[lang]:names.join(lang==='zh'?'、':', ')}</span>
+              </span>
+              <span className="card-arrow" aria-hidden="true">↗</span>
+            </button>;
+          })}
+        </div>
+        {!visible.length && <p className="empty">{t.empty}</p>}
+      </>}
     </section>
-    {selected && <Modal title={callName(selected.rule.call,t)} t={t} onClose={()=>setSelected(null)}>
-      {!!selected.seq.length && <p className="context-line">{t.context} <span>{selected.seq.map(call=>callName(call,t)).join(' → ')}</span></p>}
-      <Meaning call={selected.rule.call} rules={[selected.rule]} lang={lang} t={t}/>
-    </Modal>}
+    {selected && <BidDetails item={selected} lang={lang} t={t} onClose={()=>setSelected(null)}/>}
   </>;
 }
-

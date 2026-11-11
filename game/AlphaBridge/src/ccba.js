@@ -42,14 +42,14 @@ const openingRules = [
 
 const situations = [];
 // The library shows the shortest example. Response rules match partnership bids at the table.
-function add(path, page, rows, { competitive = false, when, group = 'responses' } = {}) {
+function add(path, page, rows, { competitive = false, when, condition, group = 'responses' } = {}) {
   const pattern = path.split(' ');
   const seq = competitive ? pattern : pattern.flatMap(call => [call, 'P']);
   const rules = rows.flatMap(([calls, zh, en, detailZh, detailEn, range, shape, special]) =>
     calls.split('/').map(call => ({
       call, name: both(zh, en), text: both(detailZh, detailEn), page, range, shape, special,
     })));
-  situations.push({ pattern, seq, page, rules, when, group });
+  situations.push({ pattern, seq, page, rules, when, condition, group });
 }
 const transfer = (call, target, level, texas = false) => [
   call, texas ? '德克萨斯转移' : '转移叫', texas ? 'Texas transfer' : 'Transfer',
@@ -165,7 +165,7 @@ for (const m of majors) {
     ['2NT','配合邀请','Fit invitation','4+ 张将牌、2+ 控制，通常有单缺或额外牌型。','4+ trumps and two or more controls, typically shortness or extra shape.',null,'fit'],
     ['3'+m,'阻击性加叫','Preemptive raise','4+ 张支持，阻击性。','4+ support, preemptive.',null,'fit'],
     gameRaise,
-  ], { when: hasPassed });
+  ], { when: hasPassed, condition:'passedResponder' });
   add('1'+m, m==='H'?10:11, [
     ...(m==='H' ? [natural('1S','6+ 点，4+ 张黑桃，逼叫。','6+ HCP, 4+ spades, forcing.',span(6),'major'), ['2S','弱跳新花','Weak jump shift','4–6 点，6+ 黑桃。','4–6 HCP, 6+ spades.',span(4,6),'major']] : [
       ['2H','二盖一逼局','Two-over-one game force','13+ 点，5+ 红心，不强调套质量。','13+ HCP, 5+ hearts, no special suit quality required.',span(13),'major'],
@@ -180,14 +180,14 @@ for (const m of majors) {
     ['3'+om,'小爆裂叫','Mini-splinter','10–12 点，4+ 张将牌支持。','10–12 HCP, 4+ trump support and an unspecified shortage.',span(10,12),'fit',true],
     ['3NT/4C/4D','爆裂叫','Splinter','13–15 点，4+ 将牌支持。3NT 表示另一高花短；4♣/4♦ 表示所叫低花短。','13–15 HCP, 4+ support. 3NT shows shortage in the other major; 4♣/4♦ show shortage in the suit bid.',span(13,15),'fit',true],
     gameRaise,
-  ], { when: ctx => !hasPassed(ctx) });
+  ], { when: ctx => !hasPassed(ctx), condition:'unpassedResponder' });
   add('1'+m+' 2NT',14,[
     [colors.filter(s=>s!==m).map(s=>'3'+s).join('/'),'单缺显示','Shortness','牌力不限，所叫花色单缺。','Any strength, singleton or void in the bid suit.',null,'fit'],
     natural('3'+m,'16+ 点，无单缺。','16+ HCP, no shortage.',span(16),'fit'),
     natural('3NT','14–15 点或 4+ 控制，无单缺。','14–15 HCP or 4+ controls, no shortage.',null,'fit'),
     natural(colors.filter(s=>s!==m).map(s=>'4'+s).join('/'),'所叫花色 5+ 张，至少 KQ 领头。','5+ cards in the bid suit, headed by at least KQ.',null,'two'),
     signoff('4'+m,'低限，无单缺，至多三个控制。','Minimum, no shortage, at most three controls.'),
-  ], { when: ctx => !hasPassed(ctx) });
+  ], { when: ctx => !hasPassed(ctx), condition:'unpassedResponder' });
   add('1'+m+' 1NT',12,[
     natural('2C/2D'+(m==='S'?'/2H':''),'12–17 点，第二套。高花 4+；低花通常 3+，1♥–1NT–2♣ 可仅两张。','12–17 HCP, second suit. 4+ in a major, typically 3+ in a minor. 1♥–1NT–2♣ can be two.',span(12,17),'two'),
     natural('2'+m,'12–15 点，通常六张以上原高花。','12–15 HCP, usually 6+ in the original major.',span(12,15),'major'),
@@ -200,7 +200,7 @@ for (const m of majors) {
   add('1'+m+' 2C',15,[
     ['2D','逆朱瑞答叫','Reverse Drury reply','正常开叫实力，不足以进局。','Full opening values, insufficient for game.'],
     natural('2'+m,'轻开叫或低限，进局无望。','Light or minimum opening, no game prospects.'),
-  ], { when: hasPassed });
+  ], { when: hasPassed, condition:'passedResponder' });
   for (const s of ['C','D',...(m==='S'?['H']:[])]) {
     add('1'+m+' 2'+s,14,[
       natural('2'+m,'重叫原高花。通常六张，也可能是缺少其他描述的低限牌。','Rebid the major, normally six cards, or a minimum with no descriptive alternative.',null,'major'),
@@ -208,7 +208,7 @@ for (const m of majors) {
       natural('3'+m,'14+ 点，至少 6 张半坚固套。','14+ HCP, at least a six-card semisolid suit.',span(14),'major'),
       natural('3'+s,'4+ 张支持，或有额外实力且三张带大牌。','4+ support, or three with honors and extra strength.',null,'fit'),
       natural(colors.filter(t=>t!==s&&t!==m).map(t=>'3'+t).join('/'),'第二套，额外实力或长度。','Second suit, extra strength or length.',null,'two'),
-    ], {when:ctx=>!hasPassed(ctx)});
+    ], {when:ctx=>!hasPassed(ctx),condition:'unpassedResponder'});
   }
 }
 
@@ -326,10 +326,10 @@ for (const s of ['D',...majors]) {
     ...['3C','3D','3H','3S','3NT'].map((call,i)=>[call,'奥古斯特答叫','Ogust reply',
       ['低限弱套。','低限好套。','高限弱套。','高限好套。','坚固套。'][i],
       ['Minimum, weak suit.','Minimum, good suit.','Maximum, weak suit.','Maximum, good suit.','Solid suit.'][i]]),
-  ],{when:({vulnerable})=>!vulnerable});
+  ],{when:({vulnerable})=>!vulnerable,condition:'sideNonvulnerable'});
   add('2'+s+' 2NT',25,[
     ...colors.map(t=>['3'+t,'单缺答叫','Shortness reply',t===s?'无单缺。':'所叫花色单缺。',t===s?'No shortage.':'Shortage in the bid suit.']),
-  ],{when:({vulnerable})=>vulnerable && majors.includes(s)});
+  ],{when:({vulnerable})=>vulnerable && majors.includes(s),condition:'sideVulnerable'});
 }
 add('3NT',27,[
   ['4C/5C/6C','低花示选','Pass or correct','请开叫人梅花时不叫，方片时改叫同阶方片。','Opener passes with clubs or corrects to diamonds at the same level.'],

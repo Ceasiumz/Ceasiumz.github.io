@@ -77,8 +77,20 @@ select { min-height: 42px; padding: 7px 11px; background: var(--paper); border: 
 .meaning { display: grid; gap: 12px; margin-bottom: 16px; font-size: .91rem; }
 .meaning p { color: var(--subtle); margin-block: 4px 8px; }
 .meaning h3 { font-size: 1rem; }
-.context-line { color: var(--subtle); margin-bottom: 14px; font-size: .87rem; }
-.context-line span { display: block; color: var(--ink); margin-top: 4px; }
+.related-terms { margin-bottom: 14px; }
+.related-terms h3 { font-size: .86rem; margin-bottom: 4px; }
+.term-links { display: flex; gap: 6px; overflow-x: auto; padding: 4px; margin-inline: -4px; }
+.term-links button { flex: 0 0 auto; min-height: 44px; padding: 7px 10px; border: 1px solid #d5e1d4; border-radius: 7px; background: var(--green-light); color: var(--green); font-size: .84rem; font-weight: 650; }
+.term-links button:hover { border-color: #7a9786; }
+.bid-cases { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+.bid-cases li { display: grid; gap: 6px; padding: 12px; border: 1px solid var(--line); border-radius: 9px; background: #f7f7ef; }
+.bid-cases h3 { font-size: .98rem; }
+.bid-cases p { font-size: .91rem; overflow-wrap: anywhere; }
+.bid-cases .case-sequence, .bid-cases .case-condition { font-size: .8rem; font-weight: 650; }
+.case-condition { color: var(--subtle); }
+.case-sequence span, .term-translation { color: var(--subtle); font-size: .8rem; }
+.term-translation { margin-bottom: 7px; }
+.glossary-card { min-height: 68px; }
 .branches { border: 0; border-top: 1px solid var(--line); padding: 10px 0 0; margin: 14px 0 0; min-inline-size: 0; }
 .branches legend { font-size: .84rem; font-weight: 730; padding: 0 8px 0 0; }
 .branches .hint { margin-bottom: 8px; }

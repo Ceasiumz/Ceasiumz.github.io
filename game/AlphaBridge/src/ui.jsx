@@ -11,8 +11,12 @@ export function Modal({ title, t, onClose, children }) {
   const ref = useRef(null);
   useEffect(()=>{
     const dialog = ref.current;
+    const trigger = document.activeElement;
     dialog.showModal();
-    return ()=>dialog.close();
+    return ()=>{
+      dialog.close();
+      if (trigger instanceof HTMLElement && trigger.isConnected) trigger.focus({preventScroll:true});
+    };
   },[]);
   return <dialog ref={ref} className="modal" onCancel={e=>{e.preventDefault();onClose();}}
     onClick={e=>{if(e.target===e.currentTarget)onClose();}} aria-label={title}>
