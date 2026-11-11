@@ -104,6 +104,10 @@
     "url": "/blog/poetry/%E8%8D%89%E6%9C%A8%E9%83%A8_%E9%9B%AA%E8%90%BD%E6%B7%B1%E6%B2%BC.md"
   },
   {
+    "name": "风的爱人",
+    "url": "/blog/poetry/%E9%A3%8E%E7%9A%84%E7%88%B1%E4%BA%BA.md"
+  },
+  {
     "name": "裝置部_關機賦",
     "url": "/blog/poetry/%E8%A3%9D%E7%BD%AE%E9%83%A8_%E9%97%9C%E6%A9%9F%E8%B3%A6.md"
   },
@@ -117,11 +121,19 @@
   },
   {
     "name": "README",
+    "url": "/game/AlphaBridge/README.md"
+  },
+  {
+    "name": "README",
     "url": "/game/The_Vet/README.md"
   },
   {
     "name": "GFN Essay -ZhouMingjun",
     "url": "/GFN%20Essay%20-ZhouMingjun.md"
+  },
+  {
+    "name": "README",
+    "url": "/mouse-macro/README.md"
   },
   {
     "name": "CryptoZooLogist",

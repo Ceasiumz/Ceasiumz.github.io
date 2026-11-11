@@ -199,7 +199,7 @@
       "path": "blog/poetry/草木部_水沉香.md",
       "url": "/blog/poetry/%E8%8D%89%E6%9C%A8%E9%83%A8_%E6%B0%B4%E6%B2%89%E9%A6%99.md",
       "directory": "blog/poetry",
-      "excerpt": "水沉香"
+      "excerpt": "＝水沉香"
     },
     {
       "title": "O",
@@ -208,6 +208,14 @@
       "url": "/blog/poetry/%E8%8D%89%E6%9C%A8%E9%83%A8_%E9%9B%AA%E8%90%BD%E6%B7%B1%E6%B2%BC.md",
       "directory": "blog/poetry",
       "excerpt": "For her who with pale face upon green sweater"
+    },
+    {
+      "title": "风的爱人",
+      "name": "风的爱人",
+      "path": "blog/poetry/风的爱人.md",
+      "url": "/blog/poetry/%E9%A3%8E%E7%9A%84%E7%88%B1%E4%BA%BA.md",
+      "directory": "blog/poetry",
+      "excerpt": "​那"
     },
     {
       "title": "裝置部_關機賦",
@@ -234,6 +242,14 @@
       "excerpt": "- 728237329"
     },
     {
+      "title": "AlphaBridge",
+      "name": "README",
+      "path": "game/AlphaBridge/README.md",
+      "url": "/game/AlphaBridge/README.md",
+      "directory": "game/AlphaBridge",
+      "excerpt": "新睿 CCBA v2.2 桥牌叫品图鉴与模拟台。React 纯前端，界面支持简体中文和英语。"
+    },
+    {
       "title": "The Vet — Static Promo Framework",
       "name": "README",
       "path": "game/The_Vet/README.md",
@@ -248,6 +264,14 @@
       "url": "/GFN%20Essay%20-ZhouMingjun.md",
       "directory": "",
       "excerpt": "從明末清初反叛知識分子活躍看精英式政治如何引導民主式政治"
+    },
+    {
+      "title": "Windows 鼠标宏",
+      "name": "README",
+      "path": "mouse-macro/README.md",
+      "url": "/mouse-macro/README.md",
+      "directory": "mouse-macro",
+      "excerpt": "关闭窗口后，程序继续在 Windows 托盘中运行。宏和设置保存在进程内存中，退出程序后清空。"
     },
     {
       "title": "Chapter I, Household",
