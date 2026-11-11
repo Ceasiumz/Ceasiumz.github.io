@@ -27,6 +27,8 @@ jobs:
           node-version: 22
       - uses: actions/configure-pages@v5
       - name: Build site and AlphaBridge
+        env:
+          VITE_FEEDBACK_URL: ${{ vars.VITE_FEEDBACK_URL }}
         run: |
           npm run content:index
           npm --prefix game/AlphaBridge ci

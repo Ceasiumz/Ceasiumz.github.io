@@ -1,3 +1,6 @@
 node_modules/
 dist/
 .ccba-extract.txt
+.env.local
+feedback/.dev.vars*
+feedback/.wrangler/

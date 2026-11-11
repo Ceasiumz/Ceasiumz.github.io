@@ -10,6 +10,7 @@ import './style.css';
 const defaults = { lang:'zh', system:systems[0].id, skipRecall:false, skipSpecial:false, showTimelineSeats:false };
 const systemIds = systems.map(system=>system.id);
 const browserStorage = () => window.localStorage;
+const feedbackEndpoint = import.meta.env.VITE_FEEDBACK_URL?.trim();
 const menu = [['atlas','▤'],['simulation','♠'],['settings','⚙'],['about','ⓘ']];
 const scenes = new Set(['menu', ...menu.map(([id])=>id), 'table', 'history']);
 function readScene() {
@@ -64,7 +65,35 @@ function Settings({ settings, onSetting, t, lang, install, onInstall }) {
 
 function About({ system, t, lang }) {
   const [report,setReport] = useState('');
+  const [feedback,setFeedback] = useState(null);
+  const sending = feedback?.status==='sending';
   const summary = report.trim().split('\n',1)[0].trim().slice(0,72);
+  async function submitFeedback(event) {
+    if (!feedbackEndpoint) return;
+    event.preventDefault();
+    if (!summary || sending) return;
+    setFeedback({status:'sending'});
+    try {
+      const response = await fetch(feedbackEndpoint,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({body:report.trim()}),
+      });
+      if (response.status===429) {
+        setFeedback({status:'rateLimited'});
+        return;
+      }
+      if (response.status!==201) throw new Error('Issue creation failed');
+      const {url} = await response.json();
+      if (typeof url!=='string' || !/^https:\/\/github\.com\/Ceasiumz\/Ceasiumz\.github\.io\/issues\/[1-9]\d*$/.test(url)) {
+        throw new Error('Invalid issue URL');
+      }
+      setFeedback({status:'submitted',url});
+      setReport('');
+    } catch {
+      setFeedback({status:'submitError'});
+    }
+  }
   return <>
     <h1 className="scene-title">{t.about}</h1>
     <section className="panel about-panel">
@@ -75,15 +104,23 @@ function About({ system, t, lang }) {
       </dl>
       <a className="source-link" href={system.sourceUrl} target="_blank" rel="noreferrer">{system.source[lang]} ↗</a>
     </section>
-    <form className="panel feedback-form" action="https://github.com/Ceasiumz/Ceasiumz.github.io/issues/new"
-      method="get" target="_blank" rel="noopener noreferrer" aria-labelledby="feedback-title">
+    <form className="panel feedback-form" action={feedbackEndpoint ? undefined : 'https://github.com/Ceasiumz/Ceasiumz.github.io/issues/new'}
+      onSubmit={submitFeedback}
+      method={feedbackEndpoint?'post':'get'} target={feedbackEndpoint?undefined:'_blank'}
+      rel="noopener noreferrer" aria-labelledby="feedback-title">
       <h2 id="feedback-title">{t.feedback}</h2>
       <label htmlFor="feedback-body">{t.feedbackDescription}</label>
-      <textarea id="feedback-body" name="body" rows={4} maxLength={600} required
-        value={report} onChange={event=>setReport(event.target.value)} aria-describedby="feedback-help"/>
-      <input type="hidden" name="title" value={'[AlphaBridge] '+summary}/>
-      <p className="hint" id="feedback-help">{t.feedbackHelp}</p>
-      <button className="button primary" type="submit" disabled={!summary}>{t.openIssue} <span aria-hidden="true">↗</span></button>
+      <textarea id="feedback-body" name="body" rows={4} maxLength={600} required disabled={sending}
+        value={report} onChange={event=>{setReport(event.target.value);setFeedback(null);}} aria-describedby="feedback-help"/>
+      {!feedbackEndpoint && <input type="hidden" name="title" value={'[AlphaBridge] '+summary}/>}
+      <p className="hint" id="feedback-help">{feedbackEndpoint?t.anonymousFeedbackHelp:t.feedbackHelp}</p>
+      <button className="button primary" type="submit" disabled={!summary || sending}>
+        {feedbackEndpoint ? (sending?t.sendingFeedback:t.sendFeedback) : t.openIssue}
+        {!feedbackEndpoint && <span aria-hidden="true">↗</span>}
+      </button>
+      {feedback && !sending && <p className="hint" role="status">
+        {t[feedback.status]} {feedback.url && <a className="source-link" href={feedback.url} target="_blank" rel="noreferrer">{t.viewIssue} ↗</a>}
+      </p>}
     </form>
   </>;
 }

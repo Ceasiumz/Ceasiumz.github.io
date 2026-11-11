@@ -1,0 +1,16 @@
+name = "alphabridge-feedback"
+main = "worker.js"
+compatibility_date = "2026-11-11"
+
+[vars]
+SITE_ORIGIN = "https://ceasiumz.github.io"
+
+[[ratelimits]]
+name = "CLIENT_LIMIT"
+namespace_id = "84201"
+simple = { limit = 2, period = 60 }
+
+[[ratelimits]]
+name = "SITE_LIMIT"
+namespace_id = "84202"
+simple = { limit = 6, period = 60 }

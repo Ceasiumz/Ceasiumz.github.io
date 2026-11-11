@@ -35,4 +35,19 @@ npm run dev
 
 `src/ccba.js` 将常用 CCBA 规则整理为可按序列匹配的数据，图鉴和模拟共用。新增体系时，在 `src/systems.js` 注册唯一 ID、双语名称、版本、来源、`library`、`rulesFor({dealer, calls, vulnerability})` 和 `referencePage(calls)`。规则可包含点力区间、牌型分类、特殊分支和出处页码。设置自动列出已注册体系，历史牌局按各自保存的体系 ID 解释。
 
+## 匿名反馈部署
+
+反馈接口位于 `feedback/worker.js`。访客提交正文后，Worker 用 `Ceasiumz` 的专用令牌创建公开 Issue。Issue 作者为 `Ceasiumz`，正文包含访客填写的内容。接口按来源检查请求，按访客 IP 和站点限流。Cloudflare 限流按数据中心分别计数。
+
+1. 使用 `Ceasiumz` 登录 GitHub，创建 [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new)。仓库仅选择 `Ceasiumz.github.io`，仓库权限选择 `Issues: Read and write`。
+2. 用 Wrangler 4.36 或更新版本登录 Cloudflare，部署 Worker，然后在提示中输入令牌。令牌只存入 Worker 的 secret。
+
+   ```sh
+   npx wrangler@4 login
+   npx wrangler@4 deploy --config feedback/wrangler.toml
+   npx wrangler@4 secret put GITHUB_ISSUES_TOKEN --config feedback/wrangler.toml
+   ```
+
+3. 在 GitHub 仓库的 Actions Variables 中设置 `VITE_FEEDBACK_URL` 为 Worker 的公开 HTTPS 地址，末尾加 `/feedback`，然后重新运行 Pages 发布流程。使用自定义域名时，同步更新 `feedback/wrangler.toml` 的 `SITE_ORIGIN`。没有配置接口的构建会打开 GitHub Issue 草稿。
+
 图鉴展示约定叫的简明示例。模拟按本方叫品的顺序和叫牌者匹配应叫与再叫，普通 Pass 和对方插叫可以穿插。特定竞争规则优先解释同一个叫品，逆朱瑞和平衡位置等约定仍检查各自的 Pass 条件。候选叫品由当前牌局的合法叫品范围约束。
