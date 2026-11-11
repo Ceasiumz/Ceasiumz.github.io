@@ -62,10 +62,11 @@ export default {
     // Render feedback as literal text so it cannot mention accounts or trigger cross-references.
     const body = 'Submitted anonymously through AlphaBridge.\n\n' +
       report.split(/\r?\n/).map(line=>'    '+line).join('\n');
+    let result;
     try {
-      const result = await fetch(issueApi,{
+      result = await fetch(issueApi,{
         method:'POST',
-        redirect:'error',
+        redirect:'manual',
         headers:{
           'Authorization':'Bearer '+env.GITHUB_ISSUES_TOKEN,
           'Accept':'application/vnd.github+json',
@@ -74,12 +75,20 @@ export default {
         },
         body:JSON.stringify({title:'[AlphaBridge] '+summary,body}),
       });
-      if (result.status!==201) return reply(502,{error:'upstream'});
-      const {number} = await result.json();
-      if (!Number.isSafeInteger(number) || number<1) return reply(502,{error:'upstream'});
-      return reply(201,{url:'https://github.com/'+repository+'/issues/'+number});
     } catch {
-      return reply(502,{error:'upstream'});
+      console.error('AlphaBridge feedback: GitHub request failed');
+      return reply(502,{error:'upstream-network'});
     }
+    const requestId = result.headers.get('x-github-request-id');
+    if (result.status!==201) {
+      console.error('AlphaBridge feedback: GitHub rejected the request', {status:result.status,requestId});
+      return reply(502,{error:'upstream',upstreamStatus:result.status});
+    }
+    const issue = await result.json().catch(()=>null);
+    if (!Number.isSafeInteger(issue?.number) || issue.number<1) {
+      console.error('AlphaBridge feedback: GitHub returned an invalid issue response', {requestId});
+      return reply(502,{error:'upstream-response'});
+    }
+    return reply(201,{url:'https://github.com/'+repository+'/issues/'+issue.number});
   },
 };
