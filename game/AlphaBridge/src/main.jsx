@@ -350,7 +350,7 @@ function App() {
       <p className="about-brand">AlphaBridge</p>
       <dl className="credits">
         <div><dt>Development</dt><dd>香港中文大学深圳桥牌社</dd></div>
-        <div><dt>Programming</dt><dd><a href="https://ceasium.github.io/" target="_blank" rel="noreferrer">Ceasium ↗</a></dd></div>
+        <div><dt>Programming</dt><dd><a href="https://ceasiumz.github.io/" target="_blank" rel="noreferrer">Ceasium ↗</a></dd></div>
       </dl>
       <Source system={system} t={t}>{system.source[lang]}</Source>
     </Modal>}
