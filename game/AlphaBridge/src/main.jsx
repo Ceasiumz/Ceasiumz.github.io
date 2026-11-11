@@ -25,7 +25,7 @@ function MainScene({ t }) {
       <h1>AlphaBridge</h1>
       <p>{t.assistant}</p>
     </div>
-    <nav className="scene-menu" aria-label={t.menu}>
+    <nav className="menu-grid" aria-label={t.menu}>
       {menu.map(([id,icon])=><a key={id} href={'#'+id} className="scene-entry">
         <span className="entry-icon" aria-hidden="true">{icon}</span><strong>{t[id]}</strong>
       </a>)}

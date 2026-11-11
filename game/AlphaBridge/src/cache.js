@@ -53,7 +53,10 @@ export function loadCache(storage, defaults, systemIds) {
 export function saveCache(storage, consent, data) {
   if (!consent) return;
   const browserStorage = storage();
-  if (consent === 'allowed') browserStorage.setItem(storageKeys.data, JSON.stringify(data));
+  if (consent === 'allowed') {
+    const games = data.games.filter(game=>game.calls.length);
+    browserStorage.setItem(storageKeys.data, JSON.stringify({ ...data, games }));
+  }
   else browserStorage.removeItem(storageKeys.data);
   browserStorage.removeItem(storageKeys.legacy);
   if (browserStorage.getItem(storageKeys.consent)!==consent) browserStorage.setItem(storageKeys.consent, consent);
@@ -65,6 +68,6 @@ export function readLegacyPreferences(storage, defaults, systemIds) {
 }
 
 export function saveGame(data, game) {
-  const otherGames = data.games.filter(item=>item.id!==game.id);
+  const otherGames = data.games.filter(item=>item.id!==game.id && item.calls.length);
   return { ...data, activeId: game.id, games: [game, ...otherGames] };
 }
