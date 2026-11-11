@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { bidLabel, strain } from './auction.js';
-import { contextualTerms, glossary } from './glossary.js';
-import { Bid, Modal, callName, fill } from './ui.jsx';
+import { glossary } from './glossary.js';
+import { Bid, Modal, RelatedTerms, TermDialog, callName, fill } from './ui.jsx';
 
 const groups = ['opening','responses','competition','slam','glossary'];
 const filters = ['all','minor','major','balanced','preempt'];
@@ -33,40 +33,20 @@ function groupedBids(library, group) {
   return [...calls].map(([call,entries])=>({call,entries}));
 }
 
-function TermDialog({ entry, lang, t, onClose }) {
-  return <Modal title={entry.name[lang]} t={t} onClose={onClose}>
-    <p className="term-translation" lang={lang==='zh'?'en':'zh-CN'}>{entry.name[lang==='zh'?'en':'zh']}</p>
-    <p>{entry.definition[lang]}</p>
-  </Modal>;
-}
-
 function BidDetails({ item, lang, t, onClose }) {
-  const [term,setTerm] = useState(null);
-  const terms = contextualTerms(item.entries.map(({rule})=>rule))
-    .sort((a,b)=>a.name[lang].localeCompare(b.name[lang],lang));
-  return <>
-    <Modal title={callName(item.call,t)} t={t} onClose={onClose}>
-      {!!terms.length && <section className="related-terms" aria-label={t.relatedTerms}>
-        <h3>{t.relatedTerms}</h3>
-        <div className="term-links">
-          {terms.map(entry=><button type="button" key={entry.name.en} onClick={()=>setTerm(entry)} aria-haspopup="dialog">
-            {entry.name[lang]}
-          </button>)}
-        </div>
-      </section>}
-      <ul className="bid-cases">
-        {item.entries.map(({rule,seq,condition},index)=><li key={index}>
-          <h3>{rule.name[lang]}</h3>
-          {!!seq.length && <p className="case-sequence">
-            <span>{t.exampleSequence}</span> {[...seq,rule.call].map(call=>callName(call,t)).join(' → ')}
-          </p>}
-          {condition && <p className="case-condition">{t[condition]}</p>}
-          <p>{rule.text[lang]}</p>
-        </li>)}
-      </ul>
-    </Modal>
-    {term && <TermDialog entry={term} lang={lang} t={t} onClose={()=>setTerm(null)}/>}
-  </>;
+  return <Modal title={callName(item.call,t)} t={t} onClose={onClose}>
+    <RelatedTerms rules={item.entries.map(({rule})=>rule)} lang={lang} t={t}/>
+    <ul className="bid-cases">
+      {item.entries.map(({rule,seq,condition},index)=><li key={index}>
+        <h3>{rule.name[lang]}</h3>
+        {!!seq.length && <p className="case-sequence">
+          <span>{t.exampleSequence}</span> {[...seq,rule.call].map(call=>callName(call,t)).join(' → ')}
+        </p>}
+        {condition && <p className="case-condition">{t[condition]}</p>}
+        <p>{rule.text[lang]}</p>
+      </li>)}
+    </ul>
+  </Modal>;
 }
 
 function GlossaryList({ search, lang, t }) {

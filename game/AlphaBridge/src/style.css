@@ -78,6 +78,8 @@ select { min-height: 42px; padding: 7px 11px; background: var(--paper); border: 
 .meaning p { color: var(--subtle); margin-block: 4px 8px; }
 .meaning h3 { font-size: 1rem; }
 .related-terms { margin-bottom: 14px; }
+.meaning > .related-terms { margin-bottom: 0; min-width: 0; }
+.meaning .related-terms h3 { font-size: .86rem; }
 .related-terms h3 { font-size: .86rem; margin-bottom: 4px; }
 .term-links { display: flex; gap: 6px; overflow-x: auto; padding: 4px; margin-inline: -4px; }
 .term-links button { flex: 0 0 auto; min-height: 44px; padding: 7px 10px; border: 1px solid #d5e1d4; border-radius: 7px; background: var(--green-light); color: var(--green); font-size: .84rem; font-weight: 650; }
