@@ -89,12 +89,11 @@ select { min-height: 42px; padding: 7px 11px; background: var(--paper); border: 
 .case-content { display: grid; gap: 6px; width: 100%; padding: 12px; font-size: .91rem; line-height: 1.6; overflow-wrap: anywhere; }
 .case-content strong { font-size: .98rem; line-height: 1.3; }
 .case-select { position: relative; padding-inline-end: 36px; border: 0; border-radius: 8px; background: transparent; text-align: start; }
-.case-select:hover { background: var(--green-light); }
+.case-select:hover, .case-select[aria-pressed="true"] { background: var(--green-light); }
 .case-select:focus-visible { outline-offset: -3px; }
 .case-indicator { position: absolute; inset-block-start: 10px; inset-inline-end: 12px; color: var(--green); font-size: 1rem; font-weight: 700; }
-.bid-cases .active-case { border-color: #48715a; background: var(--green-light); }
+.bid-cases .active-case { border-color: #48715a; }
 .active-case > .related-terms { margin: 0 12px; padding-block: 8px; border-top: 1px solid var(--line); }
-.active-case .term-links button { background: var(--paper); }
 .bid-cases .case-sequence, .bid-cases .case-condition { font-size: .8rem; font-weight: 650; }
 .case-condition { color: var(--subtle); }
 .case-sequence span, .term-translation { color: var(--subtle); font-size: .8rem; }
