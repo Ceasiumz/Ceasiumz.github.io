@@ -1,4 +1,4 @@
-import { auctionState, bids, seatAt, side, strain, bidLabel } from './auction.js';
+import { auctionContext, auctionState, bids, seatAt, side, strain, bidLabel } from './auction.js';
 
 const both = (zh, en) => ({ zh, en });
 const opening = (call, zh, en, detailZh, detailEn, page, range, shape, special = false) =>
@@ -41,15 +41,17 @@ const openingRules = [
 ];
 
 const situations = [];
-// The library shows the shortest example. Response rules match partnership bids at the table.
-function add(path, page, rows, { competitive = false, when, condition, group = 'responses' } = {}) {
+// Quiet branches specify each partnership action. Competitive branches also specify its seat relative to opener.
+function add(path, page, rows, { competitive = false, when, condition, group = 'responses', section, forcing = false } = {}) {
   const pattern = path.split(' ');
   const seq = competitive ? pattern : pattern.flatMap(call => [call, 'P']);
+  const steps = competitive ? seq.flatMap((call,offset)=>call==='P' ? [] : [{call,offset}]) : null;
+  const {legal} = auctionState('N',seq);
   const rules = rows.flatMap(([calls, zh, en, detailZh, detailEn, range, shape, special]) =>
-    calls.split('/').map(call => ({
-      call, name: both(zh, en), text: both(detailZh, detailEn), page, range, shape, special,
+    calls.split('/').filter(call=>legal.includes(call)).map(call => ({
+      call, name: both(zh, en), text: both(detailZh, detailEn), page, range, shape, special, condition, section,
     })));
-  situations.push({ pattern, seq, page, rules, when, condition, group });
+  if (rules.length) situations.push({ pattern, seq, steps, page, rules, when, condition, group, forcing });
 }
 const transfer = (call, target, level, texas = false) => [
   call, texas ? '德克萨斯转移' : '转移叫', texas ? 'Texas transfer' : 'Transfer',
@@ -152,6 +154,30 @@ add('1H 1S 1NT',11,[
 ]);
 add('1H 1S 1NT 2C',11,[relay('2D','2D')]);
 
+for (const s of minors) {
+  for (const m of majors) {
+    const raised = '1'+s+' 1'+m+' 2'+m;
+    add(raised,4,[
+      ['3'+m,'邀局加叫','Invitational raise',m==='H'?'五张红心、邀请进局。':'五张黑桃、邀请进局。',
+        m==='H'?'Five hearts, invitational to game.':'Five spades, invitational to game.',null,'fit'],
+      ['2NT','加叫后问叫','Inquiry after a raise','至少邀请实力，询问开叫人的高低限与支持张数。','At least invitational. Asks about opener’s strength and support.',null,'fit',true],
+      ...colors.filter(t=>t!==m).map(t=>natural((colors.indexOf(t)>colors.indexOf(m)?'2':'3')+t,
+        '所叫花色 3–4 张，通常有五张以上应叫高花，至少邀请实力，逼叫至三阶应叫高花。',
+        'Three or four cards in the bid suit, usually 5+ in responder’s major, at least invitational. Forcing to three of responder’s major.',null,'fit')),
+      signoff('3NT/4'+m),
+    ],{section:'1.3'});
+    add(raised+' 2NT',5,[
+      natural('3'+s,'低限，四张高花支持，开叫花色至少五张。','Minimum, four-card major support and 5+ cards in the opening suit.',null,'fit'),
+      natural('3'+m,'低限，四张高花支持。','Minimum with four-card major support.',null,'fit'),
+      natural(colors.filter(t=>t!==m && t!==s).map(t=>'3'+t).join('/'),
+        '三张高花支持，所叫花色四张。','Three-card major support and four cards in the bid suit.',null,'fit'),
+      ['4'+colors.filter(t=>t!==m && t!==s).join('/4'),'单缺显示','Shortness',
+        '高限，四张高花支持，所叫花色单缺。','Maximum, four-card major support and shortage in the bid suit.',null,'fit'],
+      natural('4'+m,'高限，四张高花支持。','Maximum with four-card major support.',null,'fit'),
+    ],{section:'1.3',forcing:true});
+  }
+}
+
 for (const m of majors) {
   const om = m === 'H' ? 'S' : 'H';
   const hasPassed = ({ passedResponder }) => passedResponder;
@@ -210,6 +236,17 @@ for (const m of majors) {
       natural(colors.filter(t=>t!==s&&t!==m).map(t=>'3'+t).join('/'),'第二套，额外实力或长度。','Second suit, extra strength or length.',null,'two'),
     ], {when:ctx=>!hasPassed(ctx),condition:'unpassedResponder'});
   }
+  add('1'+m+' 2'+m,15,[
+    ['3'+m,'邀局加叫','Invitational raise','不适合其他叫品的邀叫，通常将牌有额外长度。','An invitation without a better bid, usually with extra trump length.',null,'fit'],
+    ...colors.filter(s=>s!==m).flatMap(s=>{
+      const call = (colors.indexOf(s)>colors.indexOf(m)?'2':'3')+s;
+      return [
+        [call,'帮张邀叫','Help-suit game try','所叫花色 3–4 张，通常没有两张大牌。','Three or four cards in the bid suit, usually without two honors.',null,'fit'],
+        [call,'长套满贯试探','Long-suit slam try','所叫花色是长套，试探满贯。','Shows a long suit and explores slam.',null,'fit'],
+      ];
+    }),
+    signoff('4'+m),
+  ],{section:'2.6'});
 }
 
 const quantitative = ['4NT','示量邀叫','Quantitative invitation','邀请无将满贯，同伴按高低限决定。','Invites a notrump slam. Opener evaluates whether to accept.'];
@@ -317,7 +354,12 @@ add('2C 2NT',24,[
 ]);
 for (const s of ['D',...majors]) {
   add('2'+s,25,[
-    ['2NT','奥古斯特问叫','Ogust inquiry','询问开叫人的高低限与套的质量。我方有局问单缺。','Asks about strength and suit quality. When our side is vulnerable, asks for shortness instead.',null,null,true],
+    ['2NT','奥古斯特问叫','Ogust inquiry','询问开叫人的高低限与套的质量。','Asks about strength and suit quality.',null,null,true],
+  ],{when:({vulnerable})=>!vulnerable,condition:'sideNonvulnerable',section:'5.1'});
+  add('2'+s,25,[
+    ['2NT','问单缺','Shortness inquiry','我方有局，询问开叫人的单缺。','Our side is vulnerable. Asks about opener’s shortage.',null,null,true],
+  ],{when:({vulnerable})=>vulnerable,condition:'sideVulnerable',section:'5.1'});
+  add('2'+s,25,[
     ['3'+s,'加深阻击','Raise the preempt','提高阻击阶数。','Extends the preempt.',null,'fit'],
     signoff('3NT/4H/4S'),
     ...colors.filter(t=>t!==s).map(t=>natural((colors.indexOf(t)>colors.indexOf(s)?'2':'3')+t,'平叫新花，逼叫一轮，通常无良好开叫花色支持。','Cheapest new suit, forcing one round, usually without good support.')),
@@ -326,10 +368,11 @@ for (const s of ['D',...majors]) {
     ...['3C','3D','3H','3S','3NT'].map((call,i)=>[call,'奥古斯特答叫','Ogust reply',
       ['低限弱套。','低限好套。','高限弱套。','高限好套。','坚固套。'][i],
       ['Minimum, weak suit.','Minimum, good suit.','Maximum, weak suit.','Maximum, good suit.','Solid suit.'][i]]),
-  ],{when:({vulnerable})=>!vulnerable,condition:'sideNonvulnerable'});
+  ],{when:({vulnerable})=>!vulnerable,condition:'sideNonvulnerable',section:'5.1',forcing:true});
   add('2'+s+' 2NT',25,[
-    ...colors.map(t=>['3'+t,'单缺答叫','Shortness reply',t===s?'无单缺。':'所叫花色单缺。',t===s?'No shortage.':'Shortage in the bid suit.']),
-  ],{when:({vulnerable})=>vulnerable && majors.includes(s),condition:'sideVulnerable'});
+    ...colors.filter(t=>s!=='D' || t!==s).map(t=>['3'+t,'单缺答叫','Shortness reply',
+      t===s?'无单缺。':'所叫花色单缺。',t===s?'No shortage.':'Shortage in the bid suit.']),
+  ],{when:({vulnerable})=>vulnerable,condition:'sideVulnerable',section:'5.1',forcing:true});
 }
 add('3NT',27,[
   ['4C/5C/6C','低花示选','Pass or correct','请开叫人梅花时不叫，方片时改叫同阶方片。','Opener passes with clubs or corrects to diamonds at the same level.'],
@@ -340,8 +383,51 @@ add('3NT 4D',27,[
   ['4H/4S','显示单张','Shows a singleton','所叫高花单张。','Singleton in the bid major.'],
   natural('4NT','7–2–2–2，无单缺。','7–2–2–2, no shortage.'),
   natural('5C/5D','所叫低花为长套，另一低花单缺。','Bid minor is the long suit, shortage in the other minor.'),
-]);
+],{section:'8.1',forcing:true});
 const comp = {competitive:true,group:'competition'};
+const support = (call) => [call,call==='X'?'支持性加倍':'支持性再加倍',
+  call==='X'?'Support double':'Support redouble',
+  '对应叫花色恰有三张支持，牌力不限。','Exactly three-card support for responder’s suit, any strength.',null,'fit',true];
+for (const s of minors) {
+  for (const m of majors) {
+    for (const call of ['X',...colors.filter(t=>t!==m).map(t=>'2'+t),...(m==='H'?['1S']:[])]) {
+      add('1'+s+' P 1'+m+' '+call,10,[
+        support(call==='X'?'XX':'X'),
+        natural('2'+m,'低限，四张支持。','Minimum with four-card support.',null,'fit'),
+        natural('3'+m,'高限，四张支持。','Maximum with four-card support.',null,'fit'),
+      ],{...comp,section:'1.9'});
+    }
+  }
+}
+for (const call of ['X','2C','2D','2H']) {
+  add('1H P 1S '+call,18,[support(call==='X'?'XX':'X')],{...comp,section:'2.9'});
+}
+for (const [path,page,section] of [
+  ['1D P 2C',10,'1.9'], ['1H P 2C',18,'2.9'], ['1H P 2D',18,'2.9'],
+  ['1S P 2C',18,'2.9'], ['1S P 2D',18,'2.9'], ['1S P 2H',18,'2.9'],
+]) {
+  const [opening,,response] = path.split(' ');
+  for (const overcall of bids.filter(call=>bids.indexOf(call)>bids.indexOf(response) &&
+      Number(call[0])<=3 && colors.includes(strain(call)) && strain(call)!==strain(opening))) {
+    add(path+' '+overcall,page,[
+      ['P','逼叫性不叫','Forcing pass','没有合适的叫品，要求同伴继续行动。','No suitable call. Partner must take further action.'],
+      ['X','建议惩罚','Penalty-oriented double','二盖一应叫后建议惩罚对手。','Suggests penalizing the opponents after a two-over-one response.'],
+      ...(section==='1.9' ? [
+        natural('3'+strain(opening),'质量很好的长套，对惩罚无兴趣。','Excellent long suit, with no interest in penalizing.'),
+      ] : []),
+    ],{...comp,section,when:({passedResponder})=>!passedResponder,condition:'unpassedResponder'});
+  }
+}
+for (const m of majors) {
+  for (const enemy of colors.filter(s=>s!==m)) {
+    add('1'+m+' P 2'+m+' 3'+enemy,18,[
+      ...(m==='S' && enemy==='C' ? [] : [enemy==='S'
+        ? ['X','邀请加倍','Invitational double','邀请进局。','Invites game.']
+        : ['X','惩罚加倍','Penalty double','惩罚性。','For penalties.']]),
+      natural('3'+m,'竞争性再加叫。','Competitive raise.',null,'fit'),
+    ],{...comp,section:'2.9'});
+  }
+}
 add('1NT X',22,[
   ['P','惩罚加倍后不叫','Pass after penalty double','4 点以下均型无五张套，或 5+ 点相对均型。','Below 5 HCP balanced with no five-card suit, or a relatively balanced 5+ HCP.'],
   ['XX','逃叫再加倍','Escape redouble','要求叫 2♣。可为 0–4 点、五张以上梅花或 4♣ 加另一四张套；六张以上梅花牌力不限。','Forces 2♣. May be 0–4 HCP with 5+ clubs or four clubs and another four-card suit. With 6+ clubs, any strength.'],
@@ -366,7 +452,7 @@ for (const s of colors) {
     signoff('3NT','进局实力，敌方花色无止张。','Game values, without a stopper in the opponent’s suit.'),
   ];
   add('1NT 2'+s,22,[...rows,leb,transfer('4D','H',4,true),transfer('4H','S',4,true)],comp);
-  add('1NT 2'+s+' 2NT P',22,[relay('3C','3C')],comp);
+  add('1NT 2'+s+' 2NT P',22,[relay('3C','3C')],{...comp,forcing:true});
 }
 add('1NT',23,[
   ['X','惩罚加倍','Penalty double','15+ 点有适于惩罚的单套，或任意 18+ 点。','15+ HCP with a suitable long suit, or any 18+ HCP.',span(15)],
@@ -407,7 +493,10 @@ for (const s of colors) {
   add('1'+s+' P P',31,[
     natural('1NT','平衡位置 12–15 点，后续按 1NT 开叫。','Balancing seat: 12–15 HCP, with 1NT opening continuations.',span(12,15),'balanced'),
     natural('2NT','平衡位置 19–20 点，3♣ 斯台曼。','Balancing seat: 19–20 HCP, with 3♣ Stayman.',span(19,20),'balanced'),
-  ],comp);
+  ],{...comp,condition:'balancingSeat',section:'附录',when:({opening,calls})=>calls.length===opening.index+3});
+  add('1'+s+' P P 2NT P',31,[
+    ['3C','斯台曼','Stayman','询问同伴的四张高花。','Asks partner about four-card majors.'],
+  ],{...comp,section:'附录'});
 }
 const keycards = ['5C','5D','5H','5S'].map((call,i)=>opening(call,'罗马关键张答叫','RKCB reply',
   ['1 或 4 个关键张。','0 或 3 个关键张。','2 或 5 个关键张，无将牌 Q。','2 或 5 个关键张，有将牌 Q。'][i],
@@ -418,70 +507,85 @@ const slamAsk = {seq:[],page:28,group:'slam',rules:[keycardAsk]};
 const openings = {seq:[],page:1,group:'opening',rules:openingRules};
 
 function matchesResponse(pattern, partnership, seat) {
-  const first = partnership[0];
-  const last = partnership.at(-1);
-  if (!last || last.bidder===seat || last.call!==pattern.at(-1)) return false;
-  if (pattern.length===1) return first===last;
-  if (first===last || first.call!==pattern[0] || (first.bidder===seat)!==(pattern.length%2===0)) return false;
-
-  let next = 1;
-  for (const {call,bidder} of partnership.slice(1,-1)) {
-    if (next===pattern.length-1) break;
-    const fromCurrentSeat = (pattern.length-1-next)%2===1;
-    if (call===pattern[next] && (bidder===seat)===fromCurrentSeat) next++;
-  }
-  return next===pattern.length-1;
+  return pattern.length===partnership.length && pattern.every((call,index)=>
+    call===partnership[index].call && (partnership[index].seat===seat)===(index%2===pattern.length%2));
 }
 
-function rulesFor({dealer,calls,vulnerability='none'}) {
-  const first = calls.findIndex(call=>call!=='P');
+function matchesCompetition(entry, context) {
+  const {opening,actions,seat} = context;
+  return entry.steps.length===actions.length && seatAt(opening.seat,entry.seq.length)===seat &&
+    entry.steps.every(({call,offset},index)=>
+      call===actions[index].call && seatAt(opening.seat,offset)===actions[index].seat);
+}
+
+function agreedTrump(partnership, passedResponder) {
+  const [first,second,third] = partnership;
+  if (!second || first.seat===second.seat) return undefined;
+  const suit = strain(first.call);
+  const raiseLevels = majors.includes(suit) ? ['2','3','4'] : ['2','3'];
+  if (colors.includes(suit) && (
+    first.call==='1'+suit && raiseLevels.some(level=>second.call===level+suit) ||
+    ['2D','2H','2S'].includes(first.call) && second.call==='3'+suit ||
+    majors.includes(suit) && first.call==='1'+suit &&
+      (second.call==='2NT' || !passedResponder && ['3C','3D','3'+(suit==='H'?'S':'H')].includes(second.call))
+  )) return suit;
+  const responseSuit = strain(second.call);
+  if (third?.seat===first.seat && /^1[CDH]$/.test(first.call) && /^1[HS]$/.test(second.call) &&
+      (minors.includes(suit) ? ['2','3','4'] : ['2','3']).some(level=>third.call===level+responseSuit)) return responseSuit;
+}
+
+function analyze({dealer,calls,vulnerability='none'}) {
   const {seat,legal} = auctionState(dealer,calls);
-  if (!legal.length) return [];
+  if (!legal.length) return {rules:[],forcing:false};
+  const context = auctionContext(dealer,calls,seat);
+  const {opening,partnership,opposition,passedResponder} = context;
   const vulnerable = vulnerability==='both' || (vulnerability==='ns' && side(seat)===0) || (vulnerability==='ew' && side(seat)===1);
-  if (first === -1) return openingRules.map(rule=>{
+  if (!opening) return {forcing:false,rules:openingRules.filter(rule=>legal.includes(rule.call)).map(rule=>{
     if (calls.length===3 && ['2D','2H','2S'].includes(rule.call)) return {...rule,range:[9,12]};
     if (calls.length===2 && ['1H','1S'].includes(rule.call)) return {...rule,range:null};
     return rule;
-  });
-  const seq = calls.slice(first);
-  const partnership = calls.flatMap((call,index)=>{
-    const bidder=seatAt(dealer,index);
-    return bids.includes(call) && side(bidder)===side(seat) ? [{call,bidder,index}] : [];
-  });
-  const opener = partnership[0];
-  const passedResponder = !!opener && calls.slice(0,opener.index).some((call,i)=>
-    call==='P' && side(seatAt(dealer,i))===side(seat) && seatAt(dealer,i)!==opener.bidder);
+  })};
   const strongNotrump = partnership.slice(0,3).map(({call})=>call).join(' ')==='2C 2D 2NT' &&
-    partnership[0].bidder===partnership[2].bidder && partnership[0].bidder!==partnership[1].bidder;
+    partnership[0].seat===partnership[2].seat && partnership[0].seat!==partnership[1].seat;
   const responseBids = strongNotrump ? partnership.slice(2) : partnership;
-  const matches = situations.filter(entry=>{
-    if (entry.when && !entry.when({passedResponder,vulnerable})) return false;
-    if (entry.group==='competition') {
-      return entry.seq.length===seq.length && entry.seq.every((call,i)=>call===seq[i]);
+  const firstBid = partnership[0];
+  // The appendix explicitly uses the 1NT opening continuations after a direct or balancing 1NT overcall.
+  const notrumpOvercall = opposition.length===1 && opposition[0]===opening && /^1[CDHS]$/.test(opening.call) &&
+    firstBid?.call==='1NT' && [1,3].includes(firstBid.index-opening.index);
+  const quiet = opposition.length===0;
+  const byCall = new Map();
+  let forcing = false;
+  for (const entry of situations) {
+    const competitive = entry.group==='competition';
+    const matches = competitive ? matchesCompetition(entry,context)
+      : (quiet || notrumpOvercall) && matchesResponse(entry.pattern,responseBids,seat);
+    if (!matches || entry.when && !entry.when({...context,calls,vulnerable})) continue;
+    forcing ||= entry.forcing;
+    const priority = competitive ? 1 : 0;
+    for (const rule of entry.rules) {
+      if (!legal.includes(rule.call)) continue;
+      const existing = byCall.get(rule.call);
+      if (!existing || priority>existing.priority) byCall.set(rule.call,{priority,rules:[rule]});
+      else if (priority===existing.priority) existing.rules.push(rule);
     }
-    return matchesResponse(entry.pattern,responseBids,seat);
-  }).sort((a,b)=>Number(b.group==='competition')-Number(a.group==='competition') || b.pattern.length-a.pattern.length);
-  const rules = [];
-  const claimed = new Set();
-  for (const entry of matches) {
-    const available = entry.rules.filter(rule=>legal.includes(rule.call) && !claimed.has(rule.call));
-    rules.push(...available);
-    for (const rule of available) claimed.add(rule.call);
   }
 
-  const firstSuit = opener?.call;
-  const denomination = strain(firstSuit);
-  const agreed = colors.includes(denomination) && partnership.some(({call,bidder})=>
-    bidder!==opener.bidder && strain(call)===denomination) ||
-    (['1H','1S'].includes(firstSuit) && ['3C','3D','2NT'].includes(partnership[1]?.call) &&
-      partnership[1].bidder!==opener.bidder && !passedResponder);
+  const rules = [...byCall.values()].flatMap(entry=>entry.rules);
   const ask = partnership.at(-1);
-  if (agreed && ask?.call==='4NT' && ask.bidder!==seat &&
-      rulesFor({dealer,calls:calls.slice(0,ask.index),vulnerability}).includes(keycardAsk)) {
-    return [...rules,...keycards.filter(rule=>legal.includes(rule.call) && !claimed.has(rule.call))];
+  if (quiet && agreedTrump(partnership,passedResponder)) {
+    if (ask?.call==='4NT' && ask.seat!==seat &&
+        rulesFor({dealer,calls:calls.slice(0,ask.index),vulnerability}).includes(keycardAsk)) {
+      rules.push(...keycards.filter(rule=>legal.includes(rule.call) && !byCall.has(rule.call)));
+      forcing = true;
+    } else if (legal.includes('4NT') && !byCall.has('4NT')) {
+      rules.push(keycardAsk);
+    }
   }
-  if (agreed && legal.includes('4NT') && !claimed.has('4NT')) rules.push(keycardAsk);
-  return rules;
+  return {rules,forcing};
+}
+
+function rulesFor(game) {
+  return analyze(game).rules;
 }
 
 function referencePage(calls) {
@@ -497,6 +601,7 @@ export const ccba = {
   source:both('新睿 CCBA 体系说明 v2.2','Xinrui CCBA System Notes v2.2'),
   pageOffset:3,
   library:[openings, ...situations, slamAsk, slam],
+  analyze,
   rulesFor,
   referencePage,
 };

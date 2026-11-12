@@ -49,13 +49,24 @@ export function RelatedTerms({ rules, lang, t }) {
   </section>;
 }
 
-export function Meaning({ call, rules, t, lang }) {
+export function Meaning({ call, rules, context, forcing, t, lang }) {
   const matches = rules.filter(rule=>rule.call===call);
+  const multiple = matches.length>1;
   return <div className="meaning">
+    {call==='P' && forcing && <p className="hint">{t.forcingPassWarning}</p>}
     <RelatedTerms rules={matches} lang={lang} t={t}/>
-    {matches.length ? matches.map((rule,i)=><div key={i} className="meaning-rule">
-      <h3>{rule.name[lang]}</h3><p>{rule.text[lang]}</p>
-    </div>) : <p>{call==='P'?t.noPassRule:t.noRule}</p>}
+    {matches.map((rule,i)=>{
+      const description = <>
+        {rule.condition && <p className="case-condition">{t[rule.condition]}</p>}
+        <p>{rule.text[lang]}</p>
+      </>;
+      return multiple
+        ? <details key={i} className="meaning-rule" open>
+            <summary>{rule.name[lang]}</summary>{description}
+          </details>
+        : <div key={i} className="meaning-rule"><h3>{rule.name[lang]}</h3>{description}</div>;
+    })}
+    {!matches.length && <p>{call==='P'?t.noPassRule:[context,t.noRule].filter(Boolean).join(' ')}</p>}
   </div>;
 }
 

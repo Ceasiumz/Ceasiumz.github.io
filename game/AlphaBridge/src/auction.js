@@ -47,3 +47,20 @@ export function replaceCall(dealer, calls, index, replacement) {
   }
   return updated;
 }
+
+export function auctionContext(dealer, calls, seat = seatAt(dealer,calls.length)) {
+  const actions = calls.flatMap((call,index)=>call==='P' ? [] : [{call,index,seat:seatAt(dealer,index)}]);
+  const opening = actions.find(action=>bids.includes(action.call));
+  const partnership = actions.filter(action=>side(action.seat)===side(seat));
+  const opposition = actions.filter(action=>side(action.seat)!==side(seat));
+  if (!opening) return {seat,actions,partnership,opposition,role:'opening'};
+
+  const ours = side(opening.seat)===side(seat);
+  const responder = seatAt(opening.seat,2);
+  const firstBid = partnership.find(action=>bids.includes(action.call));
+  const role = ours ? (opening.seat===seat ? 'opener' : 'responder')
+    : !firstBid ? 'overcall' : firstBid.seat===seat ? 'overcaller' : 'advancer';
+  const passedResponder = ours && calls.slice(0,opening.index).some((call,index)=>
+    call==='P' && seatAt(dealer,index)===responder);
+  return {seat,actions,opening,responder,partnership,opposition,role,passedResponder};
+}

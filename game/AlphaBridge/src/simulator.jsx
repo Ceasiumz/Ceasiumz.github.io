@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { auctionState, replaceCall, seatAt, seats, side, strain, strains } from './auction.js';
+import { auctionContext, auctionState, replaceCall, seatAt, seats, side, strain, strains } from './auction.js';
 import { tableDefaults, vulnerabilities } from './cache.js';
 import { Bid, Modal, Meaning, callName, fill } from './ui.jsx';
 
@@ -16,7 +16,7 @@ function Grid({ legal, call, onSelect, t }) {
 }
 const ranges = [[0,5],[6,10],[11,14],[15,17],[18,21],[22,37]];
 const rangeName = ([min,max]) => max===37 ? min+'+' : min+'–'+max;
-function Guided({ rules, legal, selected, onSelect, settings, t, lang }) {
+function Guided({ rules, legal, selected, onSelect, onGrid, settings, t, lang }) {
   const [points,setPoints] = useState(-1);
   const [shape,setShape] = useState('unconstrained');
   const [special,setSpecial] = useState(false);
@@ -44,15 +44,33 @@ function Guided({ rules, legal, selected, onSelect, settings, t, lang }) {
       <button aria-pressed={special} onClick={()=>choose(setSpecial,true)}>{t.includeSpecial}</button>
     </div></fieldset>}
     <fieldset className="branches"><legend>{settings.skipRecall?t.stepChoice:t.recall}</legend>
-      {!settings.skipRecall && <p className="hint">{t.recallHint}</p>}
-      {!matching.length && <p className="hint">{t.noMatches}</p>}
+      {!settings.skipRecall && matching.length>0 && <p className="hint">{t.recallHint}</p>}
+      {!matching.length && <p className="hint" role="status">{t.noMatches}</p>}
       <div className="guided-calls">
         {available.map(call=><button key={call} aria-pressed={selected===call} onClick={()=>onSelect(call)}>
           <Bid call={call} t={t}/>{settings.skipRecall && matching.find(rule=>rule.call===call)?.name[lang] && <small>{matching.find(rule=>rule.call===call).name[lang]}</small>}
         </button>)}
       </div>
     </fieldset>
+    <button type="button" className="button outline all-legal-calls" onClick={onGrid}>{t.allLegalCalls}</button>
   </>;
+}
+
+function describeAuction({ opening, opposition, role }, t) {
+  if (!opening) return t.openingContext;
+  const intervention = opposition.at(-1);
+  let key = role+'Context';
+  if (role==='opener' && intervention) key = 'competitiveOpenerContext';
+  if (role==='responder') {
+    if (intervention) key = 'competitiveResponderContext';
+    else if (/^[34][CDHS]$/.test(opening.call)) key = 'preemptContext';
+  }
+  return fill(t[key],{opening:callName(opening.call,t),action:intervention && callName(intervention.call,t)});
+}
+
+function explainTurn(system, game, t) {
+  const analysis = system.analyze?.(game) ?? {rules:system.rulesFor(game),forcing:false};
+  return {...analysis,context:describeAuction(auctionContext(game.dealer,game.calls),t)};
 }
 
 const fields = [['dealer',seats],['player',seats],['vulnerability',vulnerabilities]];
@@ -156,7 +174,8 @@ export function Table({ game, onUpdate, onNew, t, settings, system, lang }) {
   const mine = state.seat===player;
   const teammate = side(state.seat)===side(player);
   const guided = mine && mode==='guided';
-  const rules = state.done ? [] : system.rulesFor(game);
+  const explanation = explainTurn(system,game,t);
+  const hasRules = explanation.rules.length>0;
   const editGame = editIndex===null ? null : {...game,calls:calls.slice(0,editIndex)};
   const editState = editGame ? auctionState(dealer,editGame.calls) : null;
   function select(call) { setSelection(call); setRevealed(false); }
@@ -192,7 +211,7 @@ export function Table({ game, onUpdate, onNew, t, settings, system, lang }) {
           <button className="icon-button" onClick={()=>setInspected(null)} aria-label={t.close}>×</button>
         </div>
       </div>
-      <Meaning call={calls[inspected]} rules={system.rulesFor({...game,calls:calls.slice(0,inspected)})} lang={lang} t={t}/>
+      <Meaning call={calls[inspected]} {...explainTurn(system,{...game,calls:calls.slice(0,inspected)},t)} lang={lang} t={t}/>
     </section>}
     {!state.done && <section className="panel work-panel">
       <div className="work-head">
@@ -202,8 +221,13 @@ export function Table({ game, onUpdate, onNew, t, settings, system, lang }) {
           <button aria-pressed={!guided} onClick={()=>setMode('grid')}>{t.grid}</button>
         </div>}
       </div>
-      {guided ? <Guided key={calls.join(',')} rules={rules} legal={state.legal} selected={selection} onSelect={select} settings={settings} t={t} lang={lang}/>
-        : <Grid legal={state.legal} call={selection} onSelect={select} t={t}/>}
+      {guided && hasRules
+        ? <Guided key={calls.join(',')} rules={explanation.rules} legal={state.legal} selected={selection}
+            onSelect={select} onGrid={()=>setMode('grid')} settings={settings} t={t} lang={lang}/>
+        : <>
+          {!hasRules && <p className="hint">{explanation.context} {t.noSituationRules}</p>}
+          <Grid legal={state.legal} call={selection} onSelect={select} t={t}/>
+        </>}
     </section>}
     <div className="table-dock">
       <button className="icon-button config-button" onClick={()=>setShowConfig(true)} aria-label={t.tableConfig}>⚙</button>
@@ -217,18 +241,18 @@ export function Table({ game, onUpdate, onNew, t, settings, system, lang }) {
       </dl>
     </Modal>}
     {selection && <Modal title={callName(selection,t)} t={t} onClose={()=>select(null)}>
-      {guided && !settings.skipRecall && !revealed ? <>
+      {guided && explanation.rules.some(rule=>rule.call===selection) && !settings.skipRecall && !revealed ? <>
         <p className="hint">{t.beforeReveal}</p>
         <div className="modal-actions"><button className="button primary" onClick={()=>setRevealed(true)}>{t.reveal}</button></div>
       </> : <>
-        <Meaning call={selection} rules={rules} t={t} lang={lang}/>
+        <Meaning call={selection} {...explanation} t={t} lang={lang}/>
         <div className="modal-actions"><button className="button primary" onClick={commit}>{t.commit} <span aria-hidden="true">→</span></button></div>
       </>}
     </Modal>}
     {editGame && <Modal title={fill(t.editing,{n:editIndex+1})} t={t} onClose={()=>setEditIndex(null)}>
       <p className="hint">{t.editHint}</p>
       <Grid legal={editState.legal} call={replacement} onSelect={setReplacement} t={t}/>
-      {replacement && <Meaning call={replacement} rules={system.rulesFor(editGame)} lang={lang} t={t}/>}
+      {replacement && <Meaning call={replacement} {...explainTurn(system,editGame,t)} lang={lang} t={t}/>}
       <div className="modal-actions"><button className="button outline" onClick={()=>setEditIndex(null)}>{t.cancel}</button><button className="button primary" disabled={!replacement} onClick={edit}>{t.editAction}</button></div>
     </Modal>}
   </div>;
