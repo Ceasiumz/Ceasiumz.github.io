@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 import { bidLabel, strain } from './auction.js';
 import { glossary } from './glossary.js';
 import { Bid, Modal, RelatedTerms, TermDialog, callName, fill } from './ui.jsx';
@@ -34,17 +34,36 @@ function groupedBids(library, group) {
 }
 
 function BidDetails({ item, lang, t, onClose }) {
+  const [activeIndex,setActiveIndex] = useState(null);
+  const caseId = useId();
+  const multiple = item.entries.length > 1;
+
   return <Modal title={callName(item.call,t)} t={t} onClose={onClose}>
-    <RelatedTerms rules={item.entries.map(({rule})=>rule)} lang={lang} t={t}/>
+    {!multiple && <RelatedTerms rules={[item.entries[0].rule]} lang={lang} t={t}/>}
     <ul className="bid-cases">
-      {item.entries.map(({rule,seq,condition},index)=><li key={index}>
-        <h3>{rule.name[lang]}</h3>
-        {!!seq.length && <p className="case-sequence">
-          <span>{t.exampleSequence}</span> {[...seq,rule.call].map(call=>callName(call,t)).join(' → ')}
-        </p>}
-        {condition && <p className="case-condition">{t[condition]}</p>}
-        <p>{rule.text[lang]}</p>
-      </li>)}
+      {item.entries.map(({rule,seq,condition},index)=>{
+        const active = activeIndex===index;
+        const titleId = caseId+'-'+index;
+        const content = <>
+          <strong id={titleId}>{rule.name[lang]}</strong>
+          {!!seq.length && <span className="case-sequence">
+            <span>{t.exampleSequence}</span> {[...seq,rule.call].map(call=>callName(call,t)).join(' → ')}
+          </span>}
+          {condition && <span className="case-condition">{t[condition]}</span>}
+          <span>{rule.text[lang]}</span>
+        </>;
+
+        return <li key={index} className={active?'active-case':undefined}>
+          {multiple
+            ? <button className="case-content case-select" type="button" aria-labelledby={titleId}
+                aria-pressed={active} onClick={()=>setActiveIndex(index)}>
+                {content}
+                <span className="case-indicator" aria-hidden="true">{active?'✓':'›'}</span>
+              </button>
+            : <div className="case-content">{content}</div>}
+          {active && <RelatedTerms rules={[rule]} lang={lang} t={t}/>}
+        </li>;
+      })}
     </ul>
   </Modal>;
 }
@@ -110,6 +129,6 @@ export function Library({ system, lang, t }) {
         {!visible.length && <p className="empty">{t.empty}</p>}
       </>}
     </section>
-    {selected && <BidDetails item={selected} lang={lang} t={t} onClose={()=>setSelected(null)}/>}
+    {selected && <BidDetails key={selected.call} item={selected} lang={lang} t={t} onClose={()=>setSelected(null)}/>}
   </>;
 }
