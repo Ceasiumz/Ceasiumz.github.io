@@ -65,3 +65,9 @@ npm run dev
 如果设备授权在生成设备码前返回 HTML 403，可在 Cloudflare 控制台用 **Edit Cloudflare Workers** 模板为目标账号创建 API Token。在当前 PowerShell 会话设置 `CLOUDFLARE_API_TOKEN` 和 `CLOUDFLARE_ACCOUNT_ID`，再运行第 2 步中的 `whoami`、`deploy` 和 `secret put`。Cloudflare API Token 用来部署 Worker，`GITHUB_ISSUES_TOKEN` 是另一个由 GitHub 签发的令牌。 [Cloudflare API Token 配置](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/#api-token)
 
 图鉴展示约定叫的简明示例。模拟按本方叫品的顺序和叫牌者匹配应叫与再叫，普通 Pass 和对方插叫可以穿插。特定竞争规则优先解释同一个叫品，逆朱瑞和平衡位置等约定仍检查各自的 Pass 条件。候选叫品由当前牌局的合法叫品范围约束。
+
+## TODOs
+
+1. 第三轮之后的叫品
+2. 图鉴中更好的术语提示
+3. 测试版上线
